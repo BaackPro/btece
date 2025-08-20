@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page non trouvée | BTECE</title>
+    <meta
+      name="description"
+      content="La page que vous cherchez n'existe pas ou a été déplacée. Retournez à l'accueil de BTECE."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon/favicon.ico" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* Styles spécifiques à la page 404 */
+      .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+      }
+
+      .error-content {
+        max-width: 600px;
+        padding: 3rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .error-code {
+        font-size: 8rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1;
+      }
+
+      .error-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+      }
+
+      .error-message {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: #555;
+      }
+
+      .home-button {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        background: var(--secondary-color);
+        color: white;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      }
+
+      .home-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        background: #2980b9;
+      }
+
+      .error-illustration {
+        max-width: 300px;
+        margin: 0 auto 2rem;
+        opacity: 0;
+        animation: fadeIn 0.8s ease-out 0.3s forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Animation du fond */
+      .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(52, 152, 219, 0.1);
+        animation: float 15s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animation de fond -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Contenu principal -->
+    <main class="error-container">
+      <div class="error-content">
+        <svg
+          class="error-illustration"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+          ></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Page non trouvée</h2>
+        <p class="error-message">
+          Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
+          <br />
+          Vous pouvez retourner à la page d'accueil ou nous contacter si vous
+          pensez qu'il s'agit d'une erreur.
+        </p>
+        <a href="index.html" class="home-button">
+          <i class="fas fa-home"></i> Retour à l'accueil
+        </a>
+      </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+      // Animation des bulles de fond
+      document.addEventListener("DOMContentLoaded", function () {
+        const bgAnimation = document.getElementById("bgAnimation");
+        const circleCount = 15;
+
+        for (let i = 0; i < circleCount; i++) {
+          const circle = document.createElement("div");
+          circle.classList.add("bg-circle");
+
+          // Taille aléatoire
+          const size = Math.random() * 100 + 50;
+          circle.style.width = `${size}px`;
+          circle.style.height = `${size}px`;
+
+          // Position aléatoire
+          circle.style.left = `${Math.random() * 100}%`;
+          circle.style.top = `${Math.random() * 100 + 100}%`;
+
+          // Animation aléatoire
+          circle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+          circle.style.animationDelay = `${Math.random() * 5}s`;
+
+          bgAnimation.appendChild(circle);
+        }
+
+        // Animation du contenu
+        setTimeout(() => {
+          const errorContent = document.querySelector(".error-content");
+          if (errorContent) {
+            errorContent.style.opacity = "0";
+            errorContent.style.transform = "translateY(20px)";
+            errorContent.style.transition = "none";
+
+            void errorContent.offsetWidth;
+
+            errorContent.style.transition =
+              "opacity 0.8s ease-out, transform 0.8s ease-out";
+            errorContent.style.opacity = "1";
+            errorContent.style.transform = "translateY(0)";
+          }
+        }, 300);
+      });
+    </script>
+  </body>
+</html>

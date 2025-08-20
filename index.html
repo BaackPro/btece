@@ -1,0 +1,1484 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTECE - Solutions Innovantes en Énergie et Technologie | Bénin</title>
+    <meta
+      name="description"
+      content="BTECE, spécialiste en énergies renouvelables, architecture, conception électronique et formations professionnelles à Abomey-Calavi, Bénin. Découvrez nos solutions durables et innovantes."
+    />
+    <meta
+      name="keywords"
+      content="BTECE, énergies renouvelables Bénin, formation professionnelle, architecture, électricité bâtiment, conception électronique, développement web, efficacité énergétique"
+    />
+    <meta name="author" content="BTECE" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.btece.com/" />
+    <meta
+      property="og:title"
+      content="BTECE - Solutions Innovantes en Énergie et Technologie"
+    />
+    <meta
+      property="og:description"
+      content="BTECE, spécialiste en énergies renouvelables, architecture, conception électronique et formations professionnelles à Abomey-Calavi, Bénin."
+    />
+    <meta
+      property="og:image"
+      content="https://www.btece.com/assets/images/logo.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.btece.com/" />
+    <meta
+      property="twitter:title"
+      content="BTECE - Solutions Innovantes en Énergie et Technologie"
+    />
+    <meta
+      property="twitter:description"
+      content="BTECE, spécialiste en énergies renouvelables, architecture, conception électronique et formations professionnelles à Abomey-Calavi, Bénin."
+    />
+    <meta
+      property="twitter:image"
+      content="https://www.btece.com/assets/images/logo.png"
+    />
+
+    <!-- Favicon avec options multiples pour différents appareils -->
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="assets/favicon/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="manifest"
+      href="assets/favicon/site.webmanifest"
+      crossorigin="use-credentials"
+    />
+    <link
+      rel="manifest"
+      href="/site.webmanifest"
+      crossorigin="use-credentials"
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.btece.com/" />
+
+    <!-- Préchargement des icônes critiques -->
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Chargement de Font Awesome avec fallback -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+    </noscript>
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BTECE",
+        "alternateName": "Baack Technology Energy and Conception Engineering",
+        "url": "https://www.btece.com",
+        "logo": "https://www.btece.com/assets/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/btece",
+          "https://www.linkedin.com/company/btece",
+          "https://twitter.com/Baack_pro08",
+          "https://www.instagram.com/btece",
+          "https://www.youtube.com/btece"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+229 01 99 32 24 77",
+          "contactType": "customer service",
+          "email": "contactbtece@gmail.com",
+          "areaServed": "BJ",
+          "availableLanguage": ["fr", "en"]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Abomey-Calavi",
+          "addressLocality": "Abomey-Calavi",
+          "addressRegion": "Atlantique",
+          "postalCode": "00229",
+          "addressCountry": "BJ"
+        }
+      }
+    </script>
+
+    <!-- Politique de sécurité du contenu -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none';"
+    />
+
+    <style>
+      /* Reset et Base */
+      :root {
+        --primary-color: #1a2a3a;
+        --secondary-color: #2e86de;
+        --accent-color: #ee5253;
+        --light-color: #f5f6fa;
+        --dark-color: #1a2a3a;
+        --text-color: #2f3640;
+        --text-light: #7f8fa6;
+        --white: #ffffff;
+        --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.2);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --logo-size: 100px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-color: var(--light-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--transition);
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        box-shadow: 0 4px 10px rgba(46, 134, 222, 0.3);
+      }
+
+      .btn-primary:hover {
+        background-color: #25c78c;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .btn-accent {
+        background-color: var(--accent-color);
+        color: var(--white);
+        box-shadow: 0 4px 10px rgba(238, 82, 83, 0.3);
+      }
+
+      .btn-accent:hover {
+        background-color: #ff6b6b;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .section-title {
+        position: relative;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      .devise {
+        font-style: italic;
+        color: var(--secondary-color);
+        font-weight: 600;
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.2rem;
+      }
+
+      .slogan {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        color: var(--accent-color);
+        text-align: center;
+        margin: 15px 0 30px;
+        font-size: 1.4rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Header et Navigation */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition);
+        background-color: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        transition: var(--transition);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+      }
+
+      .logo:hover {
+        transform: scale(1.03);
+      }
+
+      .logo-img {
+        width: auto;
+        height: var(--logo-size);
+        vertical-align: middle;
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .logo:hover .logo-img {
+        transform: rotate(5deg);
+      }
+
+      .logo-text {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 2rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        transition: var(--transition);
+      }
+
+      .logo:hover .logo-text {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color) 0%,
+          var(--accent-color) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        font-weight: 600;
+        position: relative;
+        padding: 5px 0;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      .nav-links a:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover:after,
+      .nav-links a.active:after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      .nav-links a.active {
+        color: var(--secondary-color);
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: var(--primary-color);
+        margin: 5px;
+        transition: var(--transition);
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        min-height: 700px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(26, 42, 58, 0.9) 0%,
+            rgba(46, 134, 222, 0.8) 100%
+          ),
+          url("assets/images/hero-bg.jpg") no-repeat center center/cover;
+        background-attachment: fixed;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding-top: 100px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern.png") repeat;
+        opacity: 0.1;
+        z-index: 1;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.2;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease-out 0.2s forwards;
+        opacity: 0;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero .btn {
+        animation: fadeInUp 1s ease-out 0.4s forwards;
+        opacity: 0;
+      }
+
+      /* Services Section */
+      .quick-services {
+        padding: 100px 0;
+        background-color: var(--white);
+        position: relative;
+      }
+
+      .quick-services:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern-light.png") repeat;
+        opacity: 0.05;
+        z-index: 1;
+      }
+
+      .quick-services .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .service-card {
+        background: var(--white);
+        padding: 40px 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .service-card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        transition: var(--transition);
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .service-card:hover:before {
+        height: 10px;
+      }
+
+      .service-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        transition: var(--transition);
+        display: inline-block;
+      }
+
+      .service-card:hover .service-icon {
+        transform: scale(1.1);
+        color: var(--accent-color);
+      }
+
+      .service-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+        font-family: "Montserrat", sans-serif;
+        transition: var(--transition);
+      }
+
+      .service-card:hover h3 {
+        color: var(--secondary-color);
+      }
+
+      .service-card p {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        transition: var(--transition);
+      }
+
+      .service-card:hover p {
+        color: var(--text-color);
+      }
+
+      /* Formations Section */
+      .training-section {
+        padding: 100px 0;
+        background-color: var(--light-color);
+        position: relative;
+      }
+
+      .training-section:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern.png") repeat;
+        opacity: 0.03;
+        z-index: 1;
+      }
+
+      .training-container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .training-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .training-card {
+        background: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        border-left: 5px solid var(--secondary-color);
+      }
+
+      .training-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .training-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .training-card p {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+
+      .training-cta {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      /* Newsletter Section */
+      .newsletter-section {
+        padding: 60px 0;
+        background-color: var(--white);
+        text-align: center;
+      }
+
+      .newsletter-section .container {
+        max-width: 600px;
+      }
+
+      .newsletter-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .newsletter-section p {
+        margin-bottom: 30px;
+        color: var(--text-light);
+      }
+
+      .newsletter-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .newsletter-form input[type="email"] {
+        padding: 15px;
+        border-radius: 50px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form button {
+        margin: 0 auto;
+      }
+
+      .newsletter-devise {
+        margin-top: 20px;
+        font-style: italic;
+        color: var(--secondary-color);
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+
+      /* About Section */
+      .about-preview {
+        padding: 100px 0;
+        background-color: var(--light-color);
+        position: relative;
+      }
+
+      .about-preview:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern.png") repeat;
+        opacity: 0.03;
+        z-index: 1;
+      }
+
+      .about-content {
+        position: relative;
+        z-index: 2;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about-preview h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .about-preview p {
+        margin-bottom: 30px;
+        color: var(--text-light);
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      .learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--secondary-color);
+        font-weight: 600;
+        transition: var(--transition);
+        padding: 10px 20px;
+        border-radius: 50px;
+        background-color: rgba(46, 134, 222, 0.1);
+      }
+
+      .learn-more:hover {
+        background-color: rgba(46, 134, 222, 0.2);
+        transform: translateY(-3px);
+        color: var(--accent-color);
+      }
+
+      .learn-more:hover i {
+        transform: translateX(5px);
+      }
+
+      .learn-more i {
+        transition: var(--transition);
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--dark-color) 100%
+        );
+        color: var(--white);
+        padding: 80px 0 0;
+        position: relative;
+      }
+
+      footer:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern-light.png") repeat;
+        opacity: 0.05;
+        z-index: 1;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .footer-section {
+        padding: 0 15px;
+      }
+
+      .footer-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-family: "Montserrat", sans-serif;
+        color: var(--white);
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-section h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--secondary-color);
+      }
+
+      .footer-section p {
+        margin-bottom: 15px;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+      }
+
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.8);
+        display: block;
+        margin-bottom: 10px;
+        transition: var(--transition);
+      }
+
+      .footer-section a:hover {
+        color: var(--white);
+        padding-left: 5px;
+        transform: translateX(5px);
+      }
+
+      .contact-info {
+        margin-top: 20px;
+      }
+
+      .contact-info p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        transition: var(--transition);
+      }
+
+      .contact-info p:hover {
+        color: var(--white);
+      }
+
+      .contact-info p:hover i {
+        transform: scale(1.2);
+      }
+
+      .contact-info i {
+        width: 20px;
+        text-align: center;
+        color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+        font-size: 1.1rem;
+        color: var(--white);
+      }
+
+      .social-icons a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) scale(1.1);
+        color: var(--white);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 20px 0;
+        background: rgba(0, 0, 0, 0.2);
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Classes CSS dédiées pour remplacer les styles en ligne */
+      .btn-small {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-medium {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+      }
+      
+      .icon-margin {
+        margin-right: 10px;
+      }
+
+      /* Nouveaux styles ajoutés pour les modifications demandées */
+      .footer-section.devised-section {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+
+      .footer-section.devised-section p.devise {
+        text-align: right;
+        margin: 0;
+      }
+
+      .footer-bottom .legal-info {
+        margin-top: 10px;
+        font-size: 0.8rem;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        :root {
+          --logo-size: 80px;
+        }
+
+        .hero h1 {
+          font-size: 3rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        :root {
+          --logo-size: 70px;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero p {
+          font-size: 1.1rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --logo-size: 60px;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          width: 70%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          transition: var(--transition);
+          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .burger {
+          display: block;
+        }
+
+        .burger.active .line1 {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .burger.active .line2 {
+          opacity: 0;
+        }
+
+        .burger.active .line3 {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .hero {
+          min-height: 600px;
+        }
+
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .quick-services,
+        .about-preview,
+        .training-section {
+          padding: 70px 0;
+        }
+
+        .slogan {
+          font-size: 1.2rem;
+        }
+
+        .devise {
+          font-size: 1rem;
+        }
+
+        /* Responsive pour les modifications du footer */
+        .footer-section.devised-section {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .footer-section.devised-section p.devise {
+          text-align: center;
+        }
+
+        .newsletter-section {
+          padding: 40px 0;
+        }
+      }
+
+      @media (max-width: 576px) {
+        :root {
+          --logo-size: 50px;
+        }
+
+        .logo-text {
+          font-size: 1.5rem;
+        }
+
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barre de navigation -->
+    <header>
+      <nav class="navbar container">
+        <div class="logo">
+          <img
+            src="assets/images/logo.png"
+            alt="Logo BTECE - Baack Technology Energy and Conception Engineering"
+            class="logo-img"
+          />
+          <div class="logo-text">BT<span>ECE</span></div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="products.html">Produits</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div
+          class="burger"
+          role="button"
+          aria-expanded="false"
+          tabindex="0"
+        >
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Innovation Technologique et Énergétique au Bénin</h1>
+        <p>
+          BTECE est le leader des solutions intégrées en énergies renouvelables,
+          architecture intelligente et conception ingénierie de pointe à
+          Abomey-Calavi. Nous combinons expertise technique et vision durable
+          pour transformer vos projets en réalité.
+        </p>
+        <p class="slogan">"Rêvez grand, BTECE s'occupe du reste"</p>
+        <a href="contact.html" class="btn btn-primary">Contactez-nous</a>
+      </div>
+    </section>
+
+    <!-- Section Services Rapides -->
+    <section class="quick-services">
+      <div class="container">
+        <h2 class="section-title">Nos Domaines d'Expertise</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <i class="fas fa-solar-panel service-icon" aria-hidden="true"></i>
+            <h3>Énergies Renouvelables</h3>
+            <p>
+              Solutions solaires, éoliennes et hybrides pour un avenir durable
+              et écologique.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-building service-icon" aria-hidden="true"></i>
+            <h3>Architecture &amp; Électricité Bâtiment</h3>
+            <p>
+              Conception de bâtiments intelligents, économes en énergie et
+              respectueux de l'environnement.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-microchip service-icon" aria-hidden="true"></i>
+            <h3>Conception Électronique</h3>
+            <p>
+              Développement de systèmes électroniques sur mesure pour vos
+              besoins spécifiques.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-code service-icon" aria-hidden="true"></i>
+            <h3>Développement Web</h3>
+            <p>
+              Création de solutions web modernes, performantes et adaptées à
+              votre activité.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-graduation-cap service-icon" aria-hidden="true"></i>
+            <h3>Formations Professionnelles</h3>
+            <p>
+              Formations en ligne disponibles et adaptées aux besoins du marché
+              d'emploi, à votre rythme avec nos experts.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-clipboard-check service-icon" aria-hidden="true"></i>
+            <h3>Audit &amp; Conseil</h3>
+            <p>
+              Proposition de solutions pour l'Efficacité Energétique, le Confort
+              thermique et la Sécurité, respectant les normes internationales.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Formations Professionnelles -->
+    <section class="training-section">
+      <div class="container training-container">
+        <h2 class="section-title">Nos Formations Professionnelles</h2>
+        <p>
+          BTECE propose des formations de qualité dans divers domaines
+          technologiques pour renforcer vos compétences et booster votre
+          carrière. Découvrez notre plateforme de formations en ligne pour vous
+          inscrire et accéder à nos programmes complets.
+        </p>
+
+        <div class="training-grid">
+          <div class="training-card">
+            <h3>Réalisation de plans architecturaux et électriques</h3>
+            <p>
+              Maîtrisez les logiciels de CAO/DAO pour concevoir des plans
+              architecturaux et électriques conformes aux normes
+              internationales.
+            </p>
+            <a
+              href="https://btece-formation.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-small"
+              >Voir la formation</a
+            >
+          </div>
+          <div class="training-card">
+            <h3>Conception électronique</h3>
+            <p>
+              Apprenez à concevoir et prototyper des circuits électroniques avec
+              les outils modernes de simulation et conception.
+            </p>
+            <a
+              href="https://btece-formation.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-small"
+              >Voir la formation</a
+            >
+          </div>
+          <div class="training-card">
+            <h3>Réalisation 3D</h3>
+            <p>
+              Formation complète en modélisation 3D, rendu et animation pour
+              l'architecture, le design industriel et plus encore.
+            </p>
+            <a
+              href="https://btece-formation.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-small"
+              >Voir la formation</a
+            >
+          </div>
+          <div class="training-card">
+            <h3>Programmation</h3>
+            <p>
+              Développez vos compétences en programmation avec nos formations en
+              Python, JavaScript, C++ et développement web/mobile.
+            </p>
+            <a
+              href="https://btece-formation.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-small"
+              >Voir la formation</a
+            >
+          </div>
+        </div>
+
+        <div class="training-cta">
+          <p style="margin-bottom: 20px; font-size: 1.1rem">
+            Accédez à toutes nos formations et inscrivez-vous dès maintenant sur
+            notre plateforme dédiée :
+          </p>
+          <a
+            href="https://btece-formation.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-accent btn-medium"
+          >
+            <i class="fas fa-external-link-alt icon-margin" aria-hidden="true"></i>
+            Plateforme de formations BTECE
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+      <div class="container">
+        <h2>Newsletter</h2>
+        <p>Abonnez-vous pour recevoir nos dernières actualités et offres.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Votre email" required />
+          <button type="submit" class="btn btn-primary">S'abonner</button>
+        </form>
+        <p class="newsletter-devise">
+          "BTECE, l'efficacité énergétique pour un développement durable"
+        </p>
+      </div>
+    </section>
+
+    <!-- Section À propos -->
+    <section class="about-preview">
+      <div class="container">
+        <div class="about-content">
+          <h2 class="section-title">BTECE - Innovation et Excellence</h2>
+          <p>
+            BTECE (Baack Technology Energy and Conception Engineering) est une
+            entreprise béninoise pluridisciplinaire basée à Abomey-Calavi,
+            spécialisée dans les domaines de l'énergie, de l'architecture et des
+            technologies de l'information. Notre mission est d'apporter des
+            solutions innovantes et durables aux défis technologiques et
+            énergétiques du Bénin et de la sous-région. Avec une équipe
+            d'experts passionnés, nous repoussons les limites de l'innovation
+            pour offrir des solutions sur mesure à nos clients.
+          </p>
+          <a href="about.html" class="learn-more">
+            En savoir plus <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>BTECE</h3>
+            <p>
+              Leader en solutions technologiques et énergétiques innovantes au
+              Bénin. Nous transformons les idées en réalité grâce à notre
+              expertise multidisciplinaire et notre engagement envers le
+              développement durable.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Liens rapides</h3>
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Produits</a>
+            <a href="projects.html">Projets</a>
+            <a href="contact.html">Contact</a>
+            <a href="https://btece-formation.netlify.app/" target="_blank" rel="noopener noreferrer"
+              >Formations en ligne</a
+            >
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <div class="contact-info">
+              <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abomey-Calavi, Bénin</p>
+              <p><i class="fas fa-phone" aria-hidden="true"></i> +229 01 99 32 24 77</p>
+              <p><i class="fas fa-envelope" aria-hidden="true"></i> contactbtece@gmail.com</p>
+              <p><i class="fas fa-clock" aria-hidden="true"></i> Lun-Ven: 8h-18h</p>
+            </div>
+            <div class="social-icons">
+              <a
+                href="https://urlr.me/NfXpr"
+                aria-label="Suivez-nous sur Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-facebook-f" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://linkedin.com/company/btece"
+                aria-label="Suivez-nous sur LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-linkedin-in" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://x.com/Baack_pro08?s=09"
+                aria-label="Suivez-nous sur Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-twitter" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://urlz.fr/u0pz"
+                aria-label="Suivez-nous sur Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-instagram" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://urlz.fr/u0pW"
+                aria-label="Visitez notre chaîne YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-youtube" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://wa.me/22999322477"
+                aria-label="Contactez-nous sur WhatsApp"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fab fa-whatsapp" aria-hidden="true"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&amp;copy; 2025 BTECE. Tous droits réservés.</p>
+          <div class="legal-info">
+            <p>RCCM: XXXXXXX - IFU: 0202342642420</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Menu Burger avec amélioration d'accessibilité
+      const burger = document.querySelector(".burger");
+      const navLinks = document.querySelector(".nav-links");
+      const navItems = document.querySelectorAll(".nav-links a");
+
+      burger.addEventListener("click", () => {
+        const isExpanded = burger.getAttribute("aria-expanded") === "true";
+        burger.setAttribute("aria-expanded", !isExpanded);
+        navLinks.classList.toggle("active");
+        burger.classList.toggle("active");
+        document.body.classList.toggle("no-scroll");
+      });
+
+      // Gestion de l'accessibilité clavier pour le menu burger
+      burger.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          burger.click();
+        }
+      });
+
+      // Fermer le menu mobile après clic sur un lien
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          if (navLinks.classList.contains("active")) {
+            navLinks.classList.remove("active");
+            burger.classList.remove("active");
+            burger.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("no-scroll");
+          }
+        });
+      });
+
+      // Animation au défilement
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 50) {
+          header.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.1)";
+          header.style.backdropFilter = "blur(10px)";
+        } else {
+          header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
+          header.style.backdropFilter = "blur(5px)";
+        }
+      });
+
+      // Animation des éléments au scroll
+      const animateOnScroll = function () {
+        const elements = document.querySelectorAll(
+          ".service-card, .about-content, .training-card",
+        );
+
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.2;
+
+          if (elementPosition < screenPosition) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }
+        });
+      };
+
+      // Initial state for scroll animations
+      const animatedElements = document.querySelectorAll(
+        ".service-card, .about-content, .training-card",
+      );
+      animatedElements.forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 0.6s ease-out";
+      });
+
+      window.addEventListener("scroll", animateOnScroll);
+      animateOnScroll(); // Trigger once on load
+
+      // Gestion du formulaire de newsletter
+      document
+        .querySelector(".newsletter-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = this.querySelector('input[type="email"]').value;
+          // Ici vous pourriez ajouter une requête AJAX pour envoyer l'email
+          alert(`Merci pour votre inscription avec l'email: ${email}`);
+          this.reset();
+        });
+
+      // Protection contre les attaques XSS
+      function sanitizeInput(input) {
+        const div = document.createElement("div");
+        div.textContent = input;
+        return div.innerHTML;
+      }
+    </script>
+  </body>
+</html>

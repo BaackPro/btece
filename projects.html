@@ -1,0 +1,1400 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Nos Projets | BTECE - BaackTechnology Energy and Conception Engineering
+    </title>
+    <meta
+      name="description"
+      content="Découvrez nos réalisations dans les énergies renouvelables, l'architecture, l'électricité bâtiment et la conception électronique."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon/favicon.ico" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Montserrat:wght@400;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lightbox CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+    />
+
+    <!-- Slick Carousel CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    />
+
+    <style>
+      /* Variables et Reset */
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --light-color: #f8f9fa;
+        --dark-color: #2c3e50;
+        --text-color: #333;
+        --text-light: #7f8c8d;
+        --white: #fff;
+        --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+        --gradient: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-color: #f9fbfd;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      /* Header et Navigation */
+      header {
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      header.scrolled {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        background-color: rgba(255, 255, 255, 0.98);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo img {
+        height: 40px;
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .logo a {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: var(--transition);
+      }
+
+      .nav-links a.active {
+        color: var(--secondary-color);
+        font-weight: 600;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: var(--primary-color);
+        margin: 5px;
+        transition: var(--transition);
+      }
+
+      /* Hero Section */
+      .projects-hero {
+        background:
+          linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)),
+          url("assets/images/projects-bg.jpg") no-repeat center center/cover;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--white);
+        padding-top: 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .projects-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        opacity: 0.7;
+        z-index: 1;
+      }
+
+      .projects-hero .container {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 2rem;
+      }
+
+      .projects-hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-family: "Montserrat", sans-serif;
+        animation: fadeInUp 1s ease-out;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .projects-hero p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.2s forwards;
+        opacity: 0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Filtres et projets */
+      .projects-container {
+        padding: 5rem 0;
+      }
+
+      .projects-filter {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .filter-btn {
+        padding: 0.8rem 2rem;
+        background: var(--white);
+        color: var(--primary-color);
+        border: 2px solid var(--light-color);
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.95rem;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--secondary-color);
+        color: var(--white);
+        border-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2.5rem;
+      }
+
+      .project-card {
+        background: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease-out forwards;
+        animation-delay: calc(var(--delay) * 0.1s);
+        position: relative;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-image {
+        position: relative;
+        overflow: hidden;
+        height: 250px;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .project-card:hover .project-image img {
+        transform: scale(1.1);
+      }
+
+      .project-category {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--secondary-color);
+        color: var(--white);
+        padding: 0.4rem 1.2rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 2;
+      }
+
+      .project-info {
+        padding: 2rem;
+      }
+
+      .project-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .project-client {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .project-excerpt {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--secondary-color);
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .project-link i {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .project-link:hover {
+        color: var(--primary-color);
+      }
+
+      .project-link:hover i {
+        transform: translateX(5px);
+      }
+
+      /* Statistiques */
+      .project-stats {
+        background: var(--light-color);
+        padding: 6rem 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .project-stats::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: var(--gradient);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        font-family: "Montserrat", sans-serif;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--secondary-color);
+      }
+
+      .section-description {
+        max-width: 700px;
+        margin: 0 auto 3rem;
+        color: var(--text-light);
+        font-size: 1.1rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .stat-item {
+        padding: 2.5rem 2rem;
+        background: var(--white);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .stat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .stat-label {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      /* Témoignages */
+      .testimonials {
+        padding: 6rem 0;
+        background: url("assets/images/testimonials-bg.jpg") no-repeat center
+          center/cover;
+        position: relative;
+      }
+
+      .testimonials::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(44, 62, 80, 0.9);
+      }
+
+      .testimonials .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .testimonials .section-title {
+        color: var(--white);
+      }
+
+      .testimonials .section-title:after {
+        background: var(--white);
+      }
+
+      .testimonials .section-description {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .testimonial-slider {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .testimonial-item {
+        background: var(--white);
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin: 0 1rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .testimonial-item::before {
+        content: "\201C";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 5rem;
+        color: rgba(52, 152, 219, 0.1);
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+
+      .testimonial-text {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+        position: relative;
+      }
+
+      .testimonial-author {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .testimonial-position {
+        color: var(--secondary-color);
+        font-size: 0.95rem;
+      }
+
+      .slick-dots {
+        bottom: -50px;
+      }
+
+      .slick-dots li button:before {
+        font-size: 12px;
+        color: var(--white);
+        opacity: 0.5;
+      }
+
+      .slick-dots li.slick-active button:before {
+        color: var(--white);
+        opacity: 1;
+      }
+
+      /* CTA */
+      .cta-projects {
+        text-align: center;
+        padding: 6rem 0;
+        background: var(--gradient);
+        color: var(--white);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-projects::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .cta-projects::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        right: -80px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .cta-projects .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .cta-projects h2 {
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .cta-projects p {
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: var(--white);
+        color: var(--primary-color);
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        font-size: 1.1rem;
+      }
+
+      .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-button:hover::before {
+        left: 100%;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 4rem 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--gradient);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-family: "Montserrat", sans-serif;
+        color: var(--secondary-color);
+      }
+
+      .footer-section p {
+        margin-bottom: 1rem;
+        opacity: 0.8;
+      }
+
+      .footer-section a {
+        transition: var(--transition);
+        opacity: 0.8;
+      }
+
+      .footer-section a:hover {
+        color: var(--secondary-color);
+        opacity: 1;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .projects-grid {
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+      }
+
+      @media (max-width: 992px) {
+        .projects-hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .cta-projects h2 {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          right: 0;
+          top: 80px;
+          background-color: var(--white);
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          padding: 2rem 0;
+          clip-path: circle(0px at 90% -10%);
+          transition: all 0.5s ease-out;
+          pointer-events: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          clip-path: circle(1000px at 90% -10%);
+          pointer-events: all;
+        }
+
+        .burger {
+          display: block;
+        }
+
+        .burger.active .line1 {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .burger.active .line2 {
+          opacity: 0;
+        }
+
+        .burger.active .line3 {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .projects-hero {
+          height: 60vh;
+        }
+
+        .projects-hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .projects-hero p {
+          font-size: 1.1rem;
+        }
+
+        .projects-filter {
+          justify-content: flex-start;
+          overflow-x: auto;
+          padding-bottom: 1rem;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-btn {
+          flex-shrink: 0;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .project-image {
+          height: 220px;
+        }
+
+        .testimonial-item {
+          padding: 2rem 1.5rem;
+        }
+
+        .testimonial-text {
+          font-size: 1rem;
+        }
+
+        .cta-projects h2 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barre de navigation -->
+    <header id="header">
+      <nav class="navbar container">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo BTECE" />
+          <a href="index.html">BT<span>ECE</span></a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="products.html">Produits</a></li>
+          <li><a href="projects.html" class="active">Projets</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="projects-hero">
+      <div class="container">
+        <h1>Nos Réalisations</h1>
+        <p>
+          Découvrez une sélection de nos projets les plus marquants dans les
+          domaines des énergies renouvelables, de l'architecture et des
+          technologies innovantes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filtres et projets -->
+    <section class="projects-container">
+      <div class="container">
+        <div class="projects-filter">
+          <button type="button" class="filter-btn active" data-filter="all">
+            Tous les projets
+          </button>
+          <button type="button" class="filter-btn" data-filter="energy">
+            Énergies Renouvelables
+          </button>
+          <button type="button" class="filter-btn" data-filter="architecture">
+            Architecture
+          </button>
+          <button type="button" class="filter-btn" data-filter="electronics">
+            Électronique
+          </button>
+          <button type="button" class="filter-btn" data-filter="web">
+            Développement Web
+          </button>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Projet 1 -->
+          <div class="project-card" data-category="energy" style="--delay: 1">
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project1.jpg"
+                data-lightbox="project1"
+                data-title="Centrale solaire hybride - Dakar"
+                aria-label="Voir l'image agrandie de la centrale solaire hybride"
+              >
+                <img
+                  src="assets/images/projects/project1-thumb.jpg"
+                  alt="Centrale solaire hybride"
+                />
+              </a>
+              <span class="project-category">Énergie</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Centrale solaire hybride</h3>
+              <p class="project-client">Pour Complexe Industriel, Dakar</p>
+              <p class="project-excerpt">
+                Installation d'un système solaire hybride de 500kW combiné à une
+                solution de stockage innovante pour une autonomie énergétique
+                complète.
+              </p>
+              <a href="project1-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Projet 2 -->
+          <div
+            class="project-card"
+            data-category="architecture"
+            style="--delay: 2"
+          >
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project2.jpg"
+                data-lightbox="project2"
+                data-title="Siège social écologique - Abidjan"
+                aria-label="Voir l'image agrandie du siège social écologique"
+              >
+                <img
+                  src="assets/images/projects/project2-thumb.jpg"
+                  alt="Siège social écologique"
+                />
+              </a>
+              <span class="project-category">Architecture</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Siège social écologique</h3>
+              <p class="project-client">Pour Entreprise XYZ, Abidjan</p>
+              <p class="project-excerpt">
+                Conception et réalisation d'un bâtiment intelligent
+                autosuffisant en énergie avec système de gestion intégré et
+                matériaux durables.
+              </p>
+              <a href="project2-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Projet 3 -->
+          <div
+            class="project-card"
+            data-category="electronics"
+            style="--delay: 3"
+          >
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project3.jpg"
+                data-lightbox="project3"
+                data-title="Système de surveillance énergétique"
+                aria-label="Voir l'image agrandie du système de surveillance énergétique"
+              >
+                <img
+                  src="assets/images/projects/project3-thumb.jpg"
+                  alt="Système de surveillance énergétique"
+                />
+              </a>
+              <span class="project-category">Électronique</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Surveillance énergétique IoT</h3>
+              <p class="project-client">Pour Société, Lomé</p>
+              <p class="project-excerpt">
+                Développement d'un système embarqué de surveillance et
+                optimisation énergétique en temps réel avec tableau de bord
+                personnalisé.
+              </p>
+              <a href="project3-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Projet 4 -->
+          <div class="project-card" data-category="web" style="--delay: 4">
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project4.jpg"
+                data-lightbox="project4"
+                data-title="Plateforme de gestion énergétique"
+                aria-label="Voir l'image agrandie de la plateforme de gestion énergétique"
+              >
+                <img
+                  src="assets/images/projects/project4-thumb.jpg"
+                  alt="Plateforme de gestion énergétique"
+                />
+              </a>
+              <span class="project-category">Développement Web</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Gestion énergétique SaaS</h3>
+              <p class="project-client">Pour Startup Énergie, Casablanca</p>
+              <p class="project-excerpt">
+                Plateforme web complète de gestion et analyse des consommations
+                énergétiques avec rapports personnalisés et alertes
+                intelligentes.
+              </p>
+              <a href="project4-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Projet 5 -->
+          <div class="project-card" data-category="energy" style="--delay: 5">
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project5.jpg"
+                data-lightbox="project5"
+                data-title="Parc éolien communautaire"
+                aria-label="Voir l'image agrandie du parc éolien communautaire"
+              >
+                <img
+                  src="assets/images/projects/project5-thumb.jpg"
+                  alt="Parc éolien communautaire"
+                />
+              </a>
+              <span class="project-category">Énergie</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Parc Solaire Agricole</h3>
+              <p class="project-client">Pour Village Rural, Nikki, Bénin</p>
+              <p class="project-excerpt">
+                Système solaire complet pour une ferme de 6 hectares dans la
+                commune rurale de Nikki au Bénin. Cette installation permet à la
+                ferme de fonctionner en totale autonomie énergétique, couvrant
+                tous les besoins en électricité pour l'irrigation, l'éclairage,
+                les équipements agricoles et le stockage des récoltes.
+              </p>
+              <a href="project5-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Projet 6 -->
+          <div
+            class="project-card"
+            data-category="architecture"
+            style="--delay: 6"
+          >
+            <div class="project-image">
+              <a
+                href="assets/images/projects/project6.jpg"
+                data-lightbox="project6"
+                data-title="Rénovation écologique d'hôtel"
+                aria-label="Voir l'image agrandie de la rénovation écologique d'hôtel"
+              >
+                <img
+                  src="assets/images/projects/project6-thumb.jpg"
+                  alt="Rénovation écologique d'hôtel"
+                />
+              </a>
+              <span class="project-category">Architecture</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Hôtel écologique 5 étoiles</h3>
+              <p class="project-client">Pour Groupe Hôtelier, Saly</p>
+              <p class="project-excerpt">
+                Rénovation complète avec solutions énergétiques durables,
+                gestion intelligente des ressources et architecture
+                bioclimatique.
+              </p>
+              <a href="project6-detail.html" class="project-link"
+                >Voir le projet <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistiques -->
+    <section class="project-stats">
+      <div class="container">
+        <h2 class="section-title">BTECE en Chiffres</h2>
+        <p class="section-description">
+          Quelques réalisations qui témoignent de notre expertise et de notre
+          engagement.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" data-count="120">0</div>
+            <div class="stat-label">Projets réalisés</div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-number" data-count="113">0</div>
+            <div class="stat-label">Clients satisfaits</div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Pays desservis</div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-number" data-count="25">0</div>
+            <div class="stat-label">Prix d'excellence</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">Ce Que Disent Nos Clients</h2>
+        <p class="section-description">
+          Découvrez les témoignages de nos clients satisfaits par nos solutions
+          innovantes.
+        </p>
+
+        <div class="testimonial-slider">
+          <div class="testimonial-item">
+            <p class="testimonial-text">
+              "BTECE a transformé notre approche énergétique avec une solution
+              sur mesure qui a réduit nos coûts de 40%. Leur professionnalisme
+              et leur expertise technique sont exceptionnels."
+            </p>
+            <div class="testimonial-author">M. Diop</div>
+            <div class="testimonial-position">
+              Directeur Général, Industrie XYZ
+            </div>
+          </div>
+
+          <div class="testimonial-item">
+            <p class="testimonial-text">
+              "Le bâtiment conçu par BTECE est non seulement magnifique mais
+              aussi incroyablement efficace énergétiquement. Nous avons atteint
+              une autonomie de 90% grâce à leurs solutions innovantes."
+            </p>
+            <div class="testimonial-author">Mme. Diallo</div>
+            <div class="testimonial-position">PDG, Groupe Immobilier ABC</div>
+          </div>
+
+          <div class="testimonial-item">
+            <p class="testimonial-text">
+              "Le système électronique développé par BTECE a révolutionné notre
+              processus de production. Leur capacité à comprendre nos besoins et
+              à proposer des solutions techniques est impressionnante."
+            </p>
+            <div class="testimonial-author">Dr. Ndiaye</div>
+            <div class="testimonial-position">
+              Directeur Technique, Manufacture 123
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-projects">
+      <div class="container">
+        <h2>Prêt à concrétiser votre projet ?</h2>
+        <p>
+          Notre équipe d'experts est à votre disposition pour discuter de vos
+          besoins et vous proposer des solutions sur mesure.
+        </p>
+        <a href="contact.html" class="cta-button">Demander une consultation</a>
+      </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>BTECE</h3>
+            <p>Innovation Technologique et Énergétique</p>
+            <div style="margin-top: 1rem">
+              <img
+                src="assets/images/logo-white.png"
+                alt="Logo BTECE"
+                style="height: 40px"
+              />
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Liens Utiles</h3>
+            <p><a href="index.html">Accueil</a></p>
+            <p><a href="about.html">À propos</a></p>
+            <p><a href="services.html">Nos services</a></p>
+            <p><a href="products.html">Produits</a></p>
+            <p><a href="projects.html">Projets</a></p>
+            <p><a href="contact.html">Contact</a></p>
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>
+              <i class="fas fa-envelope" style="margin-right: 10px"></i>
+              contactbtece@gmail.com
+            </p>
+            <p>
+              <i class="fas fa-phone" style="margin-right: 10px"></i> +229 01 99
+              32 24 77
+            </p>
+            <p>
+              <i class="fas fa-map-marker-alt" style="margin-right: 10px"></i>
+              Abomey-Calavi, Natitingou, Bénin
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Réseaux Sociaux</h3>
+            <div class="social-icons">
+              <a href="https://urlr.me/NfXpr" aria-label="Facebook BTECE"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn BTECE"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="https://x.com/Baack_pro08?s=09" aria-label="Twitter BTECE"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://urlz.fr/u0pz" aria-label="Instagram BTECE"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://urlz.fr/u0pW" aria-label="YouTube BTECE"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a href="https://wa.me/22999322477" aria-label="WhatsApp BTECE"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+            <div style="margin-top: 1.5rem">
+              <a
+                href="#"
+                style="color: var(--secondary-color); font-weight: 600"
+                >Demander un devis</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &amp;copy; 2023 BTECE. Tous droits réservés. |
+            <a href="#" style="color: var(--secondary-color)"
+              >Politique de confidentialité</a
+            >
+            |
+            <a href="#" style="color: var(--secondary-color)"
+              >Mentions légales</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script>
+      // Menu Burger
+      const burger = document.querySelector(".burger");
+      const navLinks = document.querySelector(".nav-links");
+      const header = document.getElementById("header");
+
+      burger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        burger.classList.toggle("active");
+      });
+
+      // Animation au défilement
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // Filtrage des projets
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const projectCards = document.querySelectorAll(".project-card");
+
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            // Active le bouton cliqué
+            filterBtns.forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            const filterValue = this.getAttribute("data-filter");
+
+            // Filtre les projets
+            projectCards.forEach((card) => {
+              if (
+                filterValue === "all" ||
+                card.getAttribute("data-category") === filterValue
+              ) {
+                card.style.display = "block";
+              } else {
+                card.style.display = "none";
+              }
+            });
+          });
+        });
+
+        // Animation des statistiques
+        const statNumbers = document.querySelectorAll(".stat-number");
+        const statsSection = document.querySelector(".project-stats");
+
+        const statsObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                statNumbers.forEach((stat) => {
+                  const target = +stat.getAttribute("data-count");
+                  const speed = 200;
+                  const count = +stat.innerText;
+                  const increment = target / speed;
+
+                  if (count < target) {
+                    stat.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 1);
+                  } else {
+                    stat.innerText = target;
+                  }
+
+                  function updateCount() {
+                    const count = +stat.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                      stat.innerText = Math.ceil(count + increment);
+                      setTimeout(updateCount, 1);
+                    } else {
+                      stat.innerText = target;
+                    }
+                  }
+                });
+
+                statsObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 },
+        );
+
+        statsObserver.observe(statsSection);
+
+        // Slider des témoignages
+        $(".testimonial-slider").slick({
+          dots: true,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 1,
+          adaptiveHeight: true,
+          autoplay: true,
+          autoplaySpeed: 6000,
+          arrows: false,
+          pauseOnHover: true,
+        });
+
+        // Lightbox configuration
+        lightbox.option({
+          resizeDuration: 200,
+          wrapAround: true,
+          albumLabel: "Projet %1 sur %2",
+          fadeDuration: 300,
+        });
+
+        // Fermer le menu mobile après clic sur un lien
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            burger.classList.remove("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

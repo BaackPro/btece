@@ -1,0 +1,87 @@
+
+# Fichiers de dépendances
+node_modules/
+.pnp
+.pnp.js
+
+# Variables d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers de build
+dist/
+.temp/
+.cache/
+.netlify/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers d'éditeur
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Fichiers de débogage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Fichiers de test
+coverage/
+.nyc_output/
+
+# Fichiers Netlify spécifiques
+functions/dist/
+.netlify/functions/
+
+# Fichiers de déploiement
+__sapper__/
+.svelte-kit/
+
+# Fichiers Vite
+.vite/
+*.local
+
+# Fichiers de cache
+.cache/
+.turbo/
+
+# Fichiers de configuration sensible
+netlify.toml.local
+config.local.json
+
+# Fichiers de préprocesseur CSS
+*.sass.map
+*.scss.map
+*.less.map
+
+# Fichiers de backup
+*.bak
+*.tmp
+*~
+
+# Fichiers macOS
+._*
+
+# Fichiers Windows
+ehthumbs.db
+Desktop.ini
+
+# Fichiers de documentation auto-générée
+docs/_site/
+
+# Fichiers de dépendances optionnelles
+/bower_components/
+
+# Fichiers de projets spécifiques
+.sass-cache/
+.jekyll-cache/
+.parcel-cache/
