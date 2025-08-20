@@ -29,4 +29,4 @@ BTECE (Baack Technology Energy and Conception Engineering) est une entreprise b�
 | Performances    | Score Lighthouse >90/100            |
 | Sécurité        | HTTPS, CSP, Headers sécurisés        |
 
-## 📂 Structure du Projet
+## 📂 Structure du Projet# btece
