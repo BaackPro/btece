@@ -84,4 +84,6 @@ docs/_site/
 # Fichiers de projets spécifiques
 .sass-cache/
 .jekyll-cache/
-.parcel-cache/
+.parcel-cache/google-chrome-stable_current_amd64.deb
+google-chrome-stable_current_amd64.deb
+assets/favicon/favicon.ico
