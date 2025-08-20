@@ -1,0 +1,39 @@
+Fare un repo Github : Se positionner dans le dossier ( cd "/mnt/c/Users/prince CHABI/Desktop/btece" ) et executer les commandes suivant un apres un
+git init                            # Initialise git
+git remote add origin https://github.com/TonNom/repo.git
+git add .
+git commit -m "Premier commit"
+git branch -M main
+git push -u origin main 
+----------------------------------------------------------------
+
+Creer token github avant un repo : 
+Voici le chemin précis pour créer un token personnel dans GitHub :
+
+------------------------------------------------------------------
+
+🔐 Créer un token GitHub (PAT)
+
+1. Va sur GitHub
+2. En haut à droite, clique sur ta photo de profil → "Settings" (Paramètres)
+3. Dans le menu à gauche, clique sur "Developer settings"
+4. Clique ensuite sur "Personal access tokens"
+5. Puis sur "Tokens (classic)"
+6. Clique sur "Generate new token (classic)"
+
+---
+
+✅ À la création :
+- Note : Donne un nom (ex. Git push token)
+- Expiration : Choisis une durée (30, 60, 90 jours ou "No expiration")
+- Scopes (permissions) : coche au minimum :
+  - repo
+
+---
+
+Une fois généré, copie immédiatement le token (tu ne pourras plus le revoir après).
+
+Tu le colleras quand Git demandera ton "mot de passe".
+
+
+token github Valable 30jours: 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
