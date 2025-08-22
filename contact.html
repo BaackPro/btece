@@ -1,0 +1,1980 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Contactez-nous | BTECE - Experts en énergies renouvelables et ingénierie
+    </title>
+    <meta
+      name="description"
+      content="Contactez les experts BTECE pour vos projets en énergies renouvelables, architecture, électricité bâtiment et conception électronique à Abomey-Calavi, Bénin."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon/favicon.ico" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- EmailJS SDK -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --text-color: #333;
+        --text-light: #777;
+        --white: #ffffff;
+        --success-color: #2ecc71;
+        --error-color: #e74c3c;
+        --transition: all 0.3s ease;
+        --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --box-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-color: var(--light-color);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--transition);
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-3px);
+        box-shadow: var(--box-shadow-hover);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow: var(--box-shadow-hover);
+      }
+
+      .section-title {
+        position: relative;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        text-align: center;
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      /* Header & Navigation */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition);
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        transition: var(--transition);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .logo-img {
+        height: 40px;
+        width: auto;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        transition: var(--transition);
+      }
+
+      .nav-links a {
+        font-weight: 500;
+        position: relative;
+        padding: 5px 0;
+      }
+
+      .nav-links a:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover:after,
+      .nav-links a.active:after {
+        width: 100%;
+      }
+
+      .nav-links a.active {
+        color: var(--secondary-color);
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: var(--primary-color);
+        margin: 5px;
+        transition: var(--transition);
+      }
+
+      /* Hero Section */
+      .contact-hero {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(44, 62, 80, 0.9) 0%,
+            rgba(52, 152, 219, 0.9) 100%
+          ),
+          url("assets/images/contact-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding: 180px 5% 100px;
+        color: var(--white);
+        text-align: center;
+        position: relative;
+      }
+
+      .contact-hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-hero p {
+        font-size: 1.3rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        animation: fadeInUp 1s ease-out 0.2s forwards;
+        opacity: 0;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Badges de confiance */
+      .trust-badges {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 50px auto;
+        padding: 0 5%;
+      }
+
+      .badge {
+        max-width: 150px;
+        opacity: 0.8;
+        transition: var(--transition);
+        filter: grayscale(30%);
+      }
+
+      .badge:hover {
+        opacity: 1;
+        transform: translateY(-5px);
+        filter: grayscale(0%);
+      }
+
+      /* Contact Container */
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 0 5%;
+      }
+
+      /* Contact Info */
+      .contact-info {
+        background: var(--white);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+      }
+
+      .contact-info:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--box-shadow-hover);
+      }
+
+      .contact-info h2 {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .contact-info h2:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .info-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .info-icon {
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+        margin-right: 20px;
+        margin-top: 5px;
+        min-width: 25px;
+        transition: var(--transition);
+      }
+
+      .info-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+      }
+
+      .info-content p,
+      .info-content a {
+        color: var(--text-light);
+        line-height: 1.6;
+      }
+
+      .info-content a:hover {
+        color: var(--secondary-color);
+      }
+
+      /* Styles pour les heures d'ouverture */
+      .opening-hours {
+        margin-top: 10px;
+      }
+
+      .hours-row {
+        display: flex;
+        margin-bottom: 8px;
+      }
+
+      .hours-day {
+        display: inline-block;
+        width: 200px;
+      }
+
+      .hours-time {
+        display: inline-block;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        background: var(--primary-color);
+        color: var(--white);
+        border-radius: 50%;
+        transition: var(--transition);
+        font-size: 1.1rem;
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+      }
+
+      /* Contact Form */
+      .contact-form {
+        background: var(--white);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .contact-form.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .contact-form:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--box-shadow-hover);
+      }
+
+      .contact-form h2 {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .contact-form h2:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--primary-color);
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .form-group.visible label {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .form-group.visible .form-control {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .form-control:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+      }
+
+      .form-control.error {
+        border-color: var(--error-color);
+      }
+
+      .error-message {
+        color: var(--error-color);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      textarea.form-control {
+        min-height: 180px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .form-group.visible .submit-btn {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .submit-btn:hover {
+        background: #2980b9;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(41, 128, 185, 0.3);
+      }
+
+      .submit-btn:disabled {
+        background-color: #95a5a6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Alert messages */
+      .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        display: none;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      /* Map Container */
+      .map-container {
+        height: 450px;
+        margin: 80px auto;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--box-shadow-hover);
+        max-width: 1200px;
+        padding: 0 5%;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .map-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      #map {
+        height: 100%;
+        width: 100%;
+        background-color: #e9e9e9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+      }
+
+      .map-fallback {
+        display: none;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .map-fallback.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .map-fallback img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* CTA Section */
+      .cta-contact {
+        text-align: center;
+        padding: 100px 5%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: var(--white);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-contact:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern.png") repeat;
+        opacity: 0.1;
+        z-index: 1;
+      }
+
+      .cta-contact .container {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .cta-contact h2 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-contact p {
+        max-width: 700px;
+        margin: 0 auto 30px;
+        font-size: 1.2rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .cta-button.primary {
+        background: var(--white);
+        color: var(--primary-color);
+      }
+
+      .cta-button.primary:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-button.secondary {
+        background: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+      }
+
+      .cta-button.secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 0;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
+
+      .footer-section {
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .footer-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: var(--white);
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-section h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--secondary-color);
+      }
+
+      .footer-section p {
+        margin-bottom: 15px;
+        color: #bbb;
+      }
+
+      .footer-section a {
+        color: #bbb;
+        display: block;
+        margin-bottom: 10px;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .footer-section a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .social-icons a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 20px 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        margin-top: 40px;
+        color: #bbb;
+        font-size: 0.9rem;
+      }
+
+      /* Modal d'envoi */
+      .send-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .send-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .send-content {
+        background: var(--white);
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        padding: 30px;
+        position: relative;
+        transform: translateY(-50px);
+        transition: var(--transition);
+      }
+
+      .send-modal.active .send-content {
+        transform: translateY(0);
+        animation: pulse 0.5s ease-in-out;
+      }
+
+      .close-send {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .close-send:hover {
+        color: var(--accent-color);
+        transform: rotate(90deg);
+      }
+
+      .send-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .send-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .send-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border: 2px solid var(--secondary-color);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: var(--transition);
+        background: var(--white);
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .send-option:hover {
+        background: var(--secondary-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .send-option i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      /* Loader */
+      .loader {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .contact-container {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .contact-hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          width: 70%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          transition: var(--transition);
+          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .burger {
+          display: block;
+        }
+
+        .burger.active .line1 {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .burger.active .line2 {
+          opacity: 0;
+        }
+
+        .burger.active .line3 {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .contact-hero {
+          padding: 150px 5% 80px;
+        }
+
+        .contact-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .contact-hero p {
+          font-size: 1.1rem;
+        }
+
+        .cta-contact h2 {
+          font-size: 2.2rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .cta-button {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .logo-img {
+          height: 35px;
+        }
+
+        /* Adaptation responsive des heures d'ouverture */
+        .hours-row {
+          flex-direction: column;
+        }
+
+        .hours-day {
+          width: 100%;
+          margin-bottom: 5px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .contact-hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .contact-info,
+        .contact-form {
+          padding: 30px 20px;
+        }
+
+        .logo-text {
+          display: none;
+        }
+
+        .logo-img {
+          height: 30px;
+        }
+
+        .send-options {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barre de navigation -->
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo BTECE" class="logo-img" />
+          <div class="logo-text">
+            <a href="index.html">BT<span>ECE</span></a>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="products.html">Produits</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+      <h1>Discutons de votre projet</h1>
+      <p>
+        Notre équipe d'experts est à votre écoute pour répondre à vos questions
+        et vous accompagner dans la réalisation de vos projets en énergies
+        renouvelables et ingénierie.
+      </p>
+    </section>
+
+    <!-- Badges de confiance -->
+    <div class="trust-badges">
+      <img
+        src="assets/images/badge1.png"
+        alt="Certifié Qualité"
+        class="badge"
+      />
+      <img
+        src="assets/images/badge2.png"
+        alt="Membre Green Energy"
+        class="badge"
+      />
+      <img
+        src="assets/images/badge3.png"
+        alt="Prix Innovation 2023"
+        class="badge"
+      />
+      <img
+        src="assets/images/badge4.png"
+        alt="Entreprise Responsable"
+        class="badge"
+      />
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="contact-container">
+      <!-- Informations de contact -->
+      <div class="contact-info">
+        <h2>Nos coordonnées</h2>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="info-content">
+            <h3>Adresse</h3>
+            <p>Abomey-Calavi,<br />Bénin</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+          <div class="info-content">
+            <h3>Téléphone</h3>
+            <p><a href="tel:+2290199322477">+229 01 99 32 24 77</a></p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-envelope"></i></div>
+          <div class="info-content">
+            <h3>Email</h3>
+            <p>
+              <a href="mailto:contactbtece@gmail.com">contactbtece@gmail.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-clock"></i></div>
+          <div class="info-content">
+            <h3>Heures d'ouverture</h3>
+            <div class="opening-hours">
+              <div class="hours-row">
+                <span class="hours-day">Lundi - Vendredi:</span>
+                <span class="hours-time">08h - 18h</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Samedi:</span>
+                <span class="hours-time">10h - 14h</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Dimanche:</span>
+                <span class="hours-time">Fermé</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Sur rendez-vous les jours fériés:</span>
+                <span class="hours-time">09h - 15h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem">Suivez-nous</h3>
+        <div class="social-links">
+          <a href="https://urlr.me/NfXpr" aria-label="Facebook BTECE"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="LinkedIn BTECE"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+          <a href="https://x.com/Baack_pro08?s=09" aria-label="Twitter BTECE"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="https://urlz.fr/u0pz" aria-label="Instagram BTECE"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://urlz.fr/u0pW" aria-label="YouTube BTECE"
+            ><i class="fab fa-youtube"></i
+          ></a>
+          <a href="https://wa.me/22999322477" aria-label="WhatsApp BTECE"
+            ><i class="fab fa-whatsapp"></i
+          ></a>
+        </div>
+      </div>
+
+      <!-- Formulaire de contact -->
+      <div class="contact-form">
+        <h2>Envoyez-nous un message</h2>
+        <form id="contactForm" method="POST" novalidate>
+          <!-- Messages d'alerte -->
+          <div
+            id="successAlert"
+            class="alert alert-success"
+            style="display: none"
+          >
+            Votre message a été envoyé avec succès! Nous vous contacterons
+            bientôt.
+          </div>
+          <div id="errorAlert" class="alert alert-error" style="display: none">
+            Une erreur s'est produite lors de l'envoi du message. Veuillez
+            réessayer plus tard.
+          </div>
+
+          <div class="form-group">
+            <label for="name">Votre nom complet *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              required
+            />
+            <div class="error-message" id="nameError">Veuillez entrer votre nom</div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Votre email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              required
+            />
+            <div class="error-message" id="emailError">Veuillez entrer un email valide</div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Votre téléphone</label>
+            <input type="tel" id="phone" name="phone" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label for="whatsapp">Votre numéro WhatsApp *</label>
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              class="form-control"
+              required
+              placeholder="Ex: +229 XX XX XX XX"
+            />
+            <div class="error-message" id="whatsappError">Veuillez entrer un numéro WhatsApp valide</div>
+          </div>
+
+          <div class="form-group">
+            <label for="country">Pays *</label>
+            <select id="country" name="country" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez votre pays</option>
+              
+              <optgroup label="Afrique">
+                <option value="DZ">Algérie (+213)</option>
+                <option value="AO">Angola (+244)</option>
+                <option value="BJ">Bénin (+229)</option>
+                <option value="BW">Botswana (+267)</option>
+                <option value="BF">Burkina Faso (+226)</option>
+                <option value="BI">Burundi (+257)</option>
+                <option value="CM">Cameroun (+237)</option>
+                <option value="CV">Cap-Vert (+238)</option>
+                <option value="CF">République centrafricaine (+236)</option>
+                <option value="TD">Tchad (+235)</option>
+                <option value="KM">Comores (+269)</option>
+                <option value="CG">Congo-Brazzaville (+242)</option>
+                <option value="CD">Congo-Kinshasa (+243)</option>
+                <option value="CI">Côte d'Ivoire (+225)</option>
+                <option value="DJ">Djibouti (+253)</option>
+                <option value="EG">Égypte (+20)</option>
+                <option value="GQ">Guinée équatoriale (+240)</option>
+                <option value="ER">Érythrée (+291)</option>
+                <option value="SZ">Eswatini (+268)</option>
+                <option value="ET">Éthiopie (+251)</option>
+                <option value="GA">Gabon (+241)</option>
+                <option value="GM">Gambie (+220)</option>
+                <option value="GH">Ghana (+233)</option>
+                <option value="GN">Guinée (+224)</option>
+                <option value="GW">Guinée-Bissau (+245)</option>
+                <option value="KE">Kenya (+254)</option>
+                <option value="LS">Lesotho (+266)</option>
+                <option value="LR">Liberia (+231)</option>
+                <option value="LY">Libye (+218)</option>
+                <option value="MG">Madagascar (+261)</option>
+                <option value="MW">Malawi (+265)</option>
+                <option value="ML">Mali (+223)</option>
+                <option value="MR">Mauritanie (+222)</option>
+                <option value="MU">Maurice (+230)</option>
+                <option value="YT">Mayotte (+262)</option>
+                <option value="MA">Maroc (+212)</option>
+                <option value="MZ">Mozambique (+258)</option>
+                <option value="NA">Namibie (+264)</option>
+                <option value="NE">Niger (+227)</option>
+                <option value="NG">Nigeria (+234)</option>
+                <option value="RE">Réunion (+262)</option>
+                <option value="RW">Rwanda (+250)</option>
+                <option value="SH">Sainte-Hélène (+290)</option>
+                <option value="ST">Sao Tomé-et-Principe (+239)</option>
+                <option value="SN">Sénégal (+221)</option>
+                <option value="SC">Seychelles (+248)</option>
+                <option value="SL">Sierra Leone (+232)</option>
+                <option value="SO">Somalie (+252)</option>
+                <option value="ZA">Afrique du Sud (+27)</option>
+                <option value="SS">Soudan du Sud (+211)</option>
+                <option value="SD">Soudan (+249)</option>
+                <option value="TZ">Tanzanie (+255)</option>
+                <option value="TG">Togo (+228)</option>
+                <option value="TN">Tunisie (+216)</option>
+                <option value="UG">Ouganda (+256)</option>
+                <option value="EH">Sahara occidental (+212)</option>
+                <option value="ZM">Zambie (+260)</option>
+                <option value="ZW">Zimbabwe (+263)</option>
+              </optgroup>
+              
+              <optgroup label="Amérique">
+                <option value="US">États-Unis (+1)</option>
+                <option value="CA">Canada (+1)</option>
+                <option value="MX">Mexique (+52)</option>
+                <option value="BR">Brésil (+55)</option>
+                <option value="AR">Argentine (+54)</option>
+                <option value="CL">Chili (+56)</option>
+                <option value="CO">Colombie (+57)</option>
+                <option value="PE">Pérou (+51)</option>
+                <option value="VE">Venezuela (+58)</option>
+                <option value="BO">Bolivie (+591)</option>
+                <option value="EC">Équateur (+593)</option>
+                <option value="PY">Paraguay (+595)</option>
+                <option value="UY">Uruguay (+598)</option>
+                <option value="CR">Costa Rica (+506)</option>
+                <option value="PA">Panama (+507)</option>
+                <option value="DO">République dominicaine (+1)</option>
+                <option value="CU">Cuba (+53)</option>
+                <option value="GT">Guatemala (+502)</option>
+                <option value="HN">Honduras (+504)</option>
+                <option value="NI">Nicaragua (+505)</option>
+                <option value="SV">Salvador (+503)</option>
+                <option value="HT">Haïti (+509)</option>
+                <option value="JM">Jamaïque (+1)</option>
+                <option value="TT">Trinité-et-Tobago (+1)</option>
+                <option value="BZ">Belize (+501)</option>
+                <option value="GY">Guyana (+592)</option>
+                <option value="SR">Suriname (+597)</option>
+              </optgroup>
+              
+              <optgroup label="Asie">
+                <option value="AF">Afghanistan (+93)</option>
+                <option value="AM">Arménie (+374)</option>
+                <option value="AZ">Azerbaïdjan (+994)</option>
+                <option value="BH">Bahreïn (+973)</option>
+                <option value="BD">Bangladesh (+880)</option>
+                <option value="BT">Bhoutan (+975)</option>
+                <option value="BN">Brunei (+673)</option>
+                <option value="KH">Cambodge (+855)</option>
+                <option value="CN">Chine (+86)</option>
+                <option value="CY">Chypre (+357)</option>
+                <option value="GE">Géorgie (+995)</option>
+                <option value="IN">Inde (+91)</option>
+                <option value="ID">Indonésie (+62)</option>
+                <option value="IR">Iran (+98)</option>
+                <option value="IQ">Irak (+964)</option>
+                <option value="IL">Israël (+972)</option>
+                <option value="JP">Japon (+81)</option>
+                <option value="JO">Jordanie (+962)</option>
+                <option value="KZ">Kazakhstan (+7)</option>
+                <option value="KW">Koweït (+965)</option>
+                <option value="KG">Kirghizistan (+996)</option>
+                <option value="LA">Laos (+856)</option>
+                <option value="LB">Liban (+961)</option>
+                <option value="MY">Malaisie (+60)</option>
+                <option value="MV">Maldives (+960)</option>
+                <option value="MN">Mongolie (+976)</option>
+                <option value="MM">Myanmar (+95)</option>
+                <option value="NP">Népal (+977)</option>
+                <option value="KP">Corée du Nord (+850)</option>
+                <option value="OM">Oman (+968)</option>
+                <option value="PK">Pakistan (+92)</option>
+                <option value="PS">Palestine (+970)</option>
+                <option value="PH">Philippines (+63)</option>
+                <option value="QA">Qatar (+974)</option>
+                <option value="SA">Arabie saoudite (+966)</option>
+                <option value="SG">Singapour (+65)</option>
+                <option value="KR">Corée du Sud (+82)</option>
+                <option value="LK">Sri Lanka (+94)</option>
+                <option value="SY">Syrie (+963)</option>
+                <option value="TW">Taïwan (+886)</option>
+                <option value="TJ">Tadjikistan (+992)</option>
+                <option value="TH">Thaïlande (+66)</option>
+                <option value="TL">Timor oriental (+670)</option>
+                <option value="TR">Turquie (+90)</option>
+                <option value="TM">Turkménistan (+993)</option>
+                <option value="AE">Émirats arabes unis (+971)</option>
+                <option value="UZ">Ouzbékistan (+998)</option>
+                <option value="VN">Vietnam (+84)</option>
+                <option value="YE">Yémen (+967)</option>
+              </optgroup>
+              
+              <optgroup label="Europe">
+                <option value="AL">Albanie (+355)</option>
+                <option value="AD">Andorre (+376)</option>
+                <option value="AT">Autriche (+43)</option>
+                <option value="BY">Biélorussie (+375)</option>
+                <option value="BE">Belgique (+32)</option>
+                <option value="BA">Bosnie-Herzégovine (+387)</option>
+                <option value="BG">Bulgarie (+359)</option>
+                <option value="HR">Croatie (+385)</option>
+                <option value="CZ">République tchèque (+420)</option>
+                <option value="DK">Danemark (+45)</option>
+                <option value="EE">Estonie (+372)</option>
+                <option value="FO">Îles Féroé (+298)</option>
+                <option value="FI">Finlande (+358)</option>
+                <option value="FR">France (+33)</option>
+                <option value="DE">Allemagne (+49)</option>
+                <option value="GI">Gibraltar (+350)</option>
+                <option value="GR">Grèce (+30)</option>
+                <option value="GG">Guernesey (+44)</option>
+                <option value="HU">Hongrie (+36)</option>
+                <option value="IS">Islande (+354)</option>
+                <option value="IE">Irlande (+353)</option>
+                <option value="IM">Île de Man (+44)</option>
+                <option value="IT">Italie (+39)</option>
+                <option value="JE">Jersey (+44)</option>
+                <option value="XK">Kosovo (+383)</option>
+                <option value="LV">Lettonie (+371)</option>
+                <option value="LI">Liechtenstein (+423)</option>
+                <option value="LT">Lituanie (+370)</option>
+                <option value="LU">Luxembourg (+352)</option>
+                <option value="MT">Malte (+356)</option>
+                <option value="MD">Moldavie (+373)</option>
+                <option value="MC">Monaco (+377)</option>
+                <option value="ME">Monténégro (+382)</option>
+                <option value="NL">Pays-Bas (+31)</option>
+                <option value="MK">Macédoine du Nord (+389)</option>
+                <option value="NO">Norvège (+47)</option>
+                <option value="PL">Pologne (+48)</option>
+                <option value="PT">Portugal (+351)</option>
+                <option value="RO">Roumanie (+40)</option>
+                <option value="RU">Russie (+7)</option>
+                <option value="SM">Saint-Marin (+378)</option>
+                <option value="RS">Serbie (+381)</option>
+                <option value="SK">Slovaquie (+421)</option>
+                <option value="SI">Slovénie (+386)</option>
+                <option value="ES">Espagne (+34)</option>
+                <option value="SE">Suède (+46)</option>
+                <option value="CH">Suisse (+41)</option>
+                <option value="UA">Ukraine (+380)</option>
+                <option value="GB">Royaume-Uni (+44)</option>
+                <option value="VA">Vatican (+379)</option>
+              </optgroup>
+              
+              <optgroup label="Océanie">
+                <option value="AS">Samoa américaines (+1)</option>
+                <option value="AU">Australie (+61)</option>
+                <option value="CK">Îles Cook (+682)</option>
+                <option value="FJ">Fidji (+679)</option>
+                <option value="PF">Polynésie française (+689)</option>
+                <option value="GU">Guam (+1)</option>
+                <option value="KI">Kiribati (+686)</option>
+                <option value="MH">Îles Marshall (+692)</option>
+                <option value="FM">Micronésie (+691)</option>
+                <option value="NR">Nauru (+674)</option>
+                <option value="NC">Nouvelle-Calédonie (+687)</option>
+                <option value="NZ">Nouvelle-Zélande (+64)</option>
+                <option value="NU">Niue (+683)</option>
+                <option value="NF">Île Norfolk (+672)</option>
+                <option value="MP">Îles Mariannes du Nord (+1)</option>
+                <option value="PW">Palaos (+680)</option>
+                <option value="PG">Papouasie-Nouvelle-Guinée (+675)</option>
+                <option value="PN">Îles Pitcairn (+64)</option>
+                <option value="WS">Samoa (+685)</option>
+                <option value="SB">Îles Salomon (+677)</option>
+                <option value="TK">Tokelau (+690)</option>
+                <option value="TO">Tonga (+676)</option>
+                <option value="TV">Tuvalu (+688)</option>
+                <option value="VU">Vanuatu (+678)</option>
+                <option value="WF">Wallis-et-Futuna (+681)</option>
+              </optgroup>
+              
+              <optgroup label="Autre">
+                <option value="other">Autre pays</option>
+              </optgroup>
+            </select>
+            <div class="error-message" id="countryError">Veuillez sélectionner votre pays</div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Sujet *</label>
+            <select id="subject" name="subject" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez un sujet</option>
+              <option value="Demande de devis">Demande de devis</option>
+              <option value="Support technique">Support technique</option>
+              <option value="Renseignement">Renseignement</option>
+              <option value="Partenariat">Partenariat</option>
+              <option value="Recrutement">Recrutement</option>
+              <option value="Stage">Stage</option>
+              <option value="Autre">Autre</option>
+            </select>
+            <div class="error-message" id="subjectError">Veuillez sélectionner un sujet</div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Votre message *</label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-control"
+              required
+            ></textarea>
+            <div class="error-message" id="messageError">Veuillez écrire votre message</div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <i class="fas fa-paper-plane"></i> Envoyer le message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Section CTA -->
+    <section class="cta-contact">
+      <div class="container">
+        <h2>Prêt à démarrer votre projet ?</h2>
+        <p>
+          Notre équipe est disponible pour discuter de vos besoins et vous
+          proposer la meilleure solution adaptée à votre situation.
+        </p>
+
+        <div class="cta-buttons">
+          <a href="tel:+2290199322477" class="cta-button primary">
+            <i class="fas fa-phone-alt"></i> Appelez-nous
+          </a>
+          <a href="mailto:contactbtece@gmail.com" class="cta-button secondary">
+            <i class="fas fa-envelope"></i> Envoyez un email
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="map-section">
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.556032788313!2d2.3557!3d6.4485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023556f5c9f9a3b%3A0x1a3e5f1b5e5b5e5b!2sAbomey-Calavi%2C%20B%C3%A9nin!5e0!3m2!1sfr!2sfr!4v1623258120912!5m2!1sfr!2sfr"
+          width="100%"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          title="Localisation BTECE à Abomey-Calavi"
+        >
+        </iframe>
+        <noscript>
+          <div class="map-fallback">
+            <a href="https://goo.gl/maps/XYZ123" target="_blank" rel="noopener">
+              <img
+                src="assets/images/map-static.jpg"
+                alt="Carte d'Abomey-Calavi"
+              />
+            </a>
+          </div>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- Modal d'envoi -->
+    <div class="send-modal" id="send-modal">
+      <div class="send-content">
+        <button class="close-send" id="close-send">
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="send-title">Comment souhaitez-vous envoyer votre message ?</h2>
+        <div class="send-options">
+          <button class="send-option" id="send-email">
+            <i class="fas fa-envelope"></i> Envoyer par Email
+          </button>
+          <button class="send-option" id="send-whatsapp">
+            <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>BTECE</h3>
+          <p>Innovation Technologique et Énergétique au Bénin</p>
+          <p>
+            Experts en énergies renouvelables, architecture, électricité
+            bâtiment et conception électronique.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Liens rapides</h3>
+          <a href="index.html">Accueil</a>
+          <a href="about.html">À propos</a>
+          <a href="services.html">Services</a>
+          <a href="projects.html">Projets</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Abomey-Calavi, Natitingou
+            Bénin
+          </p>
+          <p><i class="fas fa-phone"></i> +229 01 99 32 24 77</p>
+          <p><i class="fas fa-envelope"></i> contactbtece@gmail.com</p>
+          <div class="social-icons">
+            <a href="https://urlr.me/NfXpr" aria-label="Facebook BTECE"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" aria-label="LinkedIn BTECE"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://x.com/Baack_pro08?s=09" aria-label="Twitter BTECE"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="https://urlz.fr/u0pz" aria-label="Instagram BTECE"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://urlz.fr/u0pW" aria-label="YouTube BTECE"
+              ><i class="fab fa-youtube"></i
+            ></a>
+            <a href="https://wa.me/22999322477" aria-label="WhatsApp BTECE"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 BTECE. Tous droits réservés |.</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script type="module">
+      // Configuration EmailJS avec variables d'environnement
+      // Remplacez ces valeurs par vos variables d'environnement réelles
+      const EMAILJS_CONFIG = {
+        SERVICE_ID: "service_abc123",
+        TEMPLATE_ID: "template_xyz789",
+        PUBLIC_KEY: "user_abcdefghijk123456"
+      };
+
+      // Initialisation d'EmailJS
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+
+      // Variables globales
+      let formData = {};
+      
+      // Initialisation après chargement du DOM
+      document.addEventListener("DOMContentLoaded", function () {
+        // Références aux éléments du DOM
+        const contactForm = document.getElementById("contactForm");
+        const submitBtn = document.getElementById("submitBtn");
+        const successAlert = document.getElementById("successAlert");
+        const errorAlert = document.getElementById("errorAlert");
+        const sendModal = document.getElementById("send-modal");
+        const closeSend = document.getElementById("close-send");
+        const sendEmail = document.getElementById("send-email");
+        const sendWhatsapp = document.getElementById("send-whatsapp");
+        
+        // Éléments de validation
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const whatsappInput = document.getElementById("whatsapp");
+        const countryInput = document.getElementById("country");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
+        
+        // Fonctions de validation
+        function validateField(field, errorElement, validationFn) {
+          const isValid = validationFn(field.value);
+          if (!isValid) {
+            field.classList.add('error');
+            errorElement.style.display = 'block';
+            return false;
+          } else {
+            field.classList.remove('error');
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        function validateName(name) {
+          return name.trim().length >= 2;
+        }
+        
+        function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+        
+        function validateWhatsApp(whatsapp) {
+          return whatsapp.trim().length >= 8;
+        }
+        
+        function validateSelect(select) {
+          return select.value !== "";
+        }
+        
+        function validateMessage(message) {
+          return message.trim().length >= 10;
+        }
+        
+        // Validation en temps réel
+        nameInput.addEventListener('blur', () => {
+          validateField(nameInput, document.getElementById('nameError'), validateName);
+        });
+        
+        emailInput.addEventListener('blur', () => {
+          validateField(emailInput, document.getElementById('emailError'), validateEmail);
+        });
+        
+        whatsappInput.addEventListener('blur', () => {
+          validateField(whatsappInput, document.getElementById('whatsappError'), validateWhatsApp);
+        });
+        
+        countryInput.addEventListener('change', () => {
+          validateField(countryInput, document.getElementById('countryError'), validateSelect);
+        });
+        
+        subjectInput.addEventListener('change', () => {
+          validateField(subjectInput, document.getElementById('subjectError'), validateSelect);
+        });
+        
+        messageInput.addEventListener('blur', () => {
+          validateField(messageInput, document.getElementById('messageError'), validateMessage);
+        });
+        
+        // Validation complète du formulaire
+        function validateForm() {
+          const isNameValid = validateField(nameInput, document.getElementById('nameError'), validateName);
+          const isEmailValid = validateField(emailInput, document.getElementById('emailError'), validateEmail);
+          const isWhatsAppValid = validateField(whatsappInput, document.getElementById('whatsappError'), validateWhatsApp);
+          const isCountryValid = validateField(countryInput, document.getElementById('countryError'), validateSelect);
+          const isSubjectValid = validateField(subjectInput, document.getElementById('subjectError'), validateSelect);
+          const isMessageValid = validateField(messageInput, document.getElementById('messageError'), validateMessage);
+          
+          return isNameValid && isEmailValid && isWhatsAppValid && 
+                 isCountryValid && isSubjectValid && isMessageValid;
+        }
+
+        // Ouvrir le modal d'envoi
+        function openSendModal() {
+          sendModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        // Fermer le modal d'envoi
+        function closeSendModal() {
+          sendModal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+
+        // Générer le message WhatsApp
+        function generateWhatsAppMessage(data) {
+          let message = "Bonjour BTECE,\n\nJe souhaite vous contacter :\n\n";
+          message += `Nom: ${data.name}\n`;
+          message += `Email: ${data.email}\n`;
+          message += `Téléphone: ${data.phone || 'Non renseigné'}\n`;
+          message += `WhatsApp: ${data.whatsapp}\n`;
+          message += `Pays: ${data.country}\n`;
+          message += `Sujet: ${data.subject}\n\n`;
+          message += `Message:\n${data.message}\n\n`;
+          message += "Merci de me recontacter rapidement.";
+          
+          return encodeURIComponent(message);
+        }
+
+        // Envoyer par EmailJS
+        function sendByEmail(data) {
+          // Désactiver le bouton pendant l'envoi
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML = '<span class="loader"></span> Envoi en cours...';
+          submitBtn.disabled = true;
+
+          // Cacher les alertes précédentes
+          successAlert.style.display = "none";
+          errorAlert.style.display = "none";
+
+          // Envoyer l'email via EmailJS
+          emailjs
+            .send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, data)
+            .then(
+              function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+
+                // Afficher le message de succès
+                successAlert.style.display = "block";
+                successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Réinitialiser le formulaire
+                contactForm.reset();
+
+                // Réactiver le bouton
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message envoyé!';
+                submitBtn.style.backgroundColor = "var(--success-color)";
+
+                // Réinitialiser le bouton après 3 secondes
+                setTimeout(function () {
+                  submitBtn.innerHTML = originalText;
+                  submitBtn.disabled = false;
+                  submitBtn.style.backgroundColor = "";
+                }, 3000);
+              },
+              function (error) {
+                console.log("FAILED...", error);
+
+                // Afficher le message d'erreur
+                errorAlert.style.display = "block";
+                errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Réactiver le bouton
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Erreur, réessayer';
+                submitBtn.style.backgroundColor = "var(--error-color)";
+
+                // Réinitialiser le bouton après 3 secondes
+                setTimeout(function () {
+                  submitBtn.innerHTML = originalText;
+                  submitBtn.disabled = false;
+                  submitBtn.style.backgroundColor = "";
+                }, 3000);
+              }
+            );
+        }
+
+        // Envoyer par WhatsApp
+        function sendByWhatsApp(data) {
+          const message = generateWhatsAppMessage(data);
+          window.open(`https://wa.me/22999322477?text=${message}`, '_blank');
+          
+          // Réinitialiser le formulaire
+          contactForm.reset();
+          
+          // Afficher le message de succès
+          successAlert.textContent = "Votre message a été préparé pour WhatsApp!";
+          successAlert.style.display = "block";
+          successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Réinitialiser le bouton
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
+          submitBtn.disabled = false;
+        }
+
+        // Gestion de la soumission du formulaire
+        if (contactForm) {
+          contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            // Valider le formulaire
+            if (!validateForm()) {
+              // Faire défiler jusqu'au premier champ erroné
+              const firstError = document.querySelector('.error');
+              if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+              return;
+            }
+
+            // Récupérer les données du formulaire
+            formData = {
+              name: nameInput.value,
+              email: emailInput.value,
+              phone: document.getElementById("phone").value,
+              whatsapp: whatsappInput.value,
+              country: countryInput.options[countryInput.selectedIndex].text,
+              subject: subjectInput.value,
+              message: messageInput.value,
+              timestamp: new Date().toLocaleString('fr-FR')
+            };
+
+            // Ouvrir le modal de choix d'envoi
+            openSendModal();
+          });
+        }
+
+        // Gestion des événements du modal
+        closeSend.addEventListener('click', closeSendModal);
+        
+        sendEmail.addEventListener('click', function() {
+          closeSendModal();
+          sendByEmail(formData);
+        });
+        
+        sendWhatsapp.addEventListener('click', function() {
+          closeSendModal();
+          sendByWhatsApp(formData);
+        });
+
+        // Fermer le modal en cliquant à l'extérieur
+        sendModal.addEventListener('click', function(e) {
+          if (e.target === sendModal) {
+            closeSendModal();
+          }
+        });
+
+        // Navigation mobile
+        const burger = document.querySelector(".burger");
+        const navLinks = document.querySelector(".nav-links");
+
+        if (burger && navLinks) {
+          burger.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+            burger.classList.toggle("active");
+          });
+        }
+
+        // Fermer le menu mobile en cliquant sur un lien
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+          item.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+          });
+        });
+
+        // Animation au scroll - VERSION CORRIGÉE
+        function animateOnScroll() {
+          const elements = document.querySelectorAll(
+            ".contact-info, .contact-form, .map-container, .info-item, .form-group"
+          );
+
+          elements.forEach((element) => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight * 0.8;
+
+            if (elementPosition < screenPosition) {
+              element.classList.add("visible");
+            }
+          });
+        }
+
+        // Initial state for scroll animations
+        const animatedElements = document.querySelectorAll(
+          ".contact-info, .contact-form, .map-container, .info-item, .form-group"
+        );
+        
+        // Ajouter la classe visible progressivement avec un délai
+        let delay = 0;
+        document.querySelectorAll('.info-item').forEach((item, index) => {
+          item.style.transitionDelay = `${delay}ms`;
+          delay += 100;
+        });
+        
+        document.querySelectorAll('.form-group').forEach((item, index) => {
+          item.style.transitionDelay = `${delay}ms`;
+          delay += 100;
+        });
+
+        // Démarrer l'animation au chargement et au scroll
+        window.addEventListener("scroll", animateOnScroll);
+        window.addEventListener("load", animateOnScroll);
+        animateOnScroll(); // Trigger once on load
+      });
+    </script>
+    <script src="assets/js/mainv.js"></script>
+    <script src="assets/js/scriptv.js"></script>
+  </body>
+</html>

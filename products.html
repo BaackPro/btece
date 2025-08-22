@@ -1,0 +1,2307 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produits | BTECE - Équipements de haute qualité</title>
+    <meta
+      name="description"
+      content="Découvrez nos produits haut de gamme en énergies renouvelables, composants électroniques et appareils intelligents. Qualité professionnelle, dernières technologies."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="assets/favicon/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="manifest"
+      href="assets/favicon/site.webmanifest"
+      crossorigin="use-credentials"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Montserrat:wght@400;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Styles de base cohérents avec le site principal */
+      :root {
+        --primary-color: #1a2a3a;
+        --secondary-color: #2e86de;
+        --accent-color: #ee5253;
+        --light-color: #f5f6fa;
+        --dark-color: #1a2a3a;
+        --text-color: #2f3640;
+        --text-light: #7f8fa6;
+        --white: #ffffff;
+        --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.2);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 12px;
+        --border-gradient: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        background-color: var(--light-color);
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header - Cohérent avec le site principal */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition);
+        background-color: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+      }
+
+      .logo:hover {
+        transform: scale(1.03);
+      }
+
+      .logo-img {
+        height: 60px;
+        transition: var(--transition);
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+      }
+
+      .logo-text {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 1.8rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        transition: var(--transition);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 25px;
+      }
+
+      .nav-links a {
+        font-weight: 600;
+        position: relative;
+        padding: 5px 0;
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .nav-links a:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover:after,
+      .nav-links a.active:after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      .nav-links a.active {
+        color: var(--secondary-color);
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .burger:hover {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+      }
+
+      /* Hero Section Produits */
+      .products-hero {
+        height: 60vh;
+        min-height: 500px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(26, 42, 58, 0.9) 0%,
+            rgba(46, 134, 222, 0.8) 100%
+          ),
+          url("assets/images/products-bg.jpg") no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        margin-top: 80px;
+        position: relative;
+      }
+
+      .products-hero:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("assets/images/dots-pattern.png") repeat;
+        opacity: 0.1;
+      }
+
+      .products-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .products-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        font-family: "Montserrat", sans-serif;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+      }
+
+      .products-hero:hover h1 {
+        transform: translateY(-5px);
+        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .products-hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        transition: var(--transition);
+      }
+
+      .products-hero:hover p {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
+
+      /* Section Catégories */
+      .product-categories {
+        padding: 80px 0;
+        background-color: var(--white);
+      }
+
+      .section-title {
+        position: relative;
+        margin-bottom: 50px;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        transition: var(--transition);
+      }
+
+      .section-title:hover {
+        color: var(--secondary-color);
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+        transition: var(--transition);
+      }
+
+      .section-title:hover:after {
+        width: 120px;
+        background: var(--accent-color);
+      }
+
+      .category-tabs {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 40px;
+      }
+
+      .category-tab {
+        padding: 12px 25px;
+        background: var(--light-color);
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-tab:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--border-gradient);
+        transition: var(--transition);
+        z-index: -1;
+      }
+
+      .category-tab:hover:before,
+      .category-tab.active:before {
+        left: 0;
+        background: var(--border-gradient);
+      }
+
+      .category-tab:hover,
+      .category-tab.active {
+        color: var(--white);
+        border-color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Grille de produits */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        z-index: 1;
+      }
+
+      .product-card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--border-gradient);
+        opacity: 0;
+        z-index: -1;
+        transition: var(--transition);
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+        color: var(--white);
+      }
+
+      .product-card:hover:before {
+        opacity: 1;
+      }
+
+      .product-card:hover .product-title,
+      .product-card:hover .product-description,
+      .product-card:hover .spec-item,
+      .product-card:hover .product-price,
+      .product-card:hover .product-category {
+        color: var(--white);
+      }
+
+      .product-card:hover .product-image {
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+        background-color: transparent;
+      }
+
+      .product-card:hover .product-footer {
+        border-top-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--accent-color);
+        color: var(--white);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 2;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-badge {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-image {
+        height: 200px;
+        width: 100%;
+        object-fit: contain;
+        padding: 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        background-color: #f9f9f9;
+        transition: var(--transition);
+      }
+
+      .product-info {
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .product-category {
+        display: inline-block;
+        color: var(--secondary-color);
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        transition: var(--transition);
+        z-index: 2;
+        position: relative;
+      }
+
+      .product-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-family: "Montserrat", sans-serif;
+        transition: var(--transition);
+        z-index: 2;
+        position: relative;
+      }
+
+      .product-description {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: var(--transition);
+        z-index: 2;
+        position: relative;
+      }
+
+      .product-specs {
+        margin-bottom: 15px;
+      }
+
+      .spec-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        z-index: 2;
+        position: relative;
+      }
+
+      .spec-item i {
+        color: var(--secondary-color);
+        margin-right: 8px;
+        width: 16px;
+        text-align: center;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .spec-item i {
+        color: var(--white);
+      }
+
+      .product-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .product-price {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        transition: var(--transition);
+        z-index: 2;
+        position: relative;
+      }
+
+      .product-price .old-price {
+        text-decoration: line-through;
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-left: 5px;
+        transition: var(--transition);
+      }
+
+      .product-btn {
+        background: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .product-btn:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        z-index: -1;
+      }
+
+      .product-btn:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-btn:hover:before {
+        left: 100%;
+      }
+
+      /* Bouton consulter panier - Style brillant et clignotant */
+      .cart-button-container {
+        display: flex;
+        justify-content: center;
+        margin: 40px 0;
+      }
+
+      .cart-btn {
+        background: linear-gradient(135deg, #ff6b6b, #ee5253, #ff9f43);
+        background-size: 200% 200%;
+        color: var(--white);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite, shine 3s infinite, gradientMove 3s infinite alternate;
+      }
+
+      .cart-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(238, 82, 83, 0.4);
+        animation: none;
+      }
+
+      .cart-badge {
+        background: var(--white);
+        color: var(--accent-color);
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      /* Animations pour le bouton panier */
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(238, 82, 83, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(238, 82, 83, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(238, 82, 83, 0);
+        }
+      }
+
+      @keyframes shine {
+        0% {
+          background-position: -100% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Modal panier */
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .cart-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .cart-content {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 30px;
+        position: relative;
+        transform: translateY(-50px);
+        transition: var(--transition);
+      }
+
+      .cart-modal.active .cart-content {
+        transform: translateY(0);
+      }
+
+      .close-cart {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .close-cart:hover {
+        color: var(--accent-color);
+        transform: rotate(90deg);
+      }
+
+      .cart-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .cart-items {
+        margin-bottom: 30px;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-item-image {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-right: 15px;
+        background: #f9f9f9;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-family: "Montserrat", sans-serif;
+        color: var(--primary-color);
+      }
+
+      .cart-item-price {
+        color: var(--secondary-color);
+        font-weight: 600;
+      }
+
+      .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .quantity-btn {
+        background: var(--light-color);
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .quantity-btn:hover {
+        background: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .quantity-input {
+        width: 40px;
+        text-align: center;
+        margin: 0 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      .remove-item {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        cursor: pointer;
+        margin-left: 15px;
+        transition: var(--transition);
+      }
+
+      .remove-item:hover {
+        transform: scale(1.1);
+      }
+
+      .cart-summary {
+        background: var(--light-color);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .summary-total {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+
+      .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .continue-shopping {
+        background: var(--light-color);
+        color: var(--text-color);
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .continue-shopping:hover {
+        background: var(--text-light);
+        color: var(--white);
+      }
+
+      .checkout-btn {
+        background: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .checkout-btn:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 40px 0;
+        color: var(--text-light);
+      }
+
+      .empty-cart i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+      }
+
+      /* Section Features */
+      .features-section {
+        padding: 80px 0;
+        background-color: var(--light-color);
+      }
+
+      .features-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .feature-card {
+        background: var(--white);
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .feature-card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--border-gradient);
+        transition: var(--transition);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .feature-card:hover:before {
+        transform: scaleX(1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(5deg);
+        color: var(--accent-color);
+        animation: bounce 1s;
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0) scale(1.1) rotate(5deg);
+        }
+        40% {
+          transform: translateY(-10px) scale(1.1) rotate(5deg);
+        }
+        60% {
+          transform: translateY(-5px) scale(1.1) rotate(5deg);
+        }
+      }
+
+      .feature-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        font-family: "Montserrat", sans-serif;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover .feature-title {
+        color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+
+      .feature-text {
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .feature-card:hover .feature-text {
+        color: var(--text-color);
+      }
+
+      /* Footer - Cohérent avec le site principal */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--dark-color) 100%
+        );
+        color: var(--white);
+        padding: 80px 0 0;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-family: "Montserrat", sans-serif;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-section h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      .footer-section:hover h3:after {
+        width: 80px;
+        background: var(--accent-color);
+      }
+
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.8);
+        display: block;
+        margin-bottom: 10px;
+        transition: var(--transition);
+        text-decoration: none;
+        position: relative;
+        padding-left: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .footer-section a:before {
+        content: "→";
+        position: absolute;
+        left: -15px;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .footer-section a:hover {
+        color: var(--white);
+        padding-left: 15px;
+      }
+
+      .footer-section a:hover:before {
+        opacity: 1;
+        left: 0;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .social-icons a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--border-gradient);
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        transform: translateY(-5px);
+      }
+
+      .social-icons a:hover:before {
+        opacity: 1;
+        background: var(--border-gradient);
+      }
+
+      .social-icons a i {
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 20px 0;
+        background: rgba(0, 0, 0, 0.2);
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-bottom:hover {
+        color: var(--white);
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .products-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          transition: var(--transition);
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .burger {
+          display: block;
+          font-size: 1.5rem;
+        }
+
+        .products-hero {
+          height: 50vh;
+          min-height: 400px;
+          margin-top: 70px;
+        }
+
+        .products-hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .cart-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .cart-item-image {
+          margin-bottom: 10px;
+        }
+
+        .cart-item-quantity {
+          margin-top: 15px;
+        }
+
+        .cart-actions {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .products-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .products-hero p {
+          font-size: 1rem;
+        }
+
+        .category-tabs {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .cart-content {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barre de navigation -->
+    <header>
+      <nav class="navbar container">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo BTECE" class="logo-img" />
+          <div class="logo-text">BT<span>ECE</span></div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="products.html" class="active">Produits</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="burger" type="button" aria-label="Menu mobile">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Hero Section Produits -->
+    <section class="products-hero">
+      <div class="products-hero-content">
+        <h1>Nos Produits Haut de Gamme</h1>
+        <p>
+          Découvrez notre sélection d'équipements professionnels de dernière
+          génération pour vos projets en énergies renouvelables et électronique
+        </p>
+      </div>
+    </section>
+
+    <!-- Section Catégories de produits -->
+    <section class="product-categories">
+      <div class="container">
+        <h2 class="section-title">Nos Catégories de Produits</h2>
+
+        <div class="category-tabs">
+          <button class="category-tab active" type="button" data-category="energy">
+            Énergie Renouvelable
+          </button>
+          <button class="category-tab" type="button" data-category="electronics">
+            Composants Électroniques
+          </button>
+          <button class="category-tab" type="button" data-category="devices">
+            Appareils Électroniques
+          </button>
+        </div>
+
+        <!-- Énergie Renouvelable -->
+        <div class="products-grid" id="energy-products">
+          <!-- Panneau Solaire -->
+          <div class="product-card">
+            <span class="product-badge">Nouveau</span>
+            <img
+              src="assets/images/products/solar-panel.jpg"
+              alt="Panneau Solaire"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Énergie Solaire</span>
+              <h3 class="product-title">Panneau Solaire Monocristallin 400W</h3>
+              <p class="product-description">
+                Panneau solaire haut rendement (22%) avec technologie PERC,
+                idéal pour installations résidentielles et commerciales.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-bolt"></i> Puissance: 400W
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-tachometer-alt"></i> Rendement: 22%
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-shield-alt"></i> Garantie: 25 ans
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">
+                  125 000 FCFA <span class="old-price">145 000 FCFA</span>
+                </div>
+                <button class="product-btn" type="button" data-id="1" data-name="Panneau Solaire Monocristallin 400W" data-price="125000" data-image="assets/images/products/solar-panel.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Batterie Solaire -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/solar-battery.jpg"
+              alt="Batterie Solaire"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Énergie Solaire</span>
+              <h3 class="product-title">Batterie Gel 200Ah 12V</h3>
+              <p class="product-description">
+                Batterie solaire à technologie GEL, profonde décharge, cycle
+                profond (600 cycles à 50% DOD).
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-battery-full"></i> Capacité: 200Ah
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-undo"></i> Cycles: 600+
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-calendar-alt"></i> Durée de vie: 8 ans
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">105 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="2" data-name="Batterie Gel 200Ah 12V" data-price="105000" data-image="assets/images/products/solar-battery.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Régulateur Solaire -->
+          <div class="product-card">
+            <span class="product-badge">Best-seller</span>
+            <img
+              src="assets/images/products/solar-controller.jpg"
+              alt="Régulateur Solaire"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Énergie Solaire</span>
+              <h3 class="product-title">Régulateur MPPT 60A</h3>
+              <p class="product-description">
+                Régulateur de charge MPPT avec suivi point de puissance
+                maximale, efficacité jusqu'à 98%.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-tachometer-alt"></i> Efficacité: 98%
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-plug"></i> Entrée: 150V max
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-mobile-alt"></i> Bluetooth intégré
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">85 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="3" data-name="Régulateur MPPT 60A" data-price="85000" data-image="assets/images/products/solar-controller.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Convertisseur -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/inverter.jpg"
+              alt="Convertisseur"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Énergie Solaire</span>
+              <h3 class="product-title">Inverter hybrid 3000W</h3>
+              <p class="product-description">
+                Convertisseur 12/24V vers 230V pur sinus, idéal pour
+                applications sensibles.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-bolt"></i> Puissance: 3000W
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-wave-square"></i> Sortie: Pur Sinus
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-microchip"></i> Protection intégrée
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">220 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="4" data-name="Inverter hybrid 3000W" data-price="220000" data-image="assets/images/products/inverter.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lampadaire Solaire -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/solar-street-light.jpg"
+              alt="Lampadaire Solaire"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Éclairage Solaire</span>
+              <h3 class="product-title">Lampadaire Solaire 60W</h3>
+              <p class="product-description">
+                Lampadaire autonome avec détection de mouvement, autonomie 3
+                nuits sans soleil.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-sun"></i> Panneau: 80W
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-lightbulb"></i> LED: 6000 lumens
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-clock"></i> Autonomie: 12h/nuit
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">450 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="5" data-name="Lampadaire Solaire 60W" data-price="450000" data-image="assets/images/products/solar-street-light.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kit Solaire -->
+          <div class="product-card">
+            <span class="product-badge">Promo</span>
+            <img
+              src="assets/images/products/solar-kit.jpg"
+              alt="Kit Solaire"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Énergie Solaire</span>
+              <h3 class="product-title">Kit Solaire 3KVA Complet</h3>
+              <p class="product-description">
+                Kit complet pour maison avec 3 panneaux 400W, batterie 200Ah,
+                régulateur MPPT 60A et convertisseur 3KVA.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-solar-panel"></i> 3x Panneaux 400W
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-battery-full"></i> 2x Batterie 200Ah
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-plug"></i> Autonomie: 6kWh/jour
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">
+                  995 000 FCFA <span class="old-price">1 200 000 FCFA</span>
+                </div>
+                <button class="product-btn" type="button" data-id="6" data-name="Kit Solaire 3KVA Complet" data-price="995000" data-image="assets/images/products/solar-kit.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Composants Électroniques (caché par défaut) -->
+        <div
+          class="products-grid"
+          id="electronics-products"
+          style="display: none"
+        >
+          <!-- Arduino -->
+          <div class="product-card">
+            <span class="product-badge">Nouveau</span>
+            <img
+              src="assets/images/products/arduino.jpg"
+              alt="Arduino Uno"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Microcontrôleurs</span>
+              <h3 class="product-title">Arduino Uno R3</h3>
+              <p class="product-description">
+                Carte de développement avec microcontrôleur ATmega328P, 14 E/S
+                digitales, 6 analogiques, 32KB flash.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-microchip"></i> ATmega328P
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-memory"></i> 32KB Flash
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-plug"></i> 14 E/S Digitales
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">9 600 FCFA</div>
+                <button class="product-btn" type="button" data-id="7" data-name="Arduino Uno R3" data-price="9600" data-image="assets/images/products/arduino.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ESP32 -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/esp32.jpg"
+              alt="ESP32"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Microcontrôleurs</span>
+              <h3 class="product-title">ESP32 DevKit V1</h3>
+              <p class="product-description">
+                Module WiFi+Bluetooth double coeur, idéal pour IoT, avec 38
+                broches, 4MB flash, tension 3.3V.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-wifi"></i> WiFi + Bluetooth
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-tachometer-alt"></i> 240MHz Dual-Core
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-memory"></i> 4MB Flash
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">8 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="8" data-name="ESP32 DevKit V1" data-price="8000" data-image="assets/images/products/esp32.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Raspberry Pi -->
+          <div class="product-card">
+            <span class="product-badge">Best-seller</span>
+            <img
+              src="assets/images/products/raspberry.jpg"
+              alt="Raspberry Pi"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Micro-ordinateurs</span>
+              <h3 class="product-title">Raspberry Pi 4 Model B 4GB</h3>
+              <p class="product-description">
+                Mini-ordinateur avec processeur Quad-Core 1.5GHz, 4GB RAM, WiFi,
+                Bluetooth, 2x USB 3.0, 2x micro-HDMI.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-microchip"></i> Quad-Core 1.5GHz
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-memory"></i> 4GB RAM
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-wifi"></i> WiFi + Bluetooth
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">35 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="9" data-name="Raspberry Pi 4 Model B 4GB" data-price="35000" data-image="assets/images/products/raspberry.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Capteur Temp/Humidité -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/dht22.jpg"
+              alt="Capteur DHT22"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Capteurs</span>
+              <h3 class="product-title">Capteur DHT22 Temp/Humidité</h3>
+              <p class="product-description">
+                Capteur numérique haute précision pour température (-40°C à
+                80°C) et humidité (0-100% RH).
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-thermometer-half"></i> Temp: -40°C à 80°C
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-tint"></i> Humidité: 0-100% RH
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-bullseye"></i> Précision: ±0.5°C
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">6 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="10" data-name="Capteur DHT22 Temp/Humidité" data-price="6000" data-image="assets/images/products/dht22.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module RFID -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/rfid.jpg"
+              alt="Module RFID"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Modules</span>
+              <h3 class="product-title">Module RFID RC522</h3>
+              <p class="product-description">
+                Module lecteur RFID 13.56MHz avec antenne, compatible cartes
+                Mifare, portée jusqu'à 5cm.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-wifi"></i> Fréquence: 13.56MHz
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-ruler"></i> Portée: 5cm
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-microchip"></i> Interface: SPI
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">15 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="11" data-name="Module RFID RC522" data-price="15000" data-image="assets/images/products/rfid.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kit Débutant -->
+          <div class="product-card">
+            <span class="product-badge">Promo</span>
+            <img
+              src="assets/images/products/starter-kit.jpg"
+              alt="Kit Débutant"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Kits</span>
+              <h3 class="product-title">Kit Débutant Électronique</h3>
+              <p class="product-description">
+                Kit complet avec Arduino UNO, breadboard, câbles, résistances,
+                LED, capteurs et manuel d'apprentissage.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-box-open"></i> 200+ composants
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-book"></i> Manuel inclus
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-project-diagram"></i> 15 projets guidés
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">
+                  45 000 FCFA <span class="old-price">55 000 FCFA</span>
+                </div>
+                <button class="product-btn" type="button" data-id="12" data-name="Kit Débutant Électronique" data-price="45000" data-image="assets/images/products/starter-kit.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appareils Électroniques (caché par défaut) -->
+        <div class="products-grid" id="devices-products" style="display: none">
+          <!-- Détecteur Incendie -->
+          <div class="product-card">
+            <span class="product-badge">Nouveau</span>
+            <img
+              src="assets/images/products/fire-detector.jpg"
+              alt="Détecteur Incendie"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Sécurité</span>
+              <h3 class="product-title">Détecteur Incendie Intelligent</h3>
+              <p class="product-description">
+                Détecte fumée et chaleur, alerte smartphone, autonomie 5 ans,
+                compatible WiFi et GSM.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-fire"></i> Détection fumée/chaleur
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-bell"></i> Alerte smartphone
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-battery-full"></i> Autonomie: 5 ans
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">250 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="13" data-name="Détecteur Incendie Intelligent" data-price="250000" data-image="assets/images/products/fire-detector.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrôle Accès Empreinte -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/fingerprint.jpg"
+              alt="Contrôle Accès Empreinte"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Sécurité</span>
+              <h3 class="product-title">Contrôle Accès Empreinte Digitale</h3>
+              <p class="product-description">
+                Système de contrôle d'accès biométrique avec mémoire de 1000
+                empreintes, sortie relais.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-fingerprint"></i> 1000 empreintes
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-clock"></i> Reconnaissance: 0.5s
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-plug"></i> Sortie relais 12V
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">250 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="14" data-name="Contrôle Accès Empreinte Digitale" data-price="250000" data-image="assets/images/products/fingerprint.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrôle Accès RFID -->
+          <div class="product-card">
+            <span class="product-badge">Best-seller</span>
+            <img
+              src="assets/images/products/rfid-access.jpg"
+              alt="Contrôle Accès RFID"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Sécurité</span>
+              <h3 class="product-title">Contrôle Accès RFID + Keypad</h3>
+              <p class="product-description">
+                Système combiné RFID (125kHz) et clavier numérique, mémoire 1000
+                cartes/codes, sortie relais.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-id-card"></i> 1000 cartes RFID
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-keyboard"></i> Clavier numérique
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-database"></i> Journal des accès
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">650 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="15" data-name="Contrôle Accès RFID + Keypad" data-price="650000" data-image="assets/images/products/rfid-access.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reconnaissance Faciale -->
+          <div class="product-card">
+            <img
+              src="assets/images/products/tracker-security.jpg"
+              alt="Système de Sécurité"
+              class="product-image"
+            />
+            <div class="product-info">
+              <span class="product-category">Sécurité</span>
+              <h3 class="product-title">Système de Sécurité géolocalisation</h3>
+              <p class="product-description">
+                Permet de suivre et de localiser des personnes ou des biens,
+                offrant ainsi une protection accrue en cas de kidnapping ou de
+                vol, d'urgence ou de besoin de suivi. Alerte SMS &amp; CALL.
+              </p>
+              <div class="product-specs">
+                <div class="spec-item">
+                  <i class="fas fa-map-marker-alt"></i> GPRS GPS - GSM
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-map"></i> Localisation: Google Map
+                </div>
+                <div class="spec-item">
+                  <i class="fas fa-robot"></i> Technologie AI
+                </div>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">260 000 FCFA</div>
+                <button class="product-btn" type="button" data-id="16" data-name="Système de Sécurité géolocalisation" data-price="260000" data-image="assets/images/products/tracker-security.jpg">
+                  Ajouter au panier <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bouton consulter panier -->
+        <div class="cart-button-container">
+          <button class="cart-btn" id="view-cart-btn">
+            <i class="fas fa-shopping-cart"></i> Consulter votre Panier
+            <span class="cart-badge" id="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Caractéristiques -->
+    <section class="features-section">
+      <div class="container">
+        <h2 class="section-title">Pourquoi Nos Produits ?</h2>
+
+        <div class="features-container">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h3 class="feature-title">Qualité Professionnelle</h3>
+            <p class="feature-text">
+              Tous nos produits répondent aux normes internationales les plus
+              strictes et sont testés rigoureusement. Certains de ces produits
+              sont de notre marque "BAACK"
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h3 class="feature-title">Dernière Technologie</h3>
+            <p class="feature-text">
+              Nous proposons uniquement des équipements de dernière génération
+              avec les innovations les plus récentes.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Garantie Étendue</h3>
+            <p class="feature-text">
+              Tous nos produits bénéficient d'une garantie minimum de 2 ans,
+              avec support technique inclus.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h3 class="feature-title">Support Technique</h3>
+            <p class="feature-text">
+              Notre équipe d'experts est disponible pour vous accompagner dans
+              l'installation et l'utilisation des produits.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3 class="feature-title">Haute Performance</h3>
+            <p class="feature-text">
+              Des produits conçus pour offrir le meilleur rendement et la plus
+              longue durée de vie possible.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3 class="feature-title">Éco-responsable</h3>
+            <p class="feature-text">
+              Nos solutions énergétiques réduisent votre empreinte carbone tout
+              en optimisant vos performances.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal panier -->
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <button class="close-cart" id="close-cart">
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="cart-title">Votre Panier</h2>
+        <div class="cart-items" id="cart-items">
+          <!-- Les éléments du panier seront insérés ici dynamiquement -->
+          <div class="empty-cart" id="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Votre panier est vide</p>
+          </div>
+        </div>
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+          <div class="summary-row">
+            <span>Sous-total:</span>
+            <span id="cart-subtotal">0 FCFA</span>
+          </div>
+          <div class="summary-row">
+            <span>Frais de livraison:</span>
+            <span>À déterminer</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total:</span>
+            <span id="cart-total">0 FCFA</span>
+          </div>
+        </div>
+        <div class="cart-actions" id="cart-actions" style="display: none;">
+          <button class="continue-shopping" id="continue-shopping">
+            Continuer vos achats
+          </button>
+          <a href="#" class="checkout-btn" id="whatsapp-order">
+            <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>BTECE</h3>
+            <p>Innovation Technologique et Énergétique au Bénin</p>
+            <p>
+              Experts en énergies renouvelables, architecture, électricité
+              bâtiment et conception électronique.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Liens rapides</h3>
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="products.html" class="active">Produits</a>
+            <a href="projects.html">Projets</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Abomey-Calavi, Natitingou,
+              Bénin
+            </p>
+            <p><i class="fas fa-phone"></i> +229 01 99 32 24 77</p>
+            <p><i class="fas fa-envelope"></i> contactbtece@gmail.com</p>
+            <div class="social-icons">
+              <a href="https://urlr.me/NfXpr" aria-label="Facebook BTECE"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn BTECE"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="https://x.com/Baack_pro08?s=09" aria-label="Twitter BTECE"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://urlz.fr/u0pz" aria-label="Instagram BTECE"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://urlz.fr/u0pW" aria-label="YouTube BTECE"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a href="https://wa.me/22999322477" aria-label="WhatsApp BTECE"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 BTECE. Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Gestion du panier
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartCount = document.getElementById('cart-count');
+      const cartModal = document.getElementById('cart-modal');
+      const viewCartBtn = document.getElementById('view-cart-btn');
+      const closeCartBtn = document.getElementById('close-cart');
+      const cartItems = document.getElementById('cart-items');
+      const emptyCart = document.getElementById('empty-cart');
+      const cartSummary = document.getElementById('cart-summary');
+      const cartActions = document.getElementById('cart-actions');
+      const cartSubtotal = document.getElementById('cart-subtotal');
+      const cartTotal = document.getElementById('cart-total');
+      const continueShopping = document.getElementById('continue-shopping');
+      const whatsappOrder = document.getElementById('whatsapp-order');
+
+      // Mettre à jour le compteur du panier
+      function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = totalItems;
+      }
+
+      // Ajouter un produit au panier
+      function addToCart(product) {
+        const existingProduct = cart.find(item => item.id === product.id);
+        
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: parseInt(product.price),
+            image: product.image,
+            quantity: 1
+          });
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showNotification(`${product.name} a été ajouté au panier`);
+      }
+
+      // Supprimer un produit du panier
+      function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+
+      // Modifier la quantité d'un produit
+      function updateQuantity(productId, newQuantity) {
+        if (newQuantity < 1) return;
+        
+        const product = cart.find(item => item.id === productId);
+        if (product) {
+          product.quantity = newQuantity;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+          renderCart();
+        }
+      }
+
+      // Afficher une notification
+      function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'var(--secondary-color)';
+        notification.style.color = 'white';
+        notification.style.padding = '10px 20px';
+        notification.style.borderRadius = '5px';
+        notification.style.boxShadow = 'var(--shadow)';
+        notification.style.zIndex = '1000';
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transition = 'opacity 0.5s';
+          setTimeout(() => document.body.removeChild(notification), 500);
+        }, 3000);
+      }
+
+      // Rendu du panier
+      function renderCart() {
+        if (cart.length === 0) {
+          emptyCart.style.display = 'block';
+          cartSummary.style.display = 'none';
+          cartActions.style.display = 'none';
+          return;
+        }
+        
+        emptyCart.style.display = 'none';
+        cartSummary.style.display = 'block';
+        cartActions.style.display = 'flex';
+        
+        let subtotal = 0;
+        cartItems.innerHTML = '';
+        
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          
+          const cartItem = document.createElement('div');
+          cartItem.className = 'cart-item';
+          cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details">
+              <h3 class="cart-item-name">${item.name}</h3>
+              <div class="cart-item-price">${formatPrice(item.price)} FCFA</div>
+              <div class="cart-item-quantity">
+                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                <button class="remove-item" data-id="${item.id}">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          
+          cartItems.appendChild(cartItem);
+        });
+        
+        cartSubtotal.textContent = `${formatPrice(subtotal)} FCFA`;
+        cartTotal.textContent = `${formatPrice(subtotal)} FCFA`;
+        
+        // Ajouter les écouteurs d'événements pour les boutons de quantité
+        document.querySelectorAll('.decrease').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
+            const product = cart.find(item => item.id === id);
+            if (product) {
+              updateQuantity(id, product.quantity - 1);
+            }
+          });
+        });
+        
+        document.querySelectorAll('.increase').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
+            const product = cart.find(item => item.id === id);
+            if (product) {
+              updateQuantity(id, product.quantity + 1);
+            }
+          });
+        });
+        
+        document.querySelectorAll('.quantity-input').forEach(input => {
+          input.addEventListener('change', (e) => {
+            const id = e.target.getAttribute('data-id');
+            const newQuantity = parseInt(e.target.value);
+            if (!isNaN(newQuantity)) {
+              updateQuantity(id, newQuantity);
+            }
+          });
+        });
+        
+        document.querySelectorAll('.remove-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.closest('.remove-item').getAttribute('data-id');
+            removeFromCart(id);
+          });
+        });
+      }
+
+      // Formater le prix
+      function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      }
+
+      // Générer le message WhatsApp
+      function generateWhatsAppMessage() {
+        let message = "Bonjour BTECE,\n\nJe souhaite commander les produits suivants :\n\n";
+        
+        cart.forEach(item => {
+          message += `- ${item.name} (x${item.quantity}) : ${formatPrice(item.price * item.quantity)} FCFA\n`;
+        });
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        message += `\nTotal : ${formatPrice(total)} FCFA\n\n`;
+        message += "Merci de me recontacter pour finaliser la commande.";
+        
+        return encodeURIComponent(message);
+      }
+
+      // Ouvrir le panier
+      function openCart() {
+        renderCart();
+        cartModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Fermer le panier
+      function closeCart() {
+        cartModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Vider le panier après commande
+      function clearCart() {
+        cart = [];
+        localStorage.removeItem('cart');
+        updateCartCount();
+        renderCart();
+      }
+
+      // Initialisation
+      document.addEventListener('DOMContentLoaded', () => {
+        updateCartCount();
+        
+        // Écouteurs d'événements pour les boutons "Ajouter au panier"
+        document.querySelectorAll('.product-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const product = {
+              id: e.target.closest('.product-btn').getAttribute('data-id'),
+              name: e.target.closest('.product-btn').getAttribute('data-name'),
+              price: parseInt(e.target.closest('.product-btn').getAttribute('data-price')),
+              image: e.target.closest('.product-btn').getAttribute('data-image')
+            };
+            addToCart(product);
+          });
+        });
+        
+        // Écouteurs pour le panier
+        viewCartBtn.addEventListener('click', openCart);
+        closeCartBtn.addEventListener('click', closeCart);
+        continueShopping.addEventListener('click', closeCart);
+        
+        // Écouteur pour la commande WhatsApp
+        whatsappOrder.addEventListener('click', (e) => {
+          e.preventDefault();
+          const message = generateWhatsAppMessage();
+          window.open(`https://wa.me/22999322477?text=${message}`, '_blank');
+          clearCart();
+          closeCart();
+          showNotification('Votre commande a été envoyée avec succès !');
+        });
+        
+        // Fermer le panier en cliquant à l'extérieur
+        cartModal.addEventListener('click', (e) => {
+          if (e.target === cartModal) {
+            closeCart();
+          }
+        });
+      });
+
+      // Navigation entre catégories de produits
+      const categoryTabs = document.querySelectorAll(".category-tab");
+      const productGrids = {
+        energy: document.getElementById("energy-products"),
+        electronics: document.getElementById("electronics-products"),
+        devices: document.getElementById("devices-products"),
+      };
+
+      categoryTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Retirer la classe active de tous les onglets
+          categoryTabs.forEach((t) => t.classList.remove("active"));
+
+          // Ajouter la classe active à l'onglet cliqué
+          tab.classList.add("active");
+
+          // Cacher toutes les grilles de produits
+          Object.values(productGrids).forEach((grid) => {
+            grid.style.display = "none";
+          });
+
+          // Afficher la grille correspondante
+          const category = tab.getAttribute("data-category");
+          productGrids[category].style.display = "grid";
+        });
+      });
+
+      // Menu Burger
+      const burger = document.querySelector(".burger");
+      const navLinks = document.querySelector(".nav-links");
+
+      burger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        burger.classList.toggle("active");
+      });
+
+      // Animation au défilement
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 50) {
+          header.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.1)";
+        } else {
+          header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
+        }
+      });
+
+      // Animation des éléments
+      const animateOnScroll = function () {
+        const elements = document.querySelectorAll(
+          ".product-card, .feature-card",
+        );
+
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.2;
+
+          if (elementPosition < screenPosition) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }
+        });
+      };
+
+      // Initial state for animations
+      const animatedElements = document.querySelectorAll(
+        ".product-card, .feature-card",
+      );
+      animatedElements.forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 0.6s ease-out";
+      });
+
+      window.addEventListener("scroll", animateOnScroll);
+      animateOnScroll(); // Trigger on load
+
+      // Fermer le menu mobile lorsqu'un lien est cliqué
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+          burger.classList.remove("active");
+        });
+      });
+    </script>
+    <script src="assets/js/maicn.js"></script>
+    <script src="assets/js/scrvcipt.js"></script>
+  </body>
+</html>

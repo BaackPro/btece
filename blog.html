@@ -1,0 +1,1168 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | BTECE - Solutions Innovantes en Énergie et Technologie</title>
+    <meta name="description" content="Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle et les innovations technologiques avec BTECE.">
+    <meta name="keywords" content="blog énergies renouvelables, intelligence artificielle, solaire, innovations technologiques, BTECE">
+    
+    <!-- Chargement de Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles spécifiques à la page Blog -->
+    <style>
+        /* Styles de base cohérents avec le site BTECE */
+        :root {
+            --primary-color: #1a2a3a;
+            --secondary-color: #2e86de;
+            --accent-color: #ee5253;
+            --light-color: #f5f6fa;
+            --dark-color: #1a2a3a;
+            --text-color: #2f3640;
+            --text-light: #7f8fa6;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --logo-size: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--light-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            box-shadow: 0 4px 10px rgba(46, 134, 222, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #25c78c;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--white);
+            box-shadow: 0 4px 10px rgba(238, 82, 83, 0.3);
+        }
+
+        .btn-accent:hover {
+            background-color: #ff6b6b;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        /* Header et Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-img {
+            width: auto;
+            height: var(--logo-size);
+            vertical-align: middle;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            background: linear-gradient(
+                135deg,
+                var(--primary-color) 0%,
+                var(--secondary-color) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-text {
+            background: linear-gradient(
+                135deg,
+                var(--secondary-color) 0%,
+                var(--accent-color) 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary-color);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section Blog */
+        .blog-hero {
+            height: 50vh;
+            min-height: 400px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(26, 42, 58, 0.9) 0%,
+                    rgba(46, 134, 222, 0.8) 100%
+                ),
+                url("https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80") no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .blog-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: "Montserrat", sans-serif;
+            line-height: 1.2;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Blog Content */
+        .blog-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: 7fr 3fr;
+            gap: 40px;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-post {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .post-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 20px;
+        }
+
+        .post-category {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .category-solaire {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .category-ia {
+            background-color: rgba(58, 83, 155, 0.2);
+            color: #3a539b;
+        }
+
+        .category-innovation {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-family: "Montserrat", sans-serif;
+            color: var(--primary-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .read-more {
+            color: var(--secondary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+            gap: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar-widget {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-family: "Montserrat", sans-serif;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .widget-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color);
+        }
+
+        .categories-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        .categories-list span {
+            background: var(--light-color);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .recent-posts li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recent-posts li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .recent-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .recent-post-content .post-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 5px 15px;
+            background: var(--light-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .page-link:hover, .page-link.active {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 60px 0;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+
+        .newsletter-section .container {
+            max-width: 600px;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-family: "Montserrat", sans-serif;
+            position: relative;
+        }
+
+        .newsletter-section h2:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .newsletter-section p {
+            margin-bottom: 30px;
+            color: var(--text-light);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 15px;
+            border-radius: 50px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form button {
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(
+                135deg,
+                var(--primary-color) 0%,
+                var(--dark-color) 100%
+            );
+            color: var(--white);
+            padding: 80px 0 0;
+            position: relative;
+        }
+
+        footer:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-section {
+            padding: 0 15px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-family: "Montserrat", sans-serif;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .footer-section p {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+            padding-left: 5px;
+            transform: translateX(5px);
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .contact-info p:hover {
+            color: var(--white);
+        }
+
+        .contact-info p:hover i {
+            transform: scale(1.2);
+        }
+
+        .contact-info i {
+            width: 20px;
+            text-align: center;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .social-icons a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 70%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .burger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.active .line2 {
+                opacity: 0;
+            }
+
+            .burger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .blog-hero {
+                min-height: 350px;
+            }
+
+            .blog-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <header>
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <div class="logo-img" style="background-color: #2e86de; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">BT</div>
+                <div class="logo-text">BT<span>ECE</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Produits</a></li>
+                <li><a href="projects.html">Projets</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+            <div
+                class="burger"
+                role="button"
+                aria-expanded="false"
+                tabindex="0"
+            >
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1>Blog BTECE</h1>
+            <p>Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle et les innovations technologiques</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-section">
+        <div class="container">
+            <h2 class="section-title">Articles Récents</h2>
+            
+            <div class="blog-container">
+                <div class="blog-posts">
+                    <!-- Article 1 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Énergie solaire en Afrique" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-solaire">Énergie Solaire</span>
+                            <h3 class="post-title">L'énergie solaire en Afrique : opportunités et défis</h3>
+                            <p class="post-excerpt">Découvrez comment l'énergie solaire transforme le paysage énergétique africain et les défis à relever pour une adoption massive.</p>
+                            <div class="post-meta">
+                                <span>15 Juin 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1534723452862-4c8743d9d6f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="IA dans le secteur énergétique" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-ia">Intelligence Artificielle</span>
+                            <h3 class="post-title">L'IA au service de l'efficacité énergétique</h3>
+                            <p class="post-excerpt">Comment l'intelligence artificielle révolutionne la gestion de l'énergie et optimise la consommation dans les foyers et les industries.</p>
+                            <div class="post-meta">
+                                <span>2 Juin 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Innovations vertes" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-innovation">Innovation</span>
+                            <h3 class="post-title">Les 10 innovations vertes qui vont changer l'Afrique</h3>
+                            <p class="post-excerpt">Découvrez les innovations technologiques durables qui transforment le continent africain et améliorent la vie de millions de personnes.</p>
+                            <div class="post-meta">
+                                <span>20 Mai 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 4 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1601042879367-294bcf3d6c2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Stockage énergie solaire" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-solaire">Énergie Solaire</span>
+                            <h3 class="post-title">Solutions de stockage pour l'énergie solaire</h3>
+                            <p class="post-excerpt">Explorez les dernières avancées en matière de stockage d'énergie solaire et comment elles rendent les systèmes plus efficaces et accessibles.</p>
+                            <div class="post-meta">
+                                <span>10 Mai 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 5 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Smart Grids en Afrique" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-innovation">Innovation</span>
+                            <h3 class="post-title">Smart Grids : l'avenir des réseaux électriques en Afrique</h3>
+                            <p class="post-excerpt">Comment les réseaux électriques intelligents peuvent moderniser les infrastructures énergétiques africaines et améliorer la distribution.</p>
+                            <div class="post-meta">
+                                <span>28 Avril 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 6 -->
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="IA prédictive pour l'énergie" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category category-ia">Intelligence Artificielle</span>
+                            <h3 class="post-title">L'IA prédictive pour la maintenance des installations solaires</h3>
+                            <p class="post-excerpt">Découvrez comment l'IA prédictive permet d'anticiper les pannes et d'optimiser la maintenance des installations d'énergie renouvelable.</p>
+                            <div class="post-meta">
+                                <span>15 Avril 2023</span>
+                                <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Widget Catégories -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Catégories</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Énergie Solaire <span>12</span></a></li>
+                            <li><a href="#">Intelligence Artificielle <span>8</span></a></li>
+                            <li><a href="#">Innovation Technologique <span>15</span></a></li>
+                            <li><a href="#">Efficacité Énergétique <span>7</span></a></li>
+                            <li><a href="#">Développement Durable <span>9</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Widget Articles Récents -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Articles Récents</h3>
+                        <ul class="recent-posts">
+                            <li>
+                                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Énergie solaire en Afrique" class="recent-post-img">
+                                <div class="recent-post-content">
+                                    <h4><a href="#">L'énergie solaire en Afrique : opportunités et défis</a></h4>
+                                    <span class="post-date">15 Juin 2023</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://images.unsplash.com/photo-1534723452862-4c8743d9d6f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="IA dans le secteur énergétique" class="recent-post-img">
+                                <div class="recent-post-content">
+                                    <h4><a href="#">L'IA au service de l'efficacité énergétique</a></h4>
+                                    <span class="post-date">2 Juin 2023</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Innovations vertes" class="recent-post-img">
+                                <div class="recent-post-content">
+                                    <h4><a href="#">Les 10 innovations vertes qui vont changer l'Afrique</a></h4>
+                                    <span class="post-date">20 Mai 2023</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Widget Tags -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Mots-clés</h3>
+                        <div class="tags-cloud">
+                            <a href="#" class="tag">Solaire</a>
+                            <a href="#" class="tag">IA</a>
+                            <a href="#" class="tag">Innovation</a>
+                            <a href="#" class="tag">Énergie</a>
+                            <a href="#" class="tag">Durable</a>
+                            <a href="#" class="tag">Technologie</a>
+                            <a href="#" class="tag">Afrique</a>
+                            <a href="#" class="tag">Bénin</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Restez informé</h2>
+            <p>Abonnez-vous à notre newsletter pour recevoir les derniers articles et actualités de BTECE.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Votre adresse email" required />
+                <button type="submit" class="btn btn-primary">S'abonner</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BTECE</h3>
+                    <p>
+                        Leader en solutions technologiques et énergétiques innovantes au
+                        Bénin. Nous transformons les idées en réalité grâce à notre
+                        expertise multidisciplinaire et notre engagement envers le
+                        développement durable.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens rapides</h3>
+                    <a href="index.html">Accueil</a>
+                    <a href="about.html">À propos</a>
+                    <a href="services.html">Services</a>
+                    <a href="products.html">Produits</a>
+                    <a href="projects.html">Projets</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                    
+                    <a href="https://btece-formation.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        >Formations en ligne</a
+                    >
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Abomey-Calavi, Bénin</p>
+                        <p><i class="fas fa-phone"></i> +229 01 99 32 24 77</p>
+                        <p><i class="fas fa-envelope"></i> contactbtece@gmail.com</p>
+                        <p><i class="fas fa-clock"></i> Lun-Ven: 8h-18h</p>
+                    </div>
+                    <div class="social-icons">
+                        <a
+                            href="https://urlr.me/NfXpr"
+                            aria-label="Suivez-nous sur Facebook"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-facebook-f"></i
+                        ></a>
+                        <a
+                            href="https://linkedin.com/company/btece"
+                            aria-label="Suivez-nous sur LinkedIn"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-linkedin-in"></i
+                        ></a>
+                        <a
+                            href="https://x.com/Baack_pro08?s=09"
+                            aria-label="Suivez-nous sur Twitter"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-twitter"></i
+                        ></a>
+                        <a
+                            href="https://urlz.fr/u0pz"
+                            aria-label="Suivez-nous sur Instagram"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-instagram"></i
+                        ></a>
+                        <a
+                            href="https://urlz.fr/u0pW"
+                            aria-label="Visitez notre chaîne YouTube"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-youtube"></i
+                        ></a>
+                        <a
+                            href="https://wa.me/22999322477"
+                            aria-label="Contactez-nous sur WhatsApp"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            ><i class="fab fa-whatsapp"></i
+                        ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BTECE. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Burger avec amélioration d'accessibilité
+        const burger = document.querySelector(".burger");
+        const navLinks = document.querySelector(".nav-links");
+        const navItems = document.querySelectorAll(".nav-links a");
+
+        burger.addEventListener("click", () => {
+            const isExpanded = burger.getAttribute("aria-expanded") === "true";
+            burger.setAttribute("aria-expanded", !isExpanded);
+            navLinks.classList.toggle("active");
+            burger.classList.toggle("active");
+            document.body.classList.toggle("no-scroll");
+        });
+
+        // Gestion de l'accessibilité clavier pour le menu burger
+        burger.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                burger.click();
+            }
+        });
+
+        // Fermer le menu mobile après clic sur un lien
+        navItems.forEach((item) => {
+            item.addEventListener("click", () => {
+                if (navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    burger.classList.remove("active");
+                    burger.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("no-scroll");
+                }
+            });
+        });
+
+        // Animation au défilement
+        window.addEventListener("scroll", () => {
+            const header = document.querySelector("header");
+            if (window.scrollY > 50) {
+                header.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.1)";
+                header.style.backdropFilter = "blur(10px)";
+            } else {
+                header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
+                header.style.backdropFilter = "blur(5px)";
+            }
+        });
+
+        // Gestion du formulaire de newsletter
+        document
+            .querySelector(".newsletter-form")
+            .addEventListener("submit", function (e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                // Ici vous pourriez ajouter une requête AJAX pour envoyer l'email
+                alert(`Merci pour votre inscription avec l'email: ${email}`);
+                this.reset();
+            });
+    </script>
+    <script src="assets/js/mainv.js"></script>
+    <script src="assets/js/scriptv.js"></script>
+</body>
+</html>
