@@ -1,58 +1,39 @@
 
 [build]
-  publish = "."  # Répertoire de build (racine pour un site statique)
-  command = "echo 'Build réussi'"  # Commande de build (vide pour site statique)
+  publish = "."
+  command = "echo 'Build réussi - Site statique BTECE'"
 
-# Paramètres de build et déploiement
 [build.environment]
-  NODE_VERSION = "18"  # Version de Node.js
+  NODE_VERSION = "18"
 
-# Redirections et réécritures d'URL
-[[redirects]]
-  from = "/apropos"
-  to = "/about.html"
-  status = 301
+[dev]
+  port = 3000
+  publish = "."
 
-[[redirects]]
-  from = "/services"
-  to = "/services.html"
-  status = 301
-
-[[redirects]]
-  from = "/produits"
-  to = "/products.html"
-  status = 301
-
-[[redirects]]
-  from = "/projets"
-  to = "/projects.html"
-  status = 301
-
-[[redirects]]
-  from = "/blog"
-  to = "/blog.html"
-  status = 301
-
-[[redirects]]
-  from = "/contact"
-  to = "/contact.html"
-  status = 301
-
-[[redirects]]
-  from = "/accueil"
-  to = "/index.html"
-  status = 301
-
-# Redirection de la racine du domaine nu
-[[redirects]]
-  from = "https://btece.netlify.app/*"
-  to = "https://www.btece.com/:splat"
-  status = 301
-  force = true
-
-# Gestion des pages 404
+# Redirection SPA (Single Page Application)
 [[redirects]]
   from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Redirections de sécurité
+[[redirects]]
+  from = "/.env"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/.git/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/.env.*"
   to = "/404.html"
   status = 404
 
@@ -60,131 +41,45 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    # Protection XSS
-    X-XSS-Protection = "1; mode=block"
-    # Empêcher le MIME-sniffing
-    X-Content-Type-Options = "nosniff"
-    # Referrer Policy
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    # Permissions Policy
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    # Prévention du clickjacking
     X-Frame-Options = "DENY"
-    # Feature Policy (pour compatibilité)
-    Feature-Policy = "geolocation 'none'; microphone 'none'; camera 'none'"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
+# Cache pour les assets statiques
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    # Cache les assets statiques pendant 1 an
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.js"
+  for = "/*.css"
   [headers.values]
-    # Headers spécifiques pour les fichiers JavaScript
-    X-Content-Type-Options = "nosniff"
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.css"
+  for = "/*.js"
   [headers.values]
-    # Headers spécifiques pour les fichiers CSS
-    X-Content-Type-Options = "nosniff"
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.html"
+  for = "/*.woff2"
   [headers.values]
-    # Pas de cache pour les pages HTML
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Paramètres de fonctionnalités Netlify
-[functions]
-  # Répertoire des fonctions serverless
-  directory = "functions/"
-
-# Intégrations
+# Variables d'environnement par contexte
 [context.production.environment]
-  # Variables d'environnement pour la production
-  EMAILJS_SERVICE_ID = "service_abc123"
-  EMAILJS_TEMPLATE_ID = "template_xyz789"
-  EMAILJS_PUBLIC_KEY = "user_abcdefghijk123456"
+  NODE_ENV = "production"
+  SITE_URL = "https://btece.netlify.app/"
 
 [context.deploy-preview.environment]
-  # Variables pour les previews de déploiement
   NODE_ENV = "development"
 
 [context.branch-deploy.environment]
-  # Variables pour les déploiements de branches
   NODE_ENV = "development"
-
-# Paramètres de traitement des formulaires
-[forms]
-  # Détection automatique des formulaires
-  honey-pot = "hp_"
-  # Détection de spam
-  spam-filter = true
-
-# Paramètres de sécurité avancés
-[security]
-  [security.http]
-    # Strict Transport Security
-    [security.http.strict_transport_security]
-      enable = true
-      max_age = 31536000
-      include_subdomains = true
-      preload = true
-
-# Paramètres de compression
-[compression]
-  # Compression Gzip et Brotli
-  gzip = true
-  brotli = true
-
-# Paramètres de build optimisé
-[build.processing]
-  # Optimisation des images
-  image_optimization = true
-  # Minification HTML
-  html = true
-  # Minification CSS
-  css = true
-  # Minification JS
-  js = true
-  # Minification des assets
-  skip_processing = false
-
-# Configuration pour les prerenderings
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-# Paramètres de performances
-[build.processing.images]
-  optimize = true
-  compress = true
-
-# Paramètres de surveillance
-[build.observability]
-  # Activation des métriques de performance
-  enabled = true
-
-# Configuration pour les environnements spécifiques
-[context.production]
-  command = "echo 'Build de production'"
-
-[context.deploy-preview]
-  command = "echo 'Build de prévisualisation'"
-  publish = "/"
-
-[context.branch-deploy]
-  command = "echo 'Build de branche'"
-  publish = "/"
