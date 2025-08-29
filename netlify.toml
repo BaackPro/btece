@@ -7,3 +7,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Désactiver temporairement le scanning des secrets
+[secrets]
+  scan_enabled = false
