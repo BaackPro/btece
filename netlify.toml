@@ -1,85 +1,77 @@
 
 [build]
-  publish = "."
+  publish = "."  # Le répertoire racine contenant votre index.html
   command = "echo 'Build réussi - Site statique BTECE'"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "18"  # Version de Node.js pour l'environnement de build
 
-[dev]
-  port = 3000
-  publish = "."
-
-# Redirection SPA (Single Page Application)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Redirections de sécurité
-[[redirects]]
-  from = "/.env"
-  to = "/404.html"
-  status = 404
-
-[[redirects]]
-  from = "/wp-admin/*"
-  to = "/404.html"
-  status = 404
-
-[[redirects]]
-  from = "/.git/*"
-  to = "/404.html"
-  status = 404
-
-[[redirects]]
-  from = "/.env.*"
-  to = "/404.html"
-  status = 404
-
-# Headers de sécurité
 [[headers]]
+  # En-têtes de sécurité pour toutes les routes
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # Content-Security-Policy est déjà définie dans votre HTML
 
-# Cache pour les assets statiques
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+[[redirects]]
+  # Redirections pour les pages manquantes vers l'index (SPA-like behavior)
+  from = "/about"
+  to = "/index.html"
+  status = 200
 
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  from = "/services"
+  to = "/index.html"
+  status = 200
 
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  from = "/products"
+  to = "/index.html"
+  status = 200
 
-[[headers]]
-  for = "/*.woff2"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  from = "/projects"
+  to = "/index.html"
+  status = 200
 
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+  from = "/blog"
+  to = "/index.html"
+  status = 200
 
-# Variables d'environnement par contexte
-[context.production.environment]
-  NODE_ENV = "production"
-  SITE_URL = "https://btece.netlify.app/"
+  from = "/contact"
+  to = "/index.html"
+  status = 200
 
-[context.deploy-preview.environment]
-  NODE_ENV = "development"
+# Paramètres pour le déploiement continu (si vous utilisez un dépôt Git)
+[build.environment]
+  # Ces variables peuvent être configurées dans les paramètres Netlify
+  # pour des déploiements spécifiques à des branches
+  CONTEXT = "production"
 
-[context.branch-deploy.environment]
-  NODE_ENV = "development"
+# Paramètres pour le traitement des formulaires (si vous ajoutez des fonctionnalités de formulaire)
+[[redirects]]
+  from = "/newsletter-submit"
+  to = "/.netlify/functions/newsletter"
+  status = 200
+
+# Configuration pour la compression des ressources
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# Configuration pour les fonctions serverless (optionnel pour futures évolutions)
+[functions]
+  directory = "functions"
