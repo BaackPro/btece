@@ -217,6 +217,43 @@
           }
         }, 300);
       });
+
+      // Code de tracking BTECE Analytics
+      (function() {
+        var btece = window.btece = window.btece || [];
+        if (btece.initialize) return;
+
+        // Configuration
+        btece.methods = ['page', 'track', 'identify', 'reset'];
+        btece.factory = function(method) {
+          return function() {
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift(method);
+            btece.push(args);
+            return btece;
+          };
+        };
+
+        // Création des méthodes
+        for (var i = 0; i < btece.methods.length; i++) {
+          var key = btece.methods[i];
+          btece[key] = btece.factory(key);
+        }
+
+        // Track page view
+        btece.page();
+
+        // Envoi des données au serveur
+        setInterval(function() {
+          if (btece.length > 0) {
+            // Simuler l'envoi des données
+            console.log('Envoi des données analytics:', btece);
+            btece.splice(0, btece.length);
+          }
+        }, 10000);
+
+        btece.initialize = true;
+      })();
     </script>
   </body>
 </html>
