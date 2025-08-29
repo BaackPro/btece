@@ -1,77 +1,9 @@
 
 [build]
-  publish = "."  # Le répertoire racine contenant votre index.html
-  command = "echo 'Build réussi - Site statique BTECE'"
-
-[build.environment]
-  NODE_VERSION = "18"  # Version de Node.js pour l'environnement de build
-
-[[headers]]
-  # En-têtes de sécurité pour toutes les routes
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    # Content-Security-Policy est déjà définie dans votre HTML
+  publish = "."
+  command = "echo 'Build BTECE réussi'"
 
 [[redirects]]
-  # Redirections pour les pages manquantes vers l'index (SPA-like behavior)
-  from = "/about"
+  from = "/*"
   to = "/index.html"
   status = 200
-
-  from = "/services"
-  to = "/index.html"
-  status = 200
-
-  from = "/products"
-  to = "/index.html"
-  status = 200
-
-  from = "/projects"
-  to = "/index.html"
-  status = 200
-
-  from = "/blog"
-  to = "/index.html"
-  status = 200
-
-  from = "/contact"
-  to = "/index.html"
-  status = 200
-
-# Paramètres pour le déploiement continu (si vous utilisez un dépôt Git)
-[build.environment]
-  # Ces variables peuvent être configurées dans les paramètres Netlify
-  # pour des déploiements spécifiques à des branches
-  CONTEXT = "production"
-
-# Paramètres pour le traitement des formulaires (si vous ajoutez des fonctionnalités de formulaire)
-[[redirects]]
-  from = "/newsletter-submit"
-  to = "/.netlify/functions/newsletter"
-  status = 200
-
-# Configuration pour la compression des ressources
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true
-
-# Configuration pour les fonctions serverless (optionnel pour futures évolutions)
-[functions]
-  directory = "functions"
