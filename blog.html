@@ -3,10 +3,16 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="qUbJAxl_mSPBvEA3eEXiMy-IX7UKLf9ZLqxxpqyazOY" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | BTECE - Solutions Innovantes en Énergie et Technologie</title>
-    <meta name="description" content="Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle et les innovations technologiques avec BTECE.">
-    <meta name="keywords" content="blog énergies renouvelables, intelligence artificielle, solaire, innovations technologiques, BTECE">
+    <meta name="description" content="Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle, le développement web et les innovations technologiques avec BTECE.">
+    <meta name="keywords" content="blog énergies renouvelables, intelligence artificielle, développement web, sécurité API, solaire, innovations technologiques, BTECE">
+    
+    <!-- Préchargement des polices et ressources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Chargement de Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -85,7 +91,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #25c78c;
+            background-color: #1a73e8;
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
         }
@@ -159,7 +165,6 @@
             width: auto;
             height: var(--logo-size);
             vertical-align: middle;
-            margin-right: 10px;
             transition: var(--transition);
         }
 
@@ -257,7 +262,7 @@
                     rgba(26, 42, 58, 0.9) 0%,
                     rgba(46, 134, 222, 0.8) 100%
                 ),
-                url("https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80") no-repeat center center/cover;
+                url("https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80") no-repeat center center/cover;
             color: var(--white);
             display: flex;
             align-items: center;
@@ -365,6 +370,16 @@
         .category-innovation {
             background-color: rgba(46, 204, 113, 0.2);
             color: #2ecc71;
+        }
+
+        .category-dev {
+            background-color: rgba(155, 89, 182, 0.2);
+            color: #9b59b6;
+        }
+
+        .category-securite {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
         }
 
         .post-title {
@@ -809,10 +824,10 @@
     <!-- Barre de navigation -->
     <header>
         <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <div class="logo-img" style="background-color: #2e86de; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">BT</div>
-                <div class="logo-text">BT<span>ECE</span></div>
-            </a>
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Logo BTECE" class="logo-img" />
+                <a href="index.html" class="logo-text">BT<span>ECE</span></a>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
@@ -840,7 +855,7 @@
     <section class="blog-hero">
         <div class="blog-hero-content">
             <h1>Blog BTECE</h1>
-            <p>Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle et les innovations technologiques</p>
+            <p>Découvrez les dernières actualités sur les énergies renouvelables, l'intelligence artificielle, le développement web et les innovations technologiques</p>
         </div>
     </section>
 
@@ -865,9 +880,9 @@
                         </div>
                     </article>
                     
-                    <!-- Article 2 -->
+                    <!-- Article 2 - Image remplacée -->
                     <article class="blog-post">
-                        <img src="https://images.unsplash.com/photo-1534723452862-4c8743d9d6f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="IA dans le secteur énergétique" class="post-image">
+                        <img src="assets/images/blog/img-ia.jpg" alt="IA dans le secteur énergétique" class="post-image">
                         <div class="post-content">
                             <span class="post-category category-ia">Intelligence Artificielle</span>
                             <h3 class="post-title">L'IA au service de l'efficacité énergétique</h3>
@@ -881,13 +896,13 @@
                     
                     <!-- Article 3 -->
                     <article class="blog-post">
-                        <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Innovations vertes" class="post-image">
+                        <img src="assets/images/blog/image10innov.jpg" alt="Innovations vertes" class="post-image">
                         <div class="post-content">
                             <span class="post-category category-innovation">Innovation</span>
                             <h3 class="post-title">Les 10 innovations vertes qui vont changer l'Afrique</h3>
                             <p class="post-excerpt">Découvrez les innovations technologiques durables qui transforment le continent africain et améliorent la vie de millions de personnes.</p>
                             <div class="post-meta">
-                                <span>20 Mai 2023</span>
+                                <span>20 Mai 2024</span>
                                 <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -895,41 +910,41 @@
                     
                     <!-- Article 4 -->
                     <article class="blog-post">
-                        <img src="https://images.unsplash.com/photo-1601042879367-294bcf3d6c2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Stockage énergie solaire" class="post-image">
+                        <img src="assets/images/blog/stockage.jpg" alt="Stockage énergie solaire" class="post-image">
                         <div class="post-content">
                             <span class="post-category category-solaire">Énergie Solaire</span>
                             <h3 class="post-title">Solutions de stockage pour l'énergie solaire</h3>
                             <p class="post-excerpt">Explorez les dernières avancées en matière de stockage d'énergie solaire et comment elles rendent les systèmes plus efficaces et accessibles.</p>
                             <div class="post-meta">
-                                <span>10 Mai 2023</span>
+                                <span>10 Mai 2024</span>
                                 <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>
                     
-                    <!-- Article 5 -->
+                    <!-- Article 5 - Nouveau article sur le développement web -->
                     <article class="blog-post">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Smart Grids en Afrique" class="post-image">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Développement web moderne" class="post-image">
                         <div class="post-content">
-                            <span class="post-category category-innovation">Innovation</span>
-                            <h3 class="post-title">Smart Grids : l'avenir des réseaux électriques en Afrique</h3>
-                            <p class="post-excerpt">Comment les réseaux électriques intelligents peuvent moderniser les infrastructures énergétiques africaines et améliorer la distribution.</p>
+                            <span class="post-category category-dev">Développement Web</span>
+                            <h3 class="post-title">Tendances du développement web en 2025 : ce qui change</h3>
+                            <p class="post-excerpt">Découvrez les nouvelles tendances en développement web pour 2025 : frameworks, architectures serverless, et expériences immersives.</p>
                             <div class="post-meta">
-                                <span>28 Avril 2023</span>
+                                <span>15 Août 2025</span>
                                 <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>
                     
-                    <!-- Article 6 -->
+                    <!-- Article 6 - Nouveau article sur la sécurité API -->
                     <article class="blog-post">
-                        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="IA prédictive pour l'énergie" class="post-image">
+                        <img src="assets/images/blog/img-api.jpg" alt="Sécurité API" class="post-image">
                         <div class="post-content">
-                            <span class="post-category category-ia">Intelligence Artificielle</span>
-                            <h3 class="post-title">L'IA prédictive pour la maintenance des installations solaires</h3>
-                            <p class="post-excerpt">Découvrez comment l'IA prédictive permet d'anticiper les pannes et d'optimiser la maintenance des installations d'énergie renouvelable.</p>
+                            <span class="post-category category-securite">Sécurité API</span>
+                            <h3 class="post-title">Sécurité des API en 2025 : Bonnes pratiques et nouveaux défis</h3>
+                            <p class="post-excerpt">Les API sont au cœur des applications modernes. Découvrez les meilleures pratiques de sécurité et les nouveaux défis à relever en 2025.</p>
                             <div class="post-meta">
-                                <span>15 Avril 2023</span>
+                                <span>25 Août 2025</span>
                                 <a href="#" class="read-more">Lire plus <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -945,6 +960,8 @@
                             <li><a href="#">Énergie Solaire <span>12</span></a></li>
                             <li><a href="#">Intelligence Artificielle <span>8</span></a></li>
                             <li><a href="#">Innovation Technologique <span>15</span></a></li>
+                            <li><a href="#">Développement Web <span>6</span></a></li>
+                            <li><a href="#">Sécurité API <span>5</span></a></li>
                             <li><a href="#">Efficacité Énergétique <span>7</span></a></li>
                             <li><a href="#">Développement Durable <span>9</span></a></li>
                         </ul>
@@ -955,24 +972,24 @@
                         <h3 class="widget-title">Articles Récents</h3>
                         <ul class="recent-posts">
                             <li>
-                                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Énergie solaire en Afrique" class="recent-post-img">
+                                <img src="https://images.unsplash.com/photo-1563013541-5a2d08ef754d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Sécurité API" class="recent-post-img">
                                 <div class="recent-post-content">
-                                    <h4><a href="#">L'énergie solaire en Afrique : opportunités et défis</a></h4>
-                                    <span class="post-date">15 Juin 2023</span>
+                                    <h4><a href="#">Sécurité des API en 2025 : Bonnes pratiques et nouveaux défis</a></h4>
+                                    <span class="post-date">25 Août 2025</span>
                                 </div>
                             </li>
                             <li>
-                                <img src="https://images.unsplash.com/photo-1534723452862-4c8743d9d6f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="IA dans le secteur énergétique" class="recent-post-img">
+                                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Développement web moderne" class="recent-post-img">
                                 <div class="recent-post-content">
-                                    <h4><a href="#">L'IA au service de l'efficacité énergétique</a></h4>
-                                    <span class="post-date">2 Juin 2023</span>
+                                    <h4><a href="#">Tendances du développement web en 2025 : ce qui change</a></h4>
+                                    <span class="post-date">15 Août 2025</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Innovations vertes" class="recent-post-img">
                                 <div class="recent-post-content">
                                     <h4><a href="#">Les 10 innovations vertes qui vont changer l'Afrique</a></h4>
-                                    <span class="post-date">20 Mai 2023</span>
+                                    <span class="post-date">05 Septembre 2025</span>
                                 </div>
                             </li>
                         </ul>
@@ -985,11 +1002,14 @@
                             <a href="#" class="tag">Solaire</a>
                             <a href="#" class="tag">IA</a>
                             <a href="#" class="tag">Innovation</a>
+                            <a href="#" class="tag">Développement Web</a>
+                            <a href="#" class="tag">Sécurité API</a>
                             <a href="#" class="tag">Énergie</a>
                             <a href="#" class="tag">Durable</a>
                             <a href="#" class="tag">Technologie</a>
                             <a href="#" class="tag">Afrique</a>
                             <a href="#" class="tag">Bénin</a>
+                            <a href="#" class="tag">Efficacité</a>
                         </div>
                     </div>
                 </aside>
@@ -1010,8 +1030,8 @@
         <div class="container">
             <h2>Restez informé</h2>
             <p>Abonnez-vous à notre newsletter pour recevoir les derniers articles et actualités de BTECE.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Votre adresse email" required />
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" id="newsletterEmail" placeholder="Votre adresse email" required />
                 <button type="submit" class="btn btn-primary">S'abonner</button>
             </form>
         </div>
@@ -1151,15 +1171,27 @@
             }
         });
 
-        // Gestion du formulaire de newsletter
+        // Gestion du formulaire de newsletter avec redirection WhatsApp
         document
-            .querySelector(".newsletter-form")
+            .getElementById("newsletterForm")
             .addEventListener("submit", function (e) {
                 e.preventDefault();
-                const email = this.querySelector('input[type="email"]').value;
-                // Ici vous pourriez ajouter une requête AJAX pour envoyer l'email
-                alert(`Merci pour votre inscription avec l'email: ${email}`);
+                const email = document.getElementById('newsletterEmail').value;
+                
+                // Encoder l'email pour l'URL
+                const encodedEmail = encodeURIComponent(email);
+                
+                // Message personnalisé pour WhatsApp
+                const message = encodeURIComponent(`Bonjour, je souhaite m'abonner à la newsletter BTECE avec l'adresse email: ${email}`);
+                
+                // Redirection vers WhatsApp avec le message pré-rempli
+                window.open(`https://web.whatsapp.com/send?phone=22999322477&text=${message}`, '_blank');
+                
+                // Réinitialiser le formulaire
                 this.reset();
+                
+                // Message de confirmation
+                alert("Merci! Vous allez être redirigé vers WhatsApp pour finaliser votre abonnement.");
             });
     </script>
     <script src="assets/js/mainv.js"></script>
