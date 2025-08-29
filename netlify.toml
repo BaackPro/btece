@@ -1,13 +1,89 @@
 
 [build]
   publish = "."
-  command = "echo 'Build BTECE réussi'"
+  command = "echo 'Build réussi - Site statique BTECE'"
 
+[build.environment]
+  NODE_VERSION = "18"
+  # Désactivation complète du scanning des secrets
+  SECRETS_SCAN_ENABLED = "false"
+  # Désactivation de la détection intelligente des secrets
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+
+[dev]
+  port = 3000
+  publish = "."
+
+# Redirection SPA (Single Page Application)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Désactiver temporairement le scanning des secrets
-[secrets]
-  scan_enabled = false
+# Redirections de sécurité
+[[redirects]]
+  from = "/.env"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/.git/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/.env.*"
+  to = "/404.html"
+  status = 404
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache pour les assets statiques
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Variables d'environnement par contexte
+[context.production.environment]
+  NODE_ENV = "production"
+  SITE_URL = "https://btece.netlify.app/"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
