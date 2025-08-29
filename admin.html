@@ -7,6 +7,7 @@
     <title>Tableau de Bord Admin - BTECE Analytics</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.2/dist/socket.io.min.js"></script>
     <style>
         :root {
             --primary: #2c6e49;
@@ -287,6 +288,42 @@
             border-color: var(--primary);
         }
         
+        /* Real-time indicator */
+        .real-time-indicator {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+            font-size: 12px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+            }
+            
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(230, 57, 70, 0);
+            }
+            
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+            }
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .charts {
@@ -450,6 +487,44 @@
             margin-top: 10px;
             font-size: 14px;
         }
+        
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification-toast i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .notification-toast.success i {
+            color: var(--primary);
+        }
+        
+        .notification-toast.info i {
+            color: var(--secondary);
+        }
+        
+        .notification-toast.error i {
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -495,7 +570,7 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
-                <h1>Tableau de Bord Analytics - BTECE</h1>
+                <h1>Tableau de Bord Analytics - BTECE <span class="real-time-indicator"><span class="pulse-dot"></span>Temps réel</span></h1>
                 <div class="user-info">
                     <img src="https://ui-avatars.com/api/?name=Admin+BTECE&background=2c6e49&color=fff" alt="Admin">
                     <span id="adminName">Administrateur BTECE</span>
@@ -503,7 +578,7 @@
             </div>
             
             <div class="data-warning">
-                <i class="fas fa-info-circle"></i> Les données affichées sont simulées. Pour des données réelles, intégrez le code de tracking sur votre site.
+                <i class="fas fa-info-circle"></i> Mode démonstration : données simulées. Pour des données réelles, intégrez le code de tracking sur votre site.
             </div>
             
             <!-- Instructions d'intégration -->
@@ -544,14 +619,19 @@
 &nbsp;&nbsp;// Track page view<br>
 &nbsp;&nbsp;btece.page();<br>
 <br>
-&nbsp;&nbsp;// Envoi des données au serveur<br>
-&nbsp;&nbsp;setInterval(function() {<br>
+&nbsp;&nbsp;// Envoi des données au serveur en temps réel<br>
+&nbsp;&nbsp;function sendData() {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;if (btece.length > 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Simuler l'envoi des données<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log('Envoi des données analytics:', btece);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Utiliser Beacon API pour un envoi fiable même si la page est quittée<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var data = JSON.stringify(btece);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;navigator.sendBeacon('/api/track', data);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;btece.splice(0, btece.length);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}, 10000);<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;// Envoyer les données toutes les 10 secondes ou à la fermeture de la page<br>
+&nbsp;&nbsp;setInterval(sendData, 10000);<br>
+&nbsp;&nbsp;window.addEventListener('beforeunload', sendData);<br>
 <br>
 &nbsp;&nbsp;btece.initialize = true;<br>
 })();
@@ -572,7 +652,7 @@
                     <div class="stats-cards">
                         <div class="card stat-card visitors">
                             <div class="info">
-                                <h3>1,248</h3>
+                                <h3 id="visitorsCount">1,248</h3>
                                 <p>Visiteurs ce mois</p>
                             </div>
                             <div class="icon">
@@ -582,7 +662,7 @@
                         
                         <div class="card stat-card duration">
                             <div class="info">
-                                <h3>2m 18s</h3>
+                                <h3 id="avgDuration">2m 18s</h3>
                                 <p>Durée moyenne</p>
                             </div>
                             <div class="icon">
@@ -592,7 +672,7 @@
                         
                         <div class="card stat-card pages">
                             <div class="info">
-                                <h3>3.2</h3>
+                                <h3 id="pagesPerVisit">3.2</h3>
                                 <p>Pages par visite</p>
                             </div>
                             <div class="icon">
@@ -602,7 +682,7 @@
                         
                         <div class="card stat-card devices">
                             <div class="info">
-                                <h3>68%</h3>
+                                <h3 id="mobilePercentage">68%</h3>
                                 <p>Mobile</p>
                             </div>
                             <div class="icon">
@@ -635,7 +715,7 @@
                     <!-- Visitors Table -->
                     <div class="visitors-table">
                         <div class="chart-title">
-                            <h3>Dernières visites</h3>
+                            <h3>Dernières visites <span class="real-time-indicator"><span class="pulse-dot"></span>Live</span></h3>
                             <select id="country-select">
                                 <option>Tous les pays</option>
                                 <option>Bénin</option>
@@ -645,7 +725,7 @@
                             </select>
                         </div>
                         
-                        <table>
+                        <table id="visitorsTable">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -720,7 +800,11 @@ APP_DEBUG="false"<br>
 APP_URL="https://btece.netlify.app"<br>
 <br>
 # Clé secrète pour les sessions (optionnel)<br>
-SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
+SESSION_SECRET="votre_cle_secrete_tres_longue_ici"<br>
+<br>
+# Configuration WebSocket/Socket.io pour le temps réel<br>
+REALTIME_ENABLED="true"<br>
+SOCKET_PORT="3001"
                     </div>
                     
                     <div class="env-config">
@@ -740,10 +824,17 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
                         <p><strong>Environnement :</strong> <span id="configEnv">Chargement...</span></p>
                         <p><strong>Nom d'utilisateur :</strong> <span id="configUsername">Chargement...</span></p>
                         <p><strong>Email admin :</strong> <span id="configEmail">Chargement...</span></p>
+                        <p><strong>Temps réel activé :</strong> <span id="configRealtime">Chargement...</span></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="notificationMessage"></span>
     </div>
 
     <script>
@@ -758,7 +849,22 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
             ADMIN_EMAIL: 'btece08@gmail.com',
             APP_ENV: 'development',
             APP_DEBUG: 'true',
-            APP_URL: window.location.origin
+            APP_URL: window.location.origin,
+            REALTIME_ENABLED: 'true'
+        };
+        
+        // Variables globales
+        let socket = null;
+        let trafficChart = null;
+        let deviceChart = null;
+        let realTimeData = {
+            visitors: 1248,
+            avgDuration: '2m 18s',
+            pagesPerVisit: 3.2,
+            mobilePercentage: 68,
+            trafficData: [45, 68, 75, 58, 86, 95, 110],
+            deviceData: [68, 25, 7],
+            recentVisits: []
         };
         
         // Fonction pour charger la configuration depuis les variables d'environnement
@@ -778,6 +884,7 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
             document.getElementById('configEnv').textContent = envConfig.APP_ENV;
             document.getElementById('configUsername').textContent = envConfig.ADMIN_USERNAME;
             document.getElementById('configEmail').textContent = envConfig.ADMIN_EMAIL;
+            document.getElementById('configRealtime').textContent = envConfig.REALTIME_ENABLED === 'true' ? 'Oui' : 'Non';
             
             return envConfig;
         }
@@ -817,6 +924,16 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
                 
                 // Démarrer les graphiques
                 initCharts();
+                
+                // Démarrer la connexion temps réel si activée
+                if (config.REALTIME_ENABLED === 'true') {
+                    initRealTimeConnection();
+                }
+                
+                // Sauvegarder la session
+                localStorage.setItem('adminUser', username);
+                localStorage.setItem('lastLogin', new Date().toISOString());
+                
             } else {
                 // Échec de connexion
                 failedAttempts++;
@@ -829,11 +946,20 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
         
         // Fonction de déconnexion
         function logout() {
+            // Fermer la connexion temps réel
+            if (socket) {
+                socket.disconnect();
+            }
+            
             document.getElementById('loginSection').style.display = 'flex';
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
             document.getElementById('loginError').style.display = 'none';
+            
+            // Effacer la session
+            localStorage.removeItem('adminUser');
+            localStorage.removeItem('lastLogin');
         }
         
         // Gestion de la touche Entrée pour le formulaire de connexion
@@ -872,13 +998,13 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
         function initCharts() {
             // Traffic Chart - Visites des 7 derniers jours
             const trafficCtx = document.getElementById('trafficChart').getContext('2d');
-            const trafficChart = new Chart(trafficCtx, {
+            trafficChart = new Chart(trafficCtx, {
                 type: 'line',
                 data: {
                     labels: ['21 Août', '22 Août', '23 Août', '24 Août', '25 Août', '26 Août', '27 Août'],
                     datasets: [{
                         label: 'Visites',
-                        data: [45, 68, 75, 58, 86, 95, 110],
+                        data: realTimeData.trafficData,
                         backgroundColor: 'rgba(44, 110, 73, 0.1)',
                         borderColor: '#2c6e49',
                         tension: 0.4,
@@ -906,12 +1032,12 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
             
             // Device Chart - Répartition des appareils
             const deviceCtx = document.getElementById('deviceChart').getContext('2d');
-            const deviceChart = new Chart(deviceCtx, {
+            deviceChart = new Chart(deviceCtx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Mobile', 'Desktop', 'Tablette'],
                     datasets: [{
-                        data: [68, 25, 7],
+                        data: realTimeData.deviceData,
                         backgroundColor: [
                             '#2c6e49',
                             '#4c956c',
@@ -930,23 +1056,222 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
                     cutout: '65%'
                 }
             });
+            
+            // Mettre à jour les statistiques
+            updateStats();
+        }
+        
+        // Mettre à jour les statistiques affichées
+        function updateStats() {
+            document.getElementById('visitorsCount').textContent = realTimeData.visitors.toLocaleString();
+            document.getElementById('avgDuration').textContent = realTimeData.avgDuration;
+            document.getElementById('pagesPerVisit').textContent = realTimeData.pagesPerVisit;
+            document.getElementById('mobilePercentage').textContent = `${realTimeData.mobilePercentage}%`;
         }
         
         // ==============================================
-        // SIMULATION DE DONNÉES EN TEMPS RÉEL
+        // CONNEXION TEMPS RÉEL
         // ==============================================
         
-        function startDataSimulation() {
-            setInterval(() => {
-                // Mise à jour aléatoire du nombre de visiteurs
-                const visitorElement = document.querySelector('.visitors .info h3');
-                if (visitorElement) {
-                    const currentVisitors = parseInt(visitorElement.textContent.replace(/,/g, ''));
-                    const fluctuation = Math.floor(Math.random() * 5) - 2; // Fluctuation de -2 à +2
-                    const newValue = Math.max(0, currentVisitors + fluctuation);
-                    visitorElement.textContent = newValue.toLocaleString();
+        function initRealTimeConnection() {
+            try {
+                // Connexion au serveur Socket.io
+                socket = io(envConfig.APP_URL, {
+                    transports: ['websocket', 'polling']
+                });
+                
+                socket.on('connect', () => {
+                    showNotification('Connexion temps réel établie', 'success');
+                    console.log('Connecté au serveur en temps réel');
+                });
+                
+                socket.on('disconnect', () => {
+                    showNotification('Déconnecté du serveur temps réel', 'error');
+                    console.log('Déconnecté du serveur temps réel');
+                });
+                
+                socket.on('visit', (data) => {
+                    // Mettre à jour les données en temps réel
+                    updateRealTimeData(data);
+                    
+                    // Ajouter la visite au tableau
+                    addVisitToTable(data);
+                    
+                    // Afficher une notification
+                    showNotification(`Nouvelle visite de ${data.country}`, 'info');
+                });
+                
+                socket.on('stats_update', (data) => {
+                    // Mettre à jour les statistiques globales
+                    realTimeData.visitors = data.totalVisitors || realTimeData.visitors;
+                    realTimeData.avgDuration = data.avgDuration || realTimeData.avgDuration;
+                    realTimeData.pagesPerVisit = data.pagesPerVisit || realTimeData.pagesPerVisit;
+                    realTimeData.mobilePercentage = data.mobilePercentage || realTimeData.mobilePercentage;
+                    
+                    // Mettre à jour l'affichage
+                    updateStats();
+                });
+                
+                socket.on('error', (error) => {
+                    console.error('Erreur de connexion temps réel:', error);
+                    showNotification('Erreur de connexion temps réel', 'error');
+                });
+                
+            } catch (error) {
+                console.error('Impossible d\'initialiser la connexion temps réel:', error);
+            }
+        }
+        
+        // Mettre à jour les données en temps réel
+        function updateRealTimeData(data) {
+            // Incrémenter le compteur de visiteurs
+            realTimeData.visitors++;
+            
+            // Mettre à jour le graphique de trafic (ajouter une visite pour aujourd'hui)
+            const today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+            const lastLabel = trafficChart.data.labels[trafficChart.data.labels.length - 1];
+            
+            if (lastLabel === today) {
+                // Incrémenter le dernier point de données
+                trafficChart.data.datasets[0].data[trafficChart.data.datasets[0].data.length - 1]++;
+            } else {
+                // Ajouter un nouveau jour
+                trafficChart.data.labels.push(today);
+                trafficChart.data.datasets[0].data.push(1);
+                
+                // Garder seulement les 7 derniers jours
+                if (trafficChart.data.labels.length > 7) {
+                    trafficChart.data.labels.shift();
+                    trafficChart.data.datasets[0].data.shift();
                 }
-            }, 60000); // Mise à jour toutes les minutes
+            }
+            
+            // Mettre à jour la répartition des appareils
+            if (data.device === 'mobile') {
+                realTimeData.deviceData[0]++;
+            } else if (data.device === 'desktop') {
+                realTimeData.deviceData[1]++;
+            } else {
+                realTimeData.deviceData[2]++;
+            }
+            
+            // Mettre à jour le pourcentage mobile
+            const totalDevices = realTimeData.deviceData.reduce((a, b) => a + b, 0);
+            realTimeData.mobilePercentage = Math.round((realTimeData.deviceData[0] / totalDevices) * 100);
+            
+            // Mettre à jour les graphiques
+            trafficChart.update();
+            deviceChart.update();
+            updateStats();
+        }
+        
+        // Ajouter une visite au tableau
+        function addVisitToTable(visit) {
+            const table = document.getElementById('visitorsTable');
+            const tbody = table.getElementsByTagName('tbody')[0];
+            
+            // Créer une nouvelle ligne
+            const newRow = document.createElement('tr');
+            
+            // Formater la date
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Déterminer l'icône de l'appareil
+            let deviceIcon = 'fa-laptop';
+            if (visit.device === 'mobile') deviceIcon = 'fa-mobile-alt';
+            if (visit.device === 'tablet') deviceIcon = 'fa-tablet-alt';
+            
+            // Récupérer le drapeau du pays
+            const countryCode = visit.country === 'Bénin' ? 'bj' : 
+                               visit.country === 'France' ? 'fr' : 
+                               visit.country === 'Nigeria' ? 'ng' : 'us';
+            
+            newRow.innerHTML = `
+                <td>${dateStr}</td>
+                <td><img src="https://flagcdn.com/w40/${countryCode}.png" class="country-flag"> ${visit.country}</td>
+                <td>${visit.page}</td>
+                <td><i class="fas ${deviceIcon} device-icon"></i> ${visit.device}</td>
+                <td>${visit.duration}</td>
+            `;
+            
+            // Ajouter la nouvelle ligne en haut du tableau
+            tbody.insertBefore(newRow, tbody.firstChild);
+            
+            // Limiter le tableau à 10 entrées maximum
+            if (tbody.children.length > 10) {
+                tbody.removeChild(tbody.lastChild);
+            }
+        }
+        
+        // ==============================================
+        // NOTIFICATIONS
+        // ==============================================
+        
+        function showNotification(message, type = 'info') {
+            const toast = document.getElementById('notificationToast');
+            const icon = toast.querySelector('i');
+            const messageEl = document.getElementById('notificationMessage');
+            
+            // Définir le message et le type
+            messageEl.textContent = message;
+            
+            // Changer l'icône en fonction du type
+            toast.className = 'notification-toast';
+            if (type === 'success') {
+                toast.classList.add('success');
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                toast.classList.add('error');
+                icon.className = 'fas fa-exclamation-circle';
+            } else {
+                toast.classList.add('info');
+                icon.className = 'fas fa-info-circle';
+            }
+            
+            // Afficher la notification
+            toast.classList.add('show');
+            
+            // Cacher après 3 secondes
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ==============================================
+        // SIMULATION DE DONNÉES EN TEMPS RÉEL (pour démo)
+        // ==============================================
+        
+        function simulateRealTimeData() {
+            if (envConfig.REALTIME_ENABLED !== 'true') return;
+            
+            // Simuler de nouvelles visites aléatoires
+            setInterval(() => {
+                const countries = ['Bénin', 'France', 'Nigeria', 'USA', 'Canada', 'Allemagne'];
+                const pages = ['/index.html', '/services.html', '/projets.html', '/contact.html', '/a-propos.html'];
+                const devices = ['mobile', 'desktop', 'tablet'];
+                const durations = ['1m 15s', '2m 30s', '3m 45s', '4m 20s', '5m 10s'];
+                
+                const randomVisit = {
+                    country: countries[Math.floor(Math.random() * countries.length)],
+                    page: pages[Math.floor(Math.random() * pages.length)],
+                    device: devices[Math.floor(Math.random() * devices.length)],
+                    duration: durations[Math.floor(Math.random() * durations.length)]
+                };
+                
+                // Émettre l'événement de visite (simulation)
+                if (socket && socket.connected) {
+                    socket.emit('visit', randomVisit);
+                } else {
+                    // Simuler localement si pas de connexion socket
+                    updateRealTimeData(randomVisit);
+                    addVisitToTable(randomVisit);
+                }
+            }, 10000); // Toutes les 10 secondes
         }
         
         // ==============================================
@@ -957,17 +1282,37 @@ SESSION_SECRET="votre_cle_secrete_tres_longue_ici"
             // Charger la configuration
             loadEnvConfig();
             
-            // Démarrer la simulation de données
-            startDataSimulation();
-            
             // Vérifier s'il y a une session active
             const savedUser = localStorage.getItem('adminUser');
-            if (savedUser) {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('dashboardSection').style.display = 'flex';
-                document.getElementById('adminName').textContent = savedUser;
-                initCharts();
+            const lastLogin = localStorage.getItem('lastLogin');
+            
+            if (savedUser && lastLogin) {
+                // Vérifier si la session a expiré (12 heures)
+                const loginTime = new Date(lastLogin);
+                const currentTime = new Date();
+                const sessionDuration = currentTime - loginTime;
+                const sessionMaxDuration = 12 * 60 * 60 * 1000; // 12 heures en millisecondes
+                
+                if (sessionDuration < sessionMaxDuration) {
+                    // Session valide
+                    document.getElementById('loginSection').style.display = 'none';
+                    document.getElementById('dashboardSection').style.display = 'flex';
+                    document.getElementById('adminName').textContent = savedUser;
+                    initCharts();
+                    
+                    // Démarrer la connexion temps réel si activée
+                    if (envConfig.REALTIME_ENABLED === 'true') {
+                        initRealTimeConnection();
+                    }
+                } else {
+                    // Session expirée
+                    localStorage.removeItem('adminUser');
+                    localStorage.removeItem('lastLogin');
+                }
             }
+            
+            // Démarrer la simulation de données (pour démonstration)
+            simulateRealTimeData();
         });
     </script>
 </body>
