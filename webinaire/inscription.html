@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA & Énergies Renouvelables en Afrique | Webinaire BTECE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Police Times New Roman */
+        * {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #3498db;
+            --dark-color: #1a1a1a;
+            --light-color: #f4f4f4;
+            --transition: all 0.3s ease;
+            --btece-color: #1a5276;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            padding-bottom: 4rem;
+            background: linear-gradient(-45deg, #2ecc71, #3498db, #9b59b6, #e74c3c, #f1c40f);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .webinar-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .webinar-info {
+            background: rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .webinar-info div {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .webinar-info i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        
+        #whatsappLink {
+            display: none;
+            margin-top: 1.5rem;
+            background: #25D366;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        #whatsappLink:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+        
+        section h2:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        .themes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .theme-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .theme-content {
+            padding: 1.5rem;
+        }
+        
+        .theme-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme-content p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .stats {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-item {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-cite {
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .btece-info {
+            margin-top: 1rem;
+        }
+        
+        .btece-devise {
+            font-style: italic;
+            margin: 0.5rem 0;
+        }
+        
+        .btece-slogan {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Bouton site web flottant */
+        .floating-website-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        .website-btn {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--btece-color), #2c3e50);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+        
+        .website-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            animation: none;
+        }
+        
+        .website-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .themes-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-website-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .website-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .webinar-info {
+                padding: 10px 15px;
+            }
+            
+            .webinar-info div {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .webinar-info i {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+            
+            .webinar-badge {
+                font-size: 1rem;
+                padding: 6px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="webinar-badge">WEBINAIRE</div>
+            <h1>Intelligence Artificielle & Énergies Renouvelables</h1>
+            <p class="subtitle">Accélérer la Transition Énergétique en Afrique</p>
+            
+            <div class="webinar-info">
+                <div>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Date : 15 Septembre 2025</span>
+                </div>
+                <div>
+                    <i class="fas fa-clock"></i>
+                    <span>Heure : 16h00 UTC+1</span>
+                </div>
+                <div>
+                    <i class="fas fa-hourglass-half"></i>
+                    <span>Durée : 1 heure</span>
+                </div>
+            </div>
+            
+            <p>Rejoignez notre webinaire pour explorer comment l'IA transforme le paysage énergétique africain.</p>
+            <button id="subscribeBtn" class="btn">S'inscrire au Webinaire</button>
+            <a id="whatsappLink" href="https://chat.whatsapp.com/LQENQ1GqjTa59xVE5852K9">Rejoindre le groupe WhatsApp</a>
+        </div>
+    </header>
+
+    <section id="themes">
+        <div class="container">
+            <h2>Thèmes Principaux</h2>
+            <div class="themes-container">
+                <div class="theme-card">
+                    <div class="theme-content">
+                        <h3>🌞 Prévision Intelligente de la Production</h3>
+                        <p>Utilisation de l'IA pour prévoir avec précision la production solaire et éolienne, optimisant ainsi l'intégration aux réseaux électriques. Les modèles de ML analysent les données météorologiques et historiques pour améliorer la précision des prévisions.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-content">
+                        <h3>🔧 Maintenance Prédictive</h3>
+                        <p>Implémentation d'algorithmes de machine learning pour anticiper les pannes et planifier la maintenance des installations éoliennes et solaires, réduisant les temps d'arrêt et les coûts. Des études montrent une réduction de 25% des coûts de maintenance.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-content">
+                        <h3>⚡ Optimisation des Micro-réseaux</h3>
+                        <p>L'IA permet de gérer efficacement l'énergie dans les micro-réseaux, surtout dans les zones rurales, en équilibrant l'offre et la demande, et en intégrant des sources renouvelables variables.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-content">
+                        <h3>🚀 Startups Africaines Innovantes</h3>
+                        <p>Découvrez des startups comme <strong>Aerobotics</strong> (drones et IA pour l'agriculture) et <strong>DataProphet</strong> (maintenance prédictive), qui montrent l'impact concret de l'IA dans le secteur énergétique et au-delà.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-content">
+                        <h3>💰 Financement et Partenariats</h3>
+                        <p>Analyse des modèles économiques innovants et des opportunités de financement vert pour soutenir les projets combinant IA et énergies renouvelables en Afrique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">Réduction des pannes</div>
+                    <div class="stat-cite">Source: [2]</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25%</div>
+                    <div class="stat-label">Coûts de maintenance réduits</div>
+                    <div class="stat-cite">Source: [2]</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Précision des prévisions de rendement</div>
+                    <div class="stat-cite">Source: [3]</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2400+</div>
+                    <div class="stat-label">Startups IA en Afrique</div>
+                    <div class="stat-cite">Source: [3]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Webinaire IA & Énergies Renouvelables Afrique. Tous droits réservés.</p>
+            <div class="btece-info">
+                <p>Organisé par <strong>BTECE</strong> (BAACK TECHNOLOGY ENERGY and CONCEPTION ENGINEERING)</p>
+                <p class="btece-devise">"BTECE, l'efficacité énergétique pour un développement durable"</p>
+                <p class="btece-slogan">"Rêvez grand, BTECE s'occupe du reste"</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton flottant pour le site web -->
+    <div class="floating-website-btn">
+        <a href="https://btece.netlify.app/" class="website-btn" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Visitez notre site
+        </a>
+    </div>
+
+    <script>
+        document.getElementById('subscribeBtn').addEventListener('click', function() {
+            this.style.display = 'none';
+            const whatsappLink = document.getElementById('whatsappLink');
+            whatsappLink.style.display = 'inline-block';
+            // Animation optionnelle pour l'apparition du lien
+            setTimeout(() => {
+                whatsappLink.style.opacity = 1;
+            }, 10);
+        });
+    </script>
+</body>
+</html>
