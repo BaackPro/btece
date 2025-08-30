@@ -10,6 +10,7 @@
         /* Police Times New Roman */
         * {
             font-family: 'Times New Roman', Times, serif;
+            box-sizing: border-box;
         }
         
         :root {
@@ -81,6 +82,8 @@
             border-radius: 10px;
             margin: 20px 0;
             backdrop-filter: blur(5px);
+            width: 90%;
+            max-width: 500px;
         }
         
         .webinar-info div {
@@ -93,6 +96,7 @@
         .webinar-info i {
             margin-right: 10px;
             color: var(--primary-color);
+            flex-shrink: 0;
         }
         
         .container {
@@ -102,34 +106,85 @@
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 0 10px;
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 2rem;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            padding: 0 10px;
+        }
+        
+        /* Styles améliorés pour le bouton d'inscription */
+        .btn-container {
+            margin: 25px 0;
         }
         
         .btn {
             display: inline-block;
-            padding: 0.8rem 2rem;
+            padding: 1.1rem 2.3rem;
             background: white;
             color: var(--secondary-color);
             border: none;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            min-width: 280px;
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: all 0.5s ease;
+            z-index: -1;
+            border-radius: 50px;
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            color: white;
+        }
+        
+        .btn:hover:before {
+            width: 100%;
+        }
+        
+        /* Effet de pulsation pour attirer l'attention */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        
+        .btn-pulse {
+            animation: pulse 2s infinite;
         }
         
         #whatsappLink {
@@ -137,11 +192,14 @@
             margin-top: 1.5rem;
             background: #25D366;
             color: white;
-            padding: 0.8rem 1.5rem;
+            padding: 1.1rem 2.3rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             transition: var(--transition);
+            min-width: 280px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
         }
         
         #whatsappLink:hover {
@@ -150,7 +208,7 @@
         }
         
         section {
-            padding: 4rem 0;
+            padding: 3.5rem 0;
         }
         
         section h2 {
@@ -158,6 +216,7 @@
             margin-bottom: 2rem;
             color: var(--dark-color);
             position: relative;
+            padding: 0 15px;
         }
         
         section h2:after {
@@ -173,7 +232,8 @@
         .themes-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.8rem;
+            padding: 0 10px;
         }
         
         .theme-card {
@@ -196,11 +256,13 @@
         .theme-content h3 {
             color: var(--secondary-color);
             margin-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
         
         .theme-content p {
             margin-bottom: 1rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         
         .stats {
@@ -216,6 +278,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
+            padding: 0 10px;
         }
         
         .stat-item {
@@ -252,6 +315,7 @@
         
         .btece-info {
             margin-top: 1rem;
+            padding: 0 15px;
         }
         
         .btece-devise {
@@ -267,8 +331,8 @@
         /* Bouton site web flottant */
         .floating-website-btn {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 25px;
             z-index: 1000;
             animation: pulse 2s infinite;
         }
@@ -279,10 +343,11 @@
             background: linear-gradient(135deg, var(--btece-color), #2c3e50);
             color: white;
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 12px 18px;
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
+            font-size: 0.9rem;
         }
         
         .website-btn:hover {
@@ -293,31 +358,51 @@
         
         .website-btn i {
             margin-right: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            }
-        }
-        
+        /* Media Queries pour l'optimisation mobile */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .webinar-badge {
+                font-size: 1rem;
+                padding: 6px 15px;
+            }
+            
+            .webinar-info {
+                padding: 12px 15px;
+                width: 95%;
+            }
+            
+            .webinar-info div {
+                flex-direction: row;
+                text-align: left;
+                font-size: 0.95rem;
             }
             
             .themes-container {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .theme-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .theme-content p {
+                font-size: 0.95rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
             
             .floating-website-btn {
@@ -326,15 +411,71 @@
             }
             
             .website-btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
+                padding: 10px 15px;
+                font-size: 0.85rem;
             }
             
-            .webinar-info {
-                padding: 10px 15px;
+            /* Améliorations spécifiques pour le bouton sur mobile */
+            .btn {
+                padding: 1.2rem 1.8rem;
+                font-size: 1.1rem;
+                width: 90%;
+                max-width: 320px;
+                min-width: unset;
+                margin: 1rem auto;
+                display: block;
+            }
+            
+            #whatsappLink {
+                padding: 1.2rem 1.8rem;
+                font-size: 1.1rem;
+                width: 90%;
+                max-width: 320px;
+                min-width: unset;
+                margin: 1rem auto;
+                display: block;
+            }
+            
+            .btn-pulse {
+                animation: pulse-mobile 2s infinite;
+            }
+            
+            @keyframes pulse-mobile {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                }
+                70% {
+                    transform: scale(1.03);
+                    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                }
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                }
+            }
+            
+            header {
+                padding: 1.5rem 0;
+                padding-bottom: 3.5rem;
+            }
+            
+            section {
+                padding: 2.5rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 0.95rem;
             }
             
             .webinar-info div {
+                font-size: 0.9rem;
                 flex-direction: column;
                 text-align: center;
             }
@@ -344,9 +485,50 @@
                 margin-bottom: 5px;
             }
             
-            .webinar-badge {
+            .btn {
+                padding: 1.1rem 1.5rem;
+                font-size: 1.05rem;
+                width: 95%;
+            }
+            
+            #whatsappLink {
+                padding: 1.1rem 1.5rem;
+                font-size: 1.05rem;
+                width: 95%;
+            }
+            
+            .theme-content {
+                padding: 1.2rem;
+            }
+            
+            .floating-website-btn {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .website-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .website-btn i {
                 font-size: 1rem;
-                padding: 6px 15px;
+                margin-right: 5px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .btn, #whatsappLink {
+                font-size: 1rem;
+                padding: 1rem 1.2rem;
+            }
+            
+            .webinar-badge {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -374,8 +556,11 @@
             </div>
             
             <p>Rejoignez notre webinaire pour explorer comment l'IA transforme le paysage énergétique africain.</p>
-            <button id="subscribeBtn" class="btn">S'inscrire au Webinaire</button>
-            <a id="whatsappLink" href="https://chat.whatsapp.com/LQENQ1GqjTa59xVE5852K9">Rejoindre le groupe WhatsApp</a>
+            
+            <div class="btn-container">
+                <button id="subscribeBtn" class="btn btn-pulse">S'inscrire au Webinaire</button>
+                <a id="whatsappLink" href="https://chat.whatsapp.com/LQENQ1GqjTa59xVE5852K9">Rejoindre le groupe WhatsApp</a>
+            </div>
         </div>
     </header>
 
@@ -464,14 +649,22 @@
 
     <script>
         document.getElementById('subscribeBtn').addEventListener('click', function() {
-            this.style.display = 'none';
-            const whatsappLink = document.getElementById('whatsappLink');
-            whatsappLink.style.display = 'inline-block';
-            // Animation optionnelle pour l'apparition du lien
-            setTimeout(() => {
-                whatsappLink.style.opacity = 1;
-            }, 10);
+            // Redirection directe vers le groupe WhatsApp
+            window.location.href = 'https://chat.whatsapp.com/LQENQ1GqjTa59xVE5852K9';
         });
+        
+        // Optimisation pour mobile : ajustement de la hauteur de l'en-tête
+        function adjustHeaderHeight() {
+            if (window.innerWidth <= 768) {
+                document.querySelector('header').style.paddingBottom = '3rem';
+            } else {
+                document.querySelector('header').style.paddingBottom = '4rem';
+            }
+        }
+        
+        // Exécuter au chargement et au redimensionnement
+        window.addEventListener('load', adjustHeaderHeight);
+        window.addEventListener('resize', adjustHeaderHeight);
     </script>
 </body>
 </html>
