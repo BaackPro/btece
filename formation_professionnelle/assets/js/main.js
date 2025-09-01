@@ -1196,7 +1196,7 @@ class FormApp {
     const subject = `Inscription aux formations BTECE - ${formData.prenom} ${formData.nom}`;
     
     const body = `
-Bonjour,
+Bonjour BTECE,
 
 Je souhaite confirmer mon inscription aux formations suivantes :
 
@@ -1241,9 +1241,9 @@ ${formData.prenom} ${formData.nom}
     document.body.appendChild(netlifyForm);
     netlifyForm.submit();
     
-    // Afficher la page de confirmation après un court délai
+    // Rediriger vers la page de confirmation après un court délai
     setTimeout(() => {
-      this.showConfirmationPage();
+      window.location.href = 'confirmation.html';
       localStorage.removeItem('bteceFormData');
       this.clearForm();
     }, 1000);
@@ -1651,7 +1651,7 @@ const phoneConfigurations = {
     'FM': { code: '+691', pattern: '[0-9]{7}', format: '+691 XXX XXXX' },
     'NR': { code: '+674', pattern: '[0-9]{7}', format: '+674 XXX XXXX' },
     'NC': { code: '+687', pattern: '[0-9]{6}', format: '+687 XXX XXX' },
-    'NZ': { code: '+64', pattern: '[0-9]{9}', format: '+64 X XXX XXXX' },
+    'NZ': { code: '+64', pattern: '[0-9]{极', format: '+64 X XXX XXXX' },
     'NU': { code: '+683', pattern: '[0-9]{4}', format: '+683 XXXX' },
     'NF': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },
     'MP': { code: '+1', pattern: '[0-9]{10}', format: '+1 XXX XXX XXXX' },
@@ -1659,17 +1659,17 @@ const phoneConfigurations = {
     'PG': { code: '+675', pattern: '[0-9]{8}', format: '+675 XXX X XXXX' },
     'PN': { code: '+64', pattern: '[0-9]{9}', format: '+64 X XXX XXXX' },
     'WS': { code: '+685', pattern: '[0-9]{7}', format: '+685 XX XXX' },
-    'SB': { code: '+677', pattern: '[0-9]{7}', format: '+677 XXX XXXX' },
-    'TK': { code: '+690', pattern: '[0-9]{4}', format: '+690 XXXX' },
+    'SB': { code: '+677', pattern: '[0-9]{极', format: '+677 XXX XXXX' },
+    'TK': { code: '+690', pattern: '[极-9]{4}', format: '+690 XXXX' },
     'TO': { code: '+676', pattern: '[0-9]{7}', format: '+676 XXX XXXX' },
     'TV': { code: '+688', pattern: '[0-9]{5}', format: '+688 XX XXX' },
     'VU': { code: '+678', pattern: '[0-9]{7}', format: '+678 XXX XXXX' },
-    'WF': { code: '+681', pattern: '[0-9]{6}', format: '+681 XX XX XX' },
+    'WF': { code: '+极', pattern: '[0-9]{6}', format: '+681 XX XX XX' },
 
     // Autres
     'AQ': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },
     'BV': { code: '+47', pattern: '[0-9]{8}', format: '+47 XXX XX XXX' },
-    'IO': { code: '+246', pattern: '[0-9]{7}', format: '+246 XXX XXXX' },
+    'IO': {极: '+246', pattern: '[0-9]{7}', format: '+246 XXX XXXX' },
     'CX': { code: '+61', pattern: '[0-9]{9}', format: '+61 X XXX XXX XXX' },
     'CC': { code: '+61', pattern: '[0-9]{9}', format: '+61 X XXX XXX XXX' },
     'HM': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },

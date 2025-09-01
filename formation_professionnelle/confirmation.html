@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'Inscription | BTECE Formations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .confirmation-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+        }
+        
+        .confirmation-header {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #f0f0f0;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        
+        .company-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2e8b57;
+            margin-bottom: 5px;
+        }
+        
+        .btece-full {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        .confirmation-title {
+            color: #2c3e50;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+        
+        .confirmation-main {
+            padding: 30px;
+        }
+        
+        .confirmation-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .check-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+        
+        .details-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            border-left: 4px solid #2e8b57;
+        }
+        
+        .details-box h3 {
+            color: #2e8b57;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        .next-steps {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+        
+        .next-steps li {
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        .tracking-status {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .tracking-steps:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .tracking-steps li {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 2px solid #ddd;
+            font-weight: bold;
+            min-width: 120px;
+        }
+        
+        .tracking-steps li.completed {
+            border-color: #28a745;
+            color: #28a745;
+        }
+        
+        .tracking-steps li.active {
+            border-color: #2e8b57;
+            color: #2e8b57;
+            background: #e8f5e9;
+        }
+        
+        .contact-link {
+            color: #2e8b57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+        
+        .thank-you-message {
+            text-align: center;
+            font-size: 18px;
+            margin: 25px 0;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            border-left: 4px solid #2e8b57;
+            color: #2c3e50;
+        }
+        
+        .confirmation-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #2e8b57 0%, #3cb371 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .confirmation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
+        }
+        
+        .email-reminder {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .resend-link {
+            color: #2e8b57;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .resend-link:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .website-link {
+            color: #2e8b57;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        .website-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tracking-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .tracking-steps:before {
+                display: none;
+            }
+            
+            .tracking-steps li {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <header class="confirmation-header">
+            <div class="logo-container">
+                <img src="assets/images/logo.png" alt="Logo BTECE" class="logo">
+                <div class="company-name">BTECE</div>
+                <div class="btece-full">BAACK TECHNOLOGY ENERGY and CONCEPTION ENGINEERING</div>
+            </div>
+            <h2 class="confirmation-title">Confirmation d'Inscription</h2>
+        </header>
+
+        <main class="confirmation-main">
+            <div class="confirmation-box">
+                <i class="fas fa-check-circle check-icon"></i>
+                <h1>Félicitations ! Votre inscription est confirmée</h1>
+                
+                <p>Nous avons bien reçu votre demande d'inscription à nos formations professionnelles.</p>
+                
+                <div class="details-box">
+                    <h3>Prochaines étapes</h3>
+                    
+                    <ul class="next-steps">
+                        <li>Vous recevrez un email de confirmation avec tous les détails dans quelques minutes</li>
+                        <li>Notre équipe vous contactera dans les 48 heures pour finaliser votre inscription</li>
+                        <li>Préparez les documents nécessaires :</li>
+                        <li>Pièce d'identité ou Passeport en cours de validité</li>
+                        <li>Photo d'identité sur fond blanc</li>
+                        <li>Votre dernier diplôme</li> 
+                    </ul>
+                </div>
+
+                <div class="tracking-status">
+                    <h3>Suivi de votre inscription</h3>
+                    <ul class="tracking-steps">
+                        <li class="completed">Formulaire soumis</li>
+                        <li class="active">Paiement en attente</li>
+                        <li>Documents à fournir</li>
+                        <li>Confirmation finale</li>
+                        <li>Accès à la formation</li>
+                    </ul>
+                </div>
+
+                <p>Pour toute question urgente, contactez-nous au <a href="tel:+2290199322477" class="contact-link">+229 01 99 32 24 77</a> ou par email à <a href="mailto:contactbtece@gmail.com" class="contact-link">contactbtece@gmail.com</a>.</p>
+                
+                <p class="thank-you-message"><strong>Merci d'avoir choisi BTECE pour votre formation professionnelle !</strong></p>
+                
+                <a href="inscription.html" class="confirmation-btn">
+                    <i class="fas fa-home"></i> Retour à l'accueil
+                </a>
+                
+                <div class="email-reminder">
+                    <p>Vous n'avez pas reçu notre email ? Vérifiez votre dossier spam ou <a href="#resend" class="resend-link">cliquez ici pour le renvoyer</a>.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 <strong>BTECE</strong> - BAACK TECHNOLOGY ENERGY and CONCEPTION ENGINEERING</p>
+        <p>Visitez notre site web : <a href="https://btece.netlify.app" class="website-link" target="_blank">https://btece.netlify.app</a></p>
+        <p>Cotonou, Bénin - Tous droits réservés</p>
+    </div>
+</body>
+</html>
