@@ -21,16 +21,14 @@
     
     <!-- Stratégie de cache -->
     <meta http-equiv="Cache-Control" content="public, max-age=604800, must-revalidate">
-    <meta name="google-sheets-api" content="enabled">
     
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.google.com https://www.gstatic.com;
+    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
     img-src 'self' data:;
-    connect-src 'self';
-    frame-src https://www.google.com;">
+    connect-src 'self';">
     
     <!-- Métadonnées SEO -->
     <meta property="og:type" content="website">
@@ -183,7 +181,7 @@
         }
         
         .btn-next:hover, .btn-prev:hover, .submit-btn:hover {
-            background-color: #5a3a8a;
+            background-color: 5a3a8a;
             color: #fff;
         }
         
@@ -581,7 +579,7 @@
                                 <optgroup label="Zone Europe">
                                     <option value="AL">Albanie (+355)</option>
                                     <option value="AD">Andorre (+376)</option>
-                                    <option value="AT">Autriche (+43)</option>
+                                    <option value="AT">Autricie (+43)</option>
                                     <option value="BY">Biélorussie (+375)</option>
                                     <option value="BE">Belgique (+32)</option>
                                     <option value="BA">Bosnie-Herzégovine (+387)</option>
@@ -1036,7 +1034,6 @@
                                     <i class="fas fa-star" aria-hidden="true"></i>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     
                     <div class="testimonial">
@@ -1288,7 +1285,7 @@
                     <p><strong>Profession :</strong> <span id="modal-profession"></span></p>
                     <p><strong>Objectifs :</strong> <span id="modal-objectifs"></span></p>
                 </div>
-                <p><strong>Session choisie :</strong> <span id="modal-session-info"></span></p>
+                <p><strong>Session chose :</strong> <span id="modal-session-info"></span></p>
                 <p><strong>Mode de formation :</strong> <span id="modal-mode-info"></span></p>
                 <p><strong>Méthode de paiement :</strong> <span id="modal-payment-info"></span></p>
                 <p class="total-price"><strong>Montant total :</strong> <span id="modal-total-price"></span> FCFA (≈ <span id="modal-total-price-eur"></span> €)</p>
@@ -1360,9 +1357,6 @@
     </footer>
 
     <!-- Scripts en bas de page pour une meilleure performance -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
-    <!-- Lien vers script JS -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>
