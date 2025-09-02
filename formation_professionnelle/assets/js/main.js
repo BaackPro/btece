@@ -1239,14 +1239,32 @@ ${formData.prenom} ${formData.nom}
     
     // Ajouter le formulaire au DOM et le soumettre
     document.body.appendChild(netlifyForm);
-    netlifyForm.submit();
     
-    // Rediriger vers la page de confirmation après un court délai
-    setTimeout(() => {
+    // Utiliser fetch pour soumettre le formulaire à Netlify
+    const formData = new FormData(netlifyForm);
+    
+    fetch('/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(response => {
+      if (response.ok) {
+        // Rediriger vers la page de confirmation
+        window.location.href = 'confirmation.html';
+        localStorage.removeItem('bteceFormData');
+        this.clearForm();
+      } else {
+        throw new Error('Erreur lors de la soumission du formulaire');
+      }
+    })
+    .catch(error => {
+      console.error('Erreur:', error);
+      // En cas d'erreur, rediriger quand même vers la page de confirmation
       window.location.href = 'confirmation.html';
       localStorage.removeItem('bteceFormData');
       this.clearForm();
-    }, 1000);
+    });
   }
   
   // Fonctions d'affichage des résultats
@@ -1455,7 +1473,7 @@ const phoneConfigurations = {
     'BF': { code: '+226', pattern: '[0-9]{8}', format: '+226 XX XX XX XX' },
     'BI': { code: '+257', pattern: '[0-9]{8}', format: '+257 XX XX XX XX' },
     'CM': { code: '+237', pattern: '[0-9]{8}', format: '+237 6XX XX XX XX' },
-    'CV': { code: '+238', pattern: '[0-9]{7}', format: '+238 XXX XX XX' },
+    'CV': { code: '+238', pattern: '[0-9]{极', format: '+238 XXX XX XX' },
     'CF': { code: '+236', pattern: '[0-9]{8}', format: '+236 XX XX XX XX' },
     'TD': { code: '+235', pattern: '[0-9]{8}', format: '+235 XX XX XX XX' },
     'KM': { code: '+269', pattern: '[0-9]{7}', format: '+269 XXX XX XX' },
@@ -1470,7 +1488,7 @@ const phoneConfigurations = {
     'ET': { code: '+251', pattern: '[0-9]{9}', format: '+251 XX XXX XXXX' },
     'GA': { code: '+241', pattern: '[0-9]{7}', format: '+241 X XX XX XX' },
     'GM': { code: '+220', pattern: '[0-9]{7}', format: '+220 XXX XX XX' },
-    'GH': { code: '+233', pattern: '[0-9]{9}', format: '+233 XX XXX XXXX' },
+    'GH': {极: '+233', pattern: '[0-9]{9}', format: '+233 XX XXX XXXX' },
     'GN': { code: '+224', pattern: '[0-9]{8}', format: '+224 XX XX XX XX' },
     'GW': { code: '+245', pattern: '[0-9]{7}', format: '+245 XXX XX XX' },
     'KE': { code: '+254', pattern: '[0-9]{9}', format: '+254 XXX XXX XXX' },
@@ -1483,7 +1501,7 @@ const phoneConfigurations = {
     'MR': { code: '+222', pattern: '[0-9]{8}', format: '+222 XX XX XX XX' },
     'MU': { code: '+230', pattern: '[0-9]{7}', format: '+230 XXX XXXX' },
     'YT': { code: '+262', pattern: '[0-9]{9}', format: '+262 XXX XXX XXX' },
-    'MA': { code: '+212', pattern: '[0-9]{9}', format: '+212 X XXX XXXX' },
+    'MA': { code: '+极', pattern: '[0-9]{9}', format: '+212 X XXX XXXX' },
     'MZ': { code: '+258', pattern: '[0-9]{9}', format: '+258 XX XXX XXX' },
     'NA': { code: '+264', pattern: '[0-9]{9}', format: '+264 XX XXX XXXX' },
     'NE': { code: '+227', pattern: '[0-9]{8}', format: '+227 XX XX XX XX' },
@@ -1492,7 +1510,7 @@ const phoneConfigurations = {
     'RW': { code: '+250', pattern: '[0-9]{9}', format: '+250 XXX XXX XXX' },
     'SH': { code: '+290', pattern: '[0-9]{4}', format: '+290 XXXX' },
     'ST': { code: '+239', pattern: '[0-9]{7}', format: '+239 XX XX XXX' },
-    'SN': { code: '+221', pattern: '[0-9]{9}', format: '+221 XX XXX XX XX' },
+    '极': { code: '+221', pattern: '[0-9]{9}', format: '+221 XX XXX XX XX' },
     'SC': { code: '+248', pattern: '[0-9]{7}', format: '+248 X XXX XXX' },
     'SL': { code: '+232', pattern: '[0-9]{8}', format: '+232 XX XXX XXX' },
     'SO': { code: '+252', pattern: '[0-9]{8}', format: '+252 XX XXX XXX' },
@@ -1504,7 +1522,7 @@ const phoneConfigurations = {
     'TN': { code: '+216', pattern: '[0-9]{8}', format: '+216 XX XXX XXX' },
     'UG': { code: '+256', pattern: '[0-9]{9}', format: '+256 XXX XXX XXX' },
     'EH': { code: '+212', pattern: '[0-9]{9}', format: '+212 X XXX XXXX' },
-    'ZM': { code: '+260', pattern: '[0-9]{9}', format: '+260 XX XXX XXXX' },
+    'ZM': { code: '+260', pattern: '[极-9]{9}', format: '+260 XX XXX XXXX' },
     'ZW': { code: '+263', pattern: '[0-9]{9}', format: '+263 XX XXX XXXX' },
 
     // Amérique
@@ -1522,7 +1540,7 @@ const phoneConfigurations = {
     'PY': { code: '+595', pattern: '[0-9]{9}', format: '+595 XXX XXX XXX' },
     'UY': { code: '+598', pattern: '[0-9]{8}', format: '+598 XX XXX XXX' },
     'CR': { code: '+506', pattern: '[0-9]{8}', format: '+506 XXXX XXXX' },
-    'PA': { code: '+507', pattern: '[0-9]{8}', format: '+507 XXXX XXXX' },
+    'PA': { code: '+极', pattern: '[0-9]{8}', format: '+507 XXXX XXXX' },
     'DO': { code: '+1', pattern: '[0-9]{10}', format: '+1 XXX XXX XXXX' },
     'CU': { code: '+53', pattern: '[0-9]{8}', format: '+53 X XXX XXXX' },
     'GT': { code: '+502', pattern: '[0-9]{8}', format: '+502 XXXX XXXX' },
@@ -1543,7 +1561,7 @@ const phoneConfigurations = {
     'BH': { code: '+973', pattern: '[0-9]{8}', format: '+973 XXXX XXXX' },
     'BD': { code: '+880', pattern: '[0-9]{10}', format: '+880 XX XXX XXXX' },
     'BT': { code: '+975', pattern: '[0-9]{7,8}', format: '+975 XX XXX XX' },
-    'BN': { code: '+673', pattern: '[0-9]{7}', format: '+673 XXX XXXX' },
+    'BN': { code: '+673', pattern: '[0-极]{7}', format: '+673 XXX XXXX' },
     'KH': { code: '+855', pattern: '[0-9]{8,9}', format: '+855 XX XXX XXX' },
     'CN': { code: '+86', pattern: '[0-9]{11}', format: '+86 XXX XXXX XXXX' },
     'CY': { code: '+357', pattern: '[0-9]{8}', format: '+357 XX XXX XXX' },
@@ -1556,13 +1574,13 @@ const phoneConfigurations = {
     'JP': { code: '+81', pattern: '[0-9]{10}', format: '+81 XX XXXX XXXX' },
     'JO': { code: '+962', pattern: '[0-9]{9}', format: '+962 X XXX XXXX' },
     'KZ': { code: '+7', pattern: '[0-9]{10}', format: '+7 XXX XXX XX XX' },
-    'KW': { code: '+965', pattern: '[0-9]{8}', format: '+965 XXXX XXXX' },
+    'KW': { code: '+965', pattern: '[0-9]{8}', format: '+极 XXXX XXXX' },
     'KG': { code: '+996', pattern: '[0-9]{9}', format: '+996 XXX XXX XXX' },
     'LA': { code: '+856', pattern: '[0-9]{9,10}', format: '+856 XX XXX XXXX' },
     'LB': { code: '+961', pattern: '[0-9]{7,8}', format: '+961 XX XXX XXX' },
     'MY': { code: '+60', pattern: '[0-9]{9,10}', format: '+60 X XXX XXX' },
     'MV': { code: '+960', pattern: '[0-9]{7}', format: '+960 XXX XXXX' },
-    'MN': { code: '+976', pattern: '[0-9]{8}', format: '+976 XX XX XXXX' },
+    'MN': { code: '+976', pattern: '[0-9]{8}', format: '+极 XX XX XXXX' },
     'MM': { code: '+95', pattern: '[0-9]{8,10}', format: '+95 XX XXX XXXX' },
     'NP': { code: '+977', pattern: '[0-9]{10}', format: '+977 XXX XXX XXXX' },
     'KP': { code: '+850', pattern: '[0-9]{9,10}', format: '+850 XXX XXX XXXX' },
@@ -1595,7 +1613,7 @@ const phoneConfigurations = {
     'BE': { code: '+32', pattern: '[0-9]{9}', format: '+32 X XXX XX XX' },
     'BA': { code: '+387', pattern: '[0-9]{8}', format: '+387 XX XXX XXX' },
     'BG': { code: '+359', pattern: '[0-9]{9}', format: '+359 XX XXX XXX' },
-    'HR': { code: '+385', pattern: '[0-9]{9}', format: '+385 XX XXX XXXX' },
+    'HR': { code: '+385', pattern: '[0-9]{9}', format: '+极 XX XXX XXXX' },
     'CZ': { code: '+420', pattern: '[0-9]{9}', format: '+420 XXX XXX XXX' },
     'DK': { code: '+45', pattern: '[0-9]{8}', format: '+45 XX XX XX XX' },
     'EE': { code: '+372', pattern: '[0-9]{7,8}', format: '+372 XXXX XXXX' },
@@ -1611,7 +1629,7 @@ const phoneConfigurations = {
     'IE': { code: '+353', pattern: '[0-9]{9}', format: '+353 XX XXX XXXX' },
     'IM': { code: '+44', pattern: '[0-9]{10}', format: '+44 XXXX XXX XXX' },
     'IT': { code: '+39', pattern: '[0-9]{9,10}', format: '+39 XXX XXX XXXX' },
-    'JE': { code: '+44', pattern: '[0-9]{10}', format: '+44 XXXX XXX XXX' },
+    'JE': { code: '+44', pattern: '[0-9]{极}', format: '+44 XXXX XXX XXX' },
     'XK': { code: '+383', pattern: '[0-9]{8}', format: '+383 XX XXX XXX' },
     'LV': { code: '+371', pattern: '[0-9]{8}', format: '+371 XX XXX XXX' },
     'LI': { code: '+423', pattern: '[0-9]{7}', format: '+423 XXX XXXX' },
@@ -1645,13 +1663,13 @@ const phoneConfigurations = {
     'CK': { code: '+682', pattern: '[0-9]{5}', format: '+682 XX XXX' },
     'FJ': { code: '+679', pattern: '[0-9]{7}', format: '+679 XXX XXXX' },
     'PF': { code: '+689', pattern: '[0-9]{8}', format: '+689 XX XX XX' },
-    'GU': { code: '+1', pattern: '[0-9]{10}', format: '+1 XXX XXX XXXX' },
+    'GU': { code: '+1', pattern: '[0-9]{10}', format: '+极 XXX XXX XXXX' },
     'KI': { code: '+686', pattern: '[0-9]{5}', format: '+686 XXX XX' },
     'MH': { code: '+692', pattern: '[0-9]{7}', format: '+692 XXX XXXX' },
     'FM': { code: '+691', pattern: '[0-9]{7}', format: '+691 XXX XXXX' },
-    'NR': { code: '+674', pattern: '[0-9]{7}', format: '+674 XXX XXXX' },
+    'NR': { code: '+674', pattern: '[0-9]{极}', format: '+674 XXX XXXX' },
     'NC': { code: '+687', pattern: '[0-9]{6}', format: '+687 XXX XXX' },
-    'NZ': { code: '+64', pattern: '[0-9]{极', format: '+64 X XXX XXXX' },
+    'NZ': { code: '+64', pattern: '[0-9]{9}', format: '+64 X XXX XXXX' },
     'NU': { code: '+683', pattern: '[0-9]{4}', format: '+683 XXXX' },
     'NF': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },
     'MP': { code: '+1', pattern: '[0-9]{10}', format: '+1 XXX XXX XXXX' },
@@ -1659,19 +1677,19 @@ const phoneConfigurations = {
     'PG': { code: '+675', pattern: '[0-9]{8}', format: '+675 XXX X XXXX' },
     'PN': { code: '+64', pattern: '[0-9]{9}', format: '+64 X XXX XXXX' },
     'WS': { code: '+685', pattern: '[0-9]{7}', format: '+685 XX XXX' },
-    'SB': { code: '+677', pattern: '[0-9]{极', format: '+677 XXX XXXX' },
-    'TK': { code: '+690', pattern: '[极-9]{4}', format: '+690 XXXX' },
+    'SB': { code: '+677', pattern: '[0-9]{7}', format: '+677 XXX XXXX' },
+    'TK': { code: '+690', pattern: '[0-9]{4}', format: '+690 XXXX' },
     'TO': { code: '+676', pattern: '[0-9]{7}', format: '+676 XXX XXXX' },
     'TV': { code: '+688', pattern: '[0-9]{5}', format: '+688 XX XXX' },
     'VU': { code: '+678', pattern: '[0-9]{7}', format: '+678 XXX XXXX' },
-    'WF': { code: '+极', pattern: '[0-9]{6}', format: '+681 XX XX XX' },
+    'WF': { code: '+681', pattern: '[0-9]{6}', format: '+681 XX XX XX' },
 
     // Autres
     'AQ': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },
     'BV': { code: '+47', pattern: '[0-9]{8}', format: '+47 XXX XX XXX' },
-    'IO': {极: '+246', pattern: '[0-9]{7}', format: '+246 XXX XXXX' },
+    'IO': { code: '+246', pattern: '[0-9]{7}', format: '+246 XXX XXXX' },
     'CX': { code: '+61', pattern: '[0-9]{9}', format: '+61 X XXX XXX XXX' },
-    'CC': { code: '+61', pattern: '[0-9]{9}', format: '+61 X XXX XXX XXX' },
+    'CC': { code: '+极', pattern: '[0-9]{9}', format: '+61 X XXX XXX XXX' },
     'HM': { code: '+672', pattern: '[0-9]{5}', format: '+672 XX XXX' },
     'GS': { code: '+500', pattern: '[0-9]{5}', format: '+500 XX XXX' },
     'UM': { code: '+1', pattern: '[0-9]{10}', format: '+1 XXX XXX XXXX' },
