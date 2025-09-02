@@ -36,8 +36,8 @@
 
 # Redirection vers la page de confirmation après soumission du formulaire
 [[redirects]]
-  from = "formation_professionnelle/confirmation"
-  to = "formation_professionnelle/confirmation.html"
+  from = "/confirmation"
+  to = "/confirmation.html"
   status = 200
 
 # Redirection pour le traitement du formulaire

@@ -1251,7 +1251,7 @@ ${formData.prenom} ${formData.nom}
     .then(response => {
       if (response.ok) {
         // Rediriger vers la page de confirmation
-        window.location.href = 'formation_professionnelle/confirmation.html';
+        window.location.href = 'confirmation.html';
         localStorage.removeItem('bteceFormData');
         this.clearForm();
       } else {
@@ -1261,7 +1261,7 @@ ${formData.prenom} ${formData.nom}
     .catch(error => {
       console.error('Erreur:', error);
       // En cas d'erreur, rediriger quand même vers la page de confirmation
-      window.location.href = 'formation_professionnelle/confirmation.html';
+      window.location.href = 'confirmation.html';
       localStorage.removeItem('bteceFormData');
       this.clearForm();
     });
