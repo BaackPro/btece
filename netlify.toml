@@ -72,7 +72,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Language = ["en"], Country = ["US"]}
 
 # Redirections de sécurité
 [[redirects]]
@@ -156,12 +155,16 @@
   NETLIFY_FORMS_HANDLER = "true"
   # Chemin vers le dossier formation_professionnelle
   FORMATION_PATH = "/formation_professionnelle"
+  # Désactivation des pretty URLs
+  PRETTY_URLS = "false"
 
 [context.deploy-preview.environment]
   NODE_ENV = "development"
+  PRETTY_URLS = "false"
 
 [context.branch-deploy.environment]
   NODE_ENV = "development"
+  PRETTY_URLS = "false"
 
 # Configuration du traitement des forms Netlify
 [forms]
@@ -188,11 +191,6 @@
   to = "/index.html"
   status = 200
   force = true
-
-# Désactivation des pretty URLs pour éviter les problèmes de case
-[context.production]
-  [context.production.environment]
-    PRETTY_URLS = "false"
 
 # Redirections pour les assets dans le dossier formation_professionnelle
 [[redirects]]
