@@ -13,7 +13,20 @@
 [dev]
   port = 3000
   publish = "."
-  command = "npm run dev"
+
+# Configuration des fonctions serverless
+[functions]
+  # Dossier où se trouvent vos fonctions serverless
+  directory = "netlify/functions"
+  # Temps d'exécution maximum pour les fonctions (en secondes)
+  node_bundler = "esbuild"
+  
+  # Configuration du timeout (syntaxe corrigée)
+  [functions.settings]
+    timeout = 10  # Timeout en secondes pour les fonctions synchrones :cite[9]
+
+  # Modules externes à inclure
+  external_node_modules = ["nodemailer", "dotenv", "axios"]
 
 # Redirection SPA (Single Page Application)
 [[redirects]]
@@ -27,11 +40,19 @@
   to = "/confirmation.html"
   status = 200
 
-# Redirection pour le traitement du formulaire Netlify
+# Redirection pour le traitement du formulaire
 [[redirects]]
-  from = "/.netlify/functions/process-form"
-  to = "/.netlify/functions/process-form"
+  from = "/api/submit-form"
+  to = "/.netlify/functions/submit-form"
   status = 200
+  force = true
+
+# Redirection pour l'envoi d'email
+[[redirects]]
+  from = "/api/send-email"
+  to = "/.netlify/functions/send-email"
+  status = 200
+  force = true
 
 # Redirections de sécurité
 [[redirects]]
@@ -63,6 +84,9 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
 
 # Cache pour les assets statiques
 [[headers]]
@@ -90,14 +114,14 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Configuration des fonctions serverless
-[functions]
-  # Dossier où se trouvent vos fonctions serverless
-  directory = "netlify/functions"
-  # Temps d'exécution maximum pour les fonctions (en secondes)
-  timeout = 10
-  # Modules externes à inclure
-  external_node_modules = ["nodemailer", "dotenv"]
+# Headers spécifiques pour les fonctions API
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "POST, GET, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
 
 # Variables d'environnement par contexte
 [context.production.environment]
@@ -106,8 +130,8 @@
   # Configuration Gmail
   GMAIL_USER = "votre-email@gmail.com"
   GMAIL_PASS = "votre-mot-de-passe-app"
-  # Clé secrète pour la validation des emails
-  EMAIL_SECRET = "votre-secret-email"
+  # Clé secrète pour la validation
+  FORM_SECRET = "votre-secret-formulaire"
 
 [context.deploy-preview.environment]
   NODE_ENV = "development"
@@ -119,17 +143,6 @@
 [forms]
   # Désactivation du scanning automatique des forms
   scanning_enabled = false
-  # Nom du form pour les inscriptions
-  [forms.custom_fields.inscription]
-    required = true
-    type = "string"
-
-# Configuration de la fonction d'envoi d'email
-[[redirects]]
-  from = "/api/send-email"
-  to = "/.netlify/functions/send-email"
-  status = 200
-  force = true
 
 # Redirection pour les erreurs 404
 [[redirects]]
@@ -143,12 +156,3 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
-    Content-Type = "image/webp"
-
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "POST, GET, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
