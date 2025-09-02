@@ -36,8 +36,8 @@
 
 # Redirection vers la page de confirmation après soumission du formulaire
 [[redirects]]
-  from = "/confirmation"
-  to = "/confirmation.html"
+  from = "formation_professionnelle/confirmation"
+  to = "formation_professionnelle/confirmation.html"
   status = 200
 
 # Redirection pour le traitement du formulaire
@@ -128,8 +128,8 @@
   NODE_ENV = "production"
   SITE_URL = "https://btece.netlify.app/"
   # Configuration Gmail
-  GMAIL_USER = "votre-email@gmail.com"
-  GMAIL_PASS = "votre-mot-de-passe-app"
+  GMAIL_USER = "contactbtece@gmail.com"
+  GMAIL_PASS = "Contabtece2025"
   # Clé secrète pour la validation
   FORM_SECRET = "votre-secret-formulaire"
 
