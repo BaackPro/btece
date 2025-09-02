@@ -28,13 +28,7 @@
   # Modules externes à inclure
   external_node_modules = ["nodemailer", "dotenv", "axios"]
 
-# Redirection SPA (Single Page Application) - Correction du routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-
+# Redirections principales - ORDRE CORRIGÉ (spécifique d'abord, générique ensuite)
 # Redirections spécifiques pour le dossier formation_professionnelle
 [[redirects]]
   from = "/formation_professionnelle/inscription"
@@ -67,11 +61,35 @@
   status = 200
   force = true
 
-# Redirection de fallback pour SPA
+# Redirections pour les assets dans le dossier formation_professionnelle
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/formation_professionnelle/assets/*"
+  to = "/formation_professionnelle/assets/:splat"
   status = 200
+
+[[redirects]]
+  from = "/formation_professionnelle/*.css"
+  to = "/formation_professionnelle/:splat.css"
+  status = 200
+
+[[redirects]]
+  from = "/formation_professionnelle/*.js"
+  to = "/formation_professionnelle/:splat.js"
+  status = 200
+
+# Redirection pour le formulaire d'inscription (racine)
+[[redirects]]
+  from = "/inscription"
+  to = "/formation_professionnelle/inscription.html"
+  status = 200
+  force = true
+
+# Redirection pour la page de confirmation (racine)
+[[redirects]]
+  from = "/confirmation"
+  to = "/formation_professionnelle/confirmation.html"
+  status = 200
+  force = true
 
 # Redirections de sécurité
 [[redirects]]
@@ -93,6 +111,20 @@
   from = "/.env.*"
   to = "/404.html"
   status = 404
+
+# Redirection SPA (Single Page Application) - Doit être placée APRÈS les règles spécifiques
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# Redirection pour les erreurs 404 - Doit être la dernière règle
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+  conditions = {Status = 404}
 
 # Headers de sécurité
 [[headers]]
@@ -142,6 +174,12 @@
     Access-Control-Allow-Methods = "POST, GET, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, Authorization"
 
+# Optimisation des performances
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
 # Variables d'environnement par contexte
 [context.production.environment]
   NODE_ENV = "production"
@@ -170,54 +208,3 @@
 [forms]
   # Désactivation du scanning automatique des forms
   scanning_enabled = false
-
-# Redirection pour les erreurs 404
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
-  conditions = {Status = 404}
-
-# Optimisation des performances
-[[headers]]
-  for = "/images/*"
-  [headers.values]
-    Cache-Control = "public, max-age=86400"
-
-# Configuration spécifique pour le traitement des formulaires
-# Empêcher la redirection automatique de Netlify Forms
-[[redirects]]
-  from = "/"
-  to = "/index.html"
-  status = 200
-  force = true
-
-# Redirections pour les assets dans le dossier formation_professionnelle
-[[redirects]]
-  from = "/formation_professionnelle/assets/*"
-  to = "/formation_professionnelle/assets/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/formation_professionnelle/*.css"
-  to = "/formation_professionnelle/:splat.css"
-  status = 200
-
-[[redirects]]
-  from = "/formation_professionnelle/*.js"
-  to = "/formation_professionnelle/:splat.js"
-  status = 200
-
-# Redirection pour le formulaire d'inscription
-[[redirects]]
-  from = "/inscription"
-  to = "/formation_professionnelle/inscription.html"
-  status = 200
-  force = true
-
-# Redirection pour la page de confirmation
-[[redirects]]
-  from = "/confirmation"
-  to = "/formation_professionnelle/confirmation.html"
-  status = 200
-  force = true
