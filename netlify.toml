@@ -23,29 +23,42 @@
   
   # Configuration du timeout (syntaxe corrigée)
   [functions.settings]
-    timeout = 10  # Timeout en secondes pour les fonctions synchrones :cite[9]
+    timeout = 10  # Timeout en secondes pour les fonctions synchrones 
 
   # Modules externes à inclure
   external_node_modules = ["nodemailer", "dotenv", "axios"]
 
-# Redirection SPA (Single Page Application)
+# Redirection SPA (Single Page Application) - Correction du routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
 
-# Redirection vers la page de confirmation après soumission du formulaire
+# Redirections spécifiques pour le dossier formation_professionnelle
 [[redirects]]
-  from = "/confirmation"
-  to = "/confirmation.html"
-  status = 200
-
-# Redirection pour le traitement du formulaire
-[[redirects]]
-  from = "/api/submit-form"
-  to = "/.netlify/functions/submit-form"
+  from = "/formation_professionnelle/inscription"
+  to = "/formation_professionnelle/inscription.html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/formation_professionnelle/confirmation"
+  to = "/formation_professionnelle/confirmation.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/formation_professionnelle/merci"
+  to = "/formation_professionnelle/confirmation.html"
+  status = 200
+  force = true
+
+# Redirection pour le traitement du formulaire Netlify
+[[redirects]]
+  from = "/.netlify/functions/submit-form"
+  to = "/.netlify/functions/submit-form"
+  status = 200
 
 # Redirection pour l'envoi d'email
 [[redirects]]
@@ -53,6 +66,13 @@
   to = "/.netlify/functions/send-email"
   status = 200
   force = true
+
+# Redirection de fallback pour SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Language = ["en"], Country = ["US"]}
 
 # Redirections de sécurité
 [[redirects]]
@@ -128,10 +148,14 @@
   NODE_ENV = "production"
   SITE_URL = "https://btece.netlify.app/"
   # Configuration Gmail
-  GMAIL_USER = "contactbtece@gmail.com"
-  GMAIL_PASS = "Contabtece2025"
+  GMAIL_USER = "votre-email@gmail.com"
+  GMAIL_PASS = "votre-mot-de-passe-app"
   # Clé secrète pour la validation
   FORM_SECRET = "votre-secret-formulaire"
+  # Configuration spécifique pour Netlify Forms
+  NETLIFY_FORMS_HANDLER = "true"
+  # Chemin vers le dossier formation_professionnelle
+  FORMATION_PATH = "/formation_professionnelle"
 
 [context.deploy-preview.environment]
   NODE_ENV = "development"
@@ -156,3 +180,46 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Configuration spécifique pour le traitement des formulaires
+# Empêcher la redirection automatique de Netlify Forms
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+  force = true
+
+# Désactivation des pretty URLs pour éviter les problèmes de case
+[context.production]
+  [context.production.environment]
+    PRETTY_URLS = "false"
+
+# Redirections pour les assets dans le dossier formation_professionnelle
+[[redirects]]
+  from = "/formation_professionnelle/assets/*"
+  to = "/formation_professionnelle/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/formation_professionnelle/*.css"
+  to = "/formation_professionnelle/:splat.css"
+  status = 200
+
+[[redirects]]
+  from = "/formation_professionnelle/*.js"
+  to = "/formation_professionnelle/:splat.js"
+  status = 200
+
+# Redirection pour le formulaire d'inscription
+[[redirects]]
+  from = "/inscription"
+  to = "/formation_professionnelle/inscription.html"
+  status = 200
+  force = true
+
+# Redirection pour la page de confirmation
+[[redirects]]
+  from = "/confirmation"
+  to = "/formation_professionnelle/confirmation.html"
+  status = 200
+  force = true
