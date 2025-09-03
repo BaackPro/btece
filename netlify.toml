@@ -48,16 +48,17 @@
   status = 200
   force = true
 
-# Redirection pour le traitement du formulaire Netlify
-[[redirects]]
-  from = "/.netlify/functions/submit-form"
-  to = "/.netlify/functions/submit-form"
-  status = 200
-
-# Redirection pour l'envoi d'email
+# Redirection pour l'envoi d'email (CHEMIN CORRIGÉ)
 [[redirects]]
   from = "/api/send-email"
   to = "/.netlify/functions/send-email"
+  status = 200
+  force = true
+
+# Redirection pour le traitement du formulaire (CHEMIN CORRIGÉ)
+[[redirects]]
+  from = "/api/submit-form"
+  to = "/.netlify/functions/submit-form"
   status = 200
   force = true
 
