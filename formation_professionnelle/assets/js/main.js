@@ -1,1451 +1,19 @@
 
-// Configuration des données
-const CONFIG = {
-  // Prix des formations en FCFA
-  formationPrices: {
-    'plans_archi_elec': 130000,
-    'conception_elec': 150000,
-    'realisation_3d': 120000,
-    'programmation': 200000
-  },
-  
-  // Taux de conversion FCFA vers EUR
-  exchangeRate: 655.957,
-  
-  // Temps estimé par étape (en secondes)
-  stepTimes: [60, 30, 30, 30, 30],
-  
-  // Noms des formations pour l'affichage
-  formationNames: {
-    'plans_archi_elec': 'Réalisation de plans architecturaux et électricité',
-    'conception_elec': 'Conception électronique',
-    'realisation_3d': 'Réalisation 3D',
-    'programmation': 'Programmation'
-  },
-  
-  // Noms des méthodes de paiement
-  paymentMethodNames: {
-    'VISA': 'Paiement par carte VISA',
-    'MTN Mobile Money': 'Paiement par MTN Mobile Money',
-    'Moov Africa Mobile Money': 'Paiement par Moov Africa Mobile Money',
-    'Celtiis Mobile Money': 'Paiement par Celtiis Mobile Money',
-    'Orange Money': 'Paiement par Orange Money',
-    'Airtel Money': 'Paiement par Airtel Money',
-    'Wari': 'Paiement par Wari',
-    'Crypto Currency': 'Paiement par Crypto Currency',
-    'Paiement sur place': 'Paiement sur place (espèces/chèque)'
-  },
-  
-  // Sessions disponibles
-  sessionDates: {
-    'juillet': 'Juillet 2025',
-    'aout': 'Août 2025',
-    'septembre': 'Septembre 2025',
-    'octobre': 'Octobre 2025',
-    'novembre': 'Novembre 2025',
-    'decembre': 'Décembre 2025'
-  }
+// Prix des formations en FCFA (augmentés de 10 000 FCFA pour les formations 1, 2 et 4)
+const formationPrices = {
+    'plans_archi_elec': 130000,  // Augmenté de 10 000 FCFA
+    'conception_elec': 150000,   // Augmenté de 10 000 FCFA
+    'realisation_3d': 120000,    // Inchangé
+    'programmation': 200000      // Augmenté de 10 000 FCFA
 };
 
-// Initialisation de l'application
-class FormApp {
-  constructor() {
-    this.state = {
-      currentStep: 1,
-      currentRappelIndex: 0,
-      isSubmitting: false,
-      formSubmitted: false,
-      saveTimeout: null,
-      formData: {}
-    };
-    
-    this.initElements();
-    this.initEventListeners();
-    this.initForm();
-  }
-  
-  // Cache les éléments DOM
-  initElements() {
-    this.elements = {
-      checkboxes: document.querySelectorAll('input[name="selected_courses[]"]'),
-      priceDisplay: document.getElementById('price-display'),
-      totalPriceFCFA: document.getElementById('total-price-fcfa'),
-      totalPriceEUR: document.getElementById('total-price-eur'),
-      submitBtn: document.getElementById('submit-btn'),
-      loadingIndicator: document.getElementById('loading'),
-      registrationForm: document.getElementById('registration-form'),
-      paysSelect: document.getElementById('pays'),
-      phonePrefix: document.getElementById('phone-prefix'),
-      phoneFormat: document.getElementById('phone-format'),
-      telephoneInput: document.getElementById('telephone'),
-      mainPage: document.getElementById('main-page'),
-      confirmationPage: document.getElementById('confirmation-page'),
-      modal: document.getElementById('confirmation-modal'),
-      modalFormationsList: document.getElementById('modal-formations-list'),
-      modalNomComplet: document.getElementById('modal-nom-complet'),
-      modalEmail: document.getElementById('modal-email'),
-      modalDateNaissance: document.getElementById('modal-date-naissance'),
-      modalLieuNaissance: document.getElementById('modal-lieu-naissance'),
-      modalTelephone: document.getElementById('modal-telephone'),
-      modalPays: document.getElementById('modal-pays'),
-      modalProfession: document.getElementById('modal-profession'),
-      modalObjectifs: document.getElementById('modal-objectifs'),
-      modalSessionInfo: document.getElementById('modal-session-info'),
-      modalModeInfo: document.getElementById('modal-mode-info'),
-      modalPaymentInfo: document.getElementById('modal-payment-info'),
-      modalTotalPrice: document.getElementById('modal-total-price'),
-      modalTotalPriceEur: document.getElementById('modal-total-price-eur'),
-      closeModal: document.querySelector('.close-modal'),
-      modalCancel: document.querySelector('.modal-cancel'),
-      modalConfirm: document.querySelector('.modal-confirm'),
-      chatToggle: document.getElementById('chat-toggle'),
-      chatContainer: document.getElementById('chat-container'),
-      closeChat: document.getElementById('close-chat'),
-      chatMessages: document.getElementById('chat-messages'),
-      chatInput: document.getElementById('chat-input'),
-      sendMessage: document.getElementById('send-message'),
-      modeFormationSelect: document.getElementById('mode-formation'),
-      onlinePaymentMethods: document.getElementById('online-payment-methods'),
-      presentielPaymentMethod: document.getElementById('presentiel-payment-method'),
-      paymentMethodGroup: document.getElementById('payment-method-group'),
-      formSteps: document.querySelectorAll('.form-step'),
-      progressSteps: document.querySelectorAll('.step'),
-      progressBar: document.getElementById('progress-bar'),
-      progressText: document.getElementById('progress-text'),
-      timeEstimation: document.getElementById('time-estimation'),
-      saveStatus: document.getElementById('save-status'),
-      userSummary: document.getElementById('user-summary'),
-      rappelMessages: document.querySelectorAll('.rappel-message'),
-      rappelContainer: document.querySelector('.raquel-container'),
-      objectifsTextarea: document.getElementById('objectifs'),
-      objectifsCounter: document.getElementById('objectifs-counter'),
-      dateNaissanceInput: document.getElementById('date_naissance'),
-      lieuNaissanceInput: document.getElementById('lieu_naissance'),
-      ageError: document.getElementById('age-error'),
-      resendEmailBtn: document.querySelector('.resend-link'),
-      csrfToken: document.getElementById('csrf_token'),
-      sessionDatesContainer: document.getElementById('session-dates-container'),
-      honeypotField: document.getElementById('bot-field'),
-      montantTotalInput: document.getElementById('montant-total'),
-      consentementCheckbox: document.getElementById('consentement')
-    };
-  }
-  
-  // Initialise les écouteurs d'événements avec délégation
-  initEventListeners() {
-    // Utiliser la délégation d'événements pour une meilleure performance
-    document.addEventListener('change', (e) => {
-      // Gestion du mode de formation
-      if (e.target === this.elements.modeFormationSelect) {
-        if (this.elements.onlinePaymentMethods) {
-          this.elements.onlinePaymentMethods.style.display = 
-            e.target.value === 'en-ligne' ? 'block' : 'none';
-        }
-        if (this.elements.presentielPaymentMethod) {
-          this.elements.presentielPaymentMethod.style.display = 
-            e.target.value === 'presentiel' ? 'block' : 'none';
-        }
-        this.autoSave();
-      }
-      
-      // Gestion du pays et du format de téléphone
-      if (e.target === this.elements.paysSelect) {
-        const selectedCountry = e.target.value;
-        const config = this.getPhoneConfig(selectedCountry);
-        
-        if (this.elements.phonePrefix) {
-          this.elements.phonePrefix.textContent = config.code;
-        }
-        
-        if (this.elements.telephoneInput) {
-          this.elements.telephoneInput.pattern = config.pattern;
-          this.elements.telephoneInput.title = `Numéro valide (format: ${config.format})`;
-        }
-        
-        if (this.elements.phoneFormat) {
-          this.elements.phoneFormat.textContent = `Format: ${config.format}`;
-          this.elements.phoneFormat.style.display = 'block';
-        }
-        
-        this.autoSave();
-      }
-      
-      // Calcul du total des formations
-      if (e.target.matches('input[name="selected_courses[]"]')) {
-        this.calculateTotal();
-      }
-      
-      // Validation de l'âge
-      if (e.target === this.elements.dateNaissanceInput) {
-        this.validateAge();
-      }
-      
-      // Compteur de mots pour les objectifs
-      if (e.target === this.elements.objectifsTextarea) {
-        this.updateWordCounter();
-      }
-      
-      // Sauvegarde automatique pour tous les champs de formulaire
-      if (e.target.matches('input, select, textarea')) {
-        clearTimeout(this.state.saveTimeout);
-        this.state.saveTimeout = setTimeout(() => this.autoSave(), 1000);
-      }
-    });
-    
-    document.addEventListener('input', (e) => {
-      // Sauvegarde automatique pour les champs de texte
-      if (e.target.matches('input, select, textarea')) {
-        clearTimeout(this.state.saveTimeout);
-        this.state.saveTimeout = setTimeout(() => this.autoSave(), 1000);
-      }
-      
-      // Compteur de mots pour les objectifs
-      if (e.target === this.elements.objectifsTextarea) {
-        this.updateWordCounter();
-      }
-    });
-    
-    // Soumission du formulaire
-    if (this.elements.registrationForm) {
-      this.elements.registrationForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        this.validateFinalStep();
-      });
-    }
-    
-    // Gestion de la modal de confirmation
-    if (this.elements.modalConfirm) {
-      this.elements.modalConfirm.addEventListener('click', () => {
-        // Validation avant envoi
-        if (this.validateAllSteps()) {
-          this.sendFormData();
-        } else {
-          // Afficher un message d'erreur dans la modal
-          const errorDiv = document.createElement('div');
-          errorDiv.className = 'error-message';
-          errorDiv.textContent = 'Veuillez corriger les erreurs dans le formulaire avant de confirmer.';
-          errorDiv.setAttribute('role', 'alert');
-          
-          // Supprimer les anciens messages d'erreur
-          const existingError = this.elements.modal.querySelector('.error-message');
-          if (existingError) existingError.remove();
-          
-          this.elements.modal.querySelector('.modal-body').prepend(errorDiv);
-        }
-      });
-    }
-    
-    if (this.elements.modalCancel) {
-      this.elements.modalCancel.addEventListener('click', () => { 
-        if (this.elements.modal) {
-          this.elements.modal.style.display = 'none'; 
-        }
-      });
-    }
-    
-    if (this.elements.closeModal) {
-      this.elements.closeModal.addEventListener('click', () => { 
-        if (this.elements.modal) {
-          this.elements.modal.style.display = 'none'; 
-        }
-      });
-    }
-    
-    // Gestion du chat
-    if (this.elements.chatToggle) {
-      this.elements.chatToggle.addEventListener('click', () => {
-        if (this.elements.chatContainer) {
-          this.elements.chatContainer.style.display = 
-            this.elements.chatContainer.style.display === 'block' ? 'none' : 'block';
-          if (this.elements.chatContainer.style.display === 'block' && this.elements.chatInput) {
-            this.elements.chatInput.focus();
-          }
-        }
-      });
-    }
-    
-    if (this.elements.closeChat) {
-      this.elements.closeChat.addEventListener('click', () => { 
-        if (this.elements.chatContainer) {
-          this.elements.chatContainer.style.display = 'none'; 
-        }
-      });
-    }
-    
-    if (this.elements.sendMessage) {
-      this.elements.sendMessage.addEventListener('click', () => this.sendChatMessage());
-    }
-    
-    if (this.elements.chatInput) {
-      this.elements.chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') this.sendChatMessage();
-      });
-    }
-    
-    // Boutons précédent/suivant avec délégation d'événements
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('.btn-next')) {
-        e.preventDefault();
-        const currentStep = parseInt(e.target.closest('.form-step').id.split('-').pop());
-        this.nextStep(currentStep);
-      }
-      
-      if (e.target.matches('.btn-prev')) {
-        e.preventDefault();
-        const currentStep = parseInt(e.target.closest('.form-step').id.split('-').pop());
-        this.prevStep(currentStep);
-      }
-    });
-  }
-  
-  // Initialise le formulaire
-  initForm() {
-    // Configuration de la date maximale pour la date de naissance (13 ans minimum)
-    if (this.elements.dateNaissanceInput) {
-      const today = new Date();
-      const maxDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
-      this.elements.dateNaissanceInput.max = maxDate.toISOString().split('T')[0];
-    }
-    
-    // Génération du token CSRF
-    this.generateCSRFToken();
-    
-    // Chargement des données sauvegardées
-    this.loadSavedData();
-    this.updateProgressBar();
-    this.updateTimeEstimation();
-    
-    // Affichage des dates des sessions
-    this.displaySessionDates();
-    
-    // Rotation des messages du rappel
-    if (this.elements.rappelMessages && this.elements.rappelMessages.length > 0) {
-      setInterval(() => this.rotateRappelMessages(), 2000);
-    }
-    
-    // Initialisation finale
-    this.updateWordCounter();
-    this.calculateTotal();
-  }
-  
-  // Fonctions utilitaires
-  generateCSRFToken() {
-    if (!this.elements.csrfToken) return;
-    const token = window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
-    this.elements.csrfToken.value = token;
-    return token;
-  }
-  
-  getPhoneConfig(countryCode) {
-    return phoneConfigurations[countryCode] || phoneConfigurations['BJ'];
-  }
-  
-  sanitizeInput(input) {
-    if (!input) return '';
-    return input.toString()
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-  
-  countWords(text) {
-    if (!text) return 0;
-    const trimmedText = text.trim();
-    return trimmedText === '' ? 0 : trimmedText.split(/\s+/).length;
-  }
-  
-  calculateAge(birthDate) {
-    if (!birthDate) return 0;
-    
-    const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
-      age--;
-    }
-    
-    return age;
-  }
-  
-  validatePhone(phone, country) {
-    if (!phone || !country) return false;
-    const config = this.getPhoneConfig(country);
-    const regex = new RegExp(`^${config.pattern}$`);
-    return regex.test(phone);
-  }
-  
-  // Gestion des étapes
-  showStep(step) {
-    if (!this.elements.formSteps || !this.elements.progressSteps) return;
-    
-    this.elements.formSteps.forEach((formStep, index) => {
-      formStep.classList.toggle('active', index + 1 === step);
-      formStep.setAttribute('aria-hidden', index + 1 !== step);
-    });
+// Taux de conversion FCFA vers EUR
+const exchangeRate = 655.957;
 
-    this.elements.progressSteps.forEach((progressStep, index) => {
-      if (index + 1 < step) {
-        progressStep.classList.add('completed');
-        progressStep.classList.remove('active');
-        progressStep.removeAttribute('aria-current');
-      } else if (index + 1 === step) {
-        progressStep.classList.add('active');
-        progressStep.classList.remove('completed');
-        progressStep.setAttribute('aria-current', 'step');
-      } else {
-        progressStep.classList.remove('active', 'completed');
-        progressStep.removeAttribute('aria-current');
-      }
-    });
+// Temps estimé par étape (en secondes)
+const stepTimes = [60, 30, 30, 30, 30]; // Total: 3 minutes (180 secondes)
 
-    this.state.currentStep = step;
-    this.updateProgressBar();
-    this.updateTimeEstimation();
-    this.autoSave();
-    
-    // Annoncer le changement d'étape pour l'accessibilité
-    this.announceStepChange(step);
-    
-    // Focus sur le premier champ de l'étape pour l'accessibilité
-    const currentStep = document.getElementById(`form-step-${step}`);
-    if (currentStep) {
-      const firstInput = currentStep.querySelector('input, select, textarea');
-      if (firstInput) firstInput.focus();
-    }
-  }
-  
-  // Annoncer le changement d'étape pour les lecteurs d'écran
-  announceStepChange(step) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Étape ${step} sur 5`;
-    document.body.appendChild(announcement);
-    
-    setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 100);
-  }
-  
-  nextStep(current) {
-    if (!this.validateStep(current)) return;
-    this.showStep(current + 1);
-  }
-  
-  prevStep(current) {
-    this.showStep(current - 1);
-  }
-  
-  updateProgressBar() {
-    if (!this.elements.progressBar || !this.elements.progressText) return;
-    
-    const progress = ((this.state.currentStep - 1) / 5) * 100;
-    this.elements.progressBar.style.width = `${progress}%`;
-    this.elements.progressText.textContent = `${progress.toFixed(0)}% complété`;
-    this.elements.progressBar.setAttribute('aria-valuenow', progress);
-    
-    if (this.state.currentStep > 1 && document.querySelector('.progress-container')) {
-      document.querySelector('.progress-container').style.display = 'block';
-    }
-  }
-  
-  updateTimeEstimation() {
-    if (!this.elements.timeEstimation) return;
-    
-    let remainingTime = 0;
-    for (let i = this.state.currentStep - 1; i < CONFIG.stepTimes.length; i++) {
-      remainingTime += CONFIG.stepTimes[i];
-    }
-    
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
-    
-    if (minutes > 0) {
-      this.elements.timeEstimation.textContent = `Temps estimé : ${minutes} minute${minutes > 1 ? 's' : ''}${seconds > 0 ? ` et ${seconds} seconde${seconds > 1 ? 's' : ''}` : ''}`;
-    } else {
-      this.elements.timeEstimation.textContent = `Temps estimé : ${seconds} seconde${seconds > 1 ? 's' : ''}`;
-    }
-  }
-  
-  // Gestion des données
-  autoSave() {
-    if (!this.elements.saveStatus) return;
-    
-    this.elements.saveStatus.textContent = "Sauvegarde en cours...";
-    this.elements.saveStatus.className = "save-status saving";
-    this.elements.saveStatus.style.display = "block";
-    
-    this.state.formData = {
-      step: this.state.currentStep,
-      nom: this.sanitizeInput(document.getElementById('nom')?.value),
-      prenom: this.sanitizeInput(document.getElementById('prenom')?.value),
-      email: this.sanitizeInput(document.getElementById('email')?.value),
-      date_naissance: this.sanitizeInput(this.elements.dateNaissanceInput?.value),
-      lieu_naissance: this.sanitizeInput(this.elements.lieuNaissanceInput?.value),
-      pays: this.sanitizeInput(this.elements.paysSelect?.value),
-      telephone: this.sanitizeInput(this.elements.telephoneInput?.value),
-      profession: document.querySelector('input[name="profession"]:checked')?.value,
-      objectifs: this.sanitizeInput(this.elements.objectifsTextarea?.value),
-      formations: Array.from(this.elements.checkboxes || [])
-        .filter(cb => cb.checked)
-        .map(cb => this.sanitizeInput(cb.value)),
-      session: document.querySelector('input[name="session"]:checked')?.value,
-      modeFormation: this.sanitizeInput(this.elements.modeFormationSelect?.value),
-      paymentMethod: document.querySelector('input[name="payment_method"]:checked')?.value,
-      consentement: this.elements.consentementCheckbox?.checked || false
-    };
-    
-    localStorage.setItem('bteceFormData', JSON.stringify(this.state.formData));
-    
-    setTimeout(() => {
-      this.elements.saveStatus.textContent = "Données sauvegardées";
-      this.elements.saveStatus.className = "save-status saved";
-      
-      setTimeout(() => {
-        this.elements.saveStatus.style.display = "none";
-      }, 3000);
-    }, 1000);
-  }
-  
-  loadSavedData() {
-    const savedData = localStorage.getItem('bteceFormData');
-    if (!savedData) return;
-    
-    try {
-      this.state.formData = JSON.parse(savedData);
-      
-      // Remplit les champs avec les données sauvegardées
-      const fillField = (id, value) => {
-        const element = document.getElementById(id);
-        if (element && value) element.value = this.sanitizeInput(value);
-      };
-      
-      const checkRadio = (name, value) => {
-        if (value) {
-          const radio = document.querySelector(`input[name="${name}"][value="${this.sanitizeInput(value)}"]`);
-          if (radio) radio.checked = true;
-        }
-      };
-      
-      fillField('nom', this.state.formData.nom);
-      fillField('prenom', this.state.formData.prenom);
-      fillField('email', this.state.formData.email);
-      fillField('date_naissance', this.state.formData.date_naissance);
-      fillField('lieu_naissance', this.state.formData.lieu_naissance);
-      
-      if (this.state.formData.pays && this.elements.paysSelect) {
-        this.elements.paysSelect.value = this.state.formData.pays;
-        this.elements.paysSelect.dispatchEvent(new Event('change'));
-      }
-      
-      fillField('telephone', this.state.formData.telephone);
-      checkRadio('profession', this.state.formData.profession);
-      fillField('objectifs', this.state.formData.objectifs);
-      
-      // Formations
-      if (this.state.formData.formations?.length > 0 && this.elements.checkboxes) {
-        this.state.formData.formations.forEach(formation => {
-          const checkbox = document.querySelector(`input[name="selected_courses[]"][value="${this.sanitizeInput(formation)}"]`);
-          if (checkbox) checkbox.checked = true;
-        });
-        this.calculateTotal();
-      }
-      
-      // Session
-      checkRadio('session', this.state.formData.session);
-      
-      // Mode de formation
-      if (this.state.formData.modeFormation && this.elements.modeFormationSelect) {
-        this.elements.modeFormationSelect.value = this.state.formData.modeFormation;
-        this.elements.modeFormationSelect.dispatchEvent(new Event('change'));
-      }
-      
-      // Méthode de paiement
-      checkRadio('payment_method', this.state.formData.paymentMethod);
-      
-      // Consentement
-      if (this.state.formData.consentement && this.elements.consentementCheckbox) {
-        this.elements.consentementCheckbox.checked = true;
-      }
-      
-      // Aller à l'étape sauvegardée
-      if (this.state.formData.step) {
-        this.showStep(this.state.formData.step);
-      }
-    } catch (error) {
-      console.error('Erreur lors du chargement des données sauvegardées:', error);
-      localStorage.removeItem('bteceFormData');
-    }
-  }
-  
-  // Validation - décomposée en méthodes plus petites
-  validateStep(step) {
-    switch(step) {
-      case 1: return this.validateStep1();
-      case 2: return this.validateStep2();
-      case 3: return this.validateStep3();
-      case 4: return this.validateStep4();
-      case 5: return this.validateStep5();
-      default: return true;
-    }
-  }
-  
-  validateStep1() {
-    const errors = [];
-    
-    errors.push(...this.validatePersonalInfo());
-    errors.push(...this.validateContactInfo());
-    errors.push(...this.validateObjectives());
-    
-    // Validation de l'âge
-    if (!this.validateAge()) {
-      errors.push('Vous devez avoir au moins 13 ans pour vous inscrire');
-    }
-
-    // Validation du champ honeypot (anti-spam)
-    if (this.elements.honeypotField && this.elements.honeypotField.value.trim() !== '') {
-      errors.push('Erreur de validation du formulaire');
-    }
-
-    return this.displayErrors(errors, 1);
-  }
-  
-  validatePersonalInfo() {
-    const errors = [];
-    const requiredFields = [
-      { id: 'nom', name: 'Nom', pattern: '[A-Za-zÀ-ÿ\\s\\-\']+', minLength: 2, maxLength: 50 },
-      { id: 'prenom', name: 'Prénom', pattern: '[A-Za-zÀ-ÿ\\s\\-\']+', minLength: 2, maxLength: 50 },
-      { id: 'email', name: 'Email', pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' },
-      { id: 'date_naissance', name: 'Date de naissance' },
-      { id: 'lieu_naissance', name: 'Lieu de naissance', minLength: 2, maxLength: 100 }
-    ];
-
-    for (const field of requiredFields) {
-      const element = document.getElementById(field.id);
-      if (!element) continue;
-      
-      const value = element.value.trim();
-      
-      if (!value) {
-        errors.push(`Le champ "${field.name}" est obligatoire`);
-        element.setAttribute('aria-invalid', 'true');
-      } else {
-        // Validation supplémentaire si des critères sont spécifiés
-        if (field.pattern && !new RegExp(field.pattern).test(value)) {
-          errors.push(`Format invalide pour le champ "${field.name}"`);
-          element.setAttribute('aria-invalid', 'true');
-        }
-        
-        if (field.minLength && value.length < field.minLength) {
-          errors.push(`Le champ "${field.name}" doit contenir au moins ${field.minLength} caractères`);
-          element.setAttribute('aria-invalid', 'true');
-        }
-        
-        if (field.maxLength && value.length > field.maxLength) {
-          errors.push(`Le champ "${field.name}" ne doit pas dépasser ${field.maxLength} caractères`);
-          element.setAttribute('aria-invalid', 'true');
-        }
-        
-        if (element.getAttribute('aria-invalid') !== 'true') {
-          element.setAttribute('aria-invalid', 'false');
-        }
-      }
-    }
-
-    // Validation de la profession
-    if (!document.querySelector('input[name="profession"]:checked')) {
-      errors.push('Veuillez sélectionner une profession');
-    }
-
-    return errors;
-  }
-  
-  validateContactInfo() {
-    const errors = [];
-    
-    // Validation du pays
-    if (!this.elements.paysSelect?.value) {
-      errors.push('Veuillez sélectionner un pays');
-      if (this.elements.paysSelect) this.elements.paysSelect.setAttribute('aria-invalid', 'true');
-    } else if (this.elements.paysSelect) {
-      this.elements.paysSelect.setAttribute('aria-invalid', 'false');
-    }
-    
-    // Validation du téléphone
-    if (this.elements.paysSelect && this.elements.telephoneInput) {
-      const pays = this.elements.paysSelect.value;
-      const telephone = this.elements.telephoneInput.value.trim();
-      
-      if (!telephone) {
-        errors.push('Le champ "Téléphone" est obligatoire');
-        this.elements.telephoneInput.setAttribute('aria-invalid', 'true');
-      } else if (!this.validatePhone(telephone, pays)) {
-        const config = this.getPhoneConfig(pays);
-        errors.push(`Format de téléphone invalide (${config.format})`);
-        this.elements.telephoneInput.setAttribute('aria-invalid', 'true');
-      } else {
-        this.elements.telephoneInput.setAttribute('aria-invalid', 'false');
-      }
-    }
-
-    return errors;
-  }
-  
-  validateObjectives() {
-    const errors = [];
-    
-    // Validation des objectifs
-    if (this.elements.objectifsTextarea) {
-      const objectifs = this.elements.objectifsTextarea.value.trim();
-      const wordCount = this.countWords(objectifs);
-      
-      if (wordCount < 5) {
-        errors.push('Veuillez décrire vos objectifs (minimum 5 mots)');
-        this.elements.objectifsTextarea.classList.add('invalid');
-        this.elements.objectifsTextarea.classList.add('error-highlight');
-        const objectifsError = document.getElementById('objectifs-error');
-        if (objectifsError) {
-          objectifsError.textContent = "Veuillez décrire vos objectifs (minimum 5 mots)";
-          objectifsError.style.display = 'block';
-        }
-        const objectifsErrorIcon = document.getElementById('objectifs-error-icon');
-        if (objectifsErrorIcon) {
-          objectifsErrorIcon.style.display = 'inline-block';
-        }
-        
-        setTimeout(() => {
-          this.elements.objectifsTextarea.classList.remove('error-highlight');
-        }, 50);
-      } else if (wordCount > 100) {
-        errors.push('Maximum 100 mots autorisés pour les objectifs');
-        this.elements.objectifsTextarea.classList.add('invalid');
-        this.elements.objectifsTextarea.classList.add('error-highlight');
-        const objectifsError = document.getElementById('objectifs-error');
-        if (objectifsError) {
-          objectifsError.textContent = "Maximum 100 mots autorisés";
-          objectifsError.style.display = 'block';
-        }
-        const objectifsErrorIcon = document.getElementById('objectifs-error-icon');
-        if (objectifsErrorIcon) {
-          objectifsErrorIcon.style.display = 'inline-block';
-        }
-        
-        setTimeout(() => {
-          this.elements.objectifsTextarea.classList.remove('error-highlight');
-        }, 50);
-      } else {
-        this.elements.objectifsTextarea.classList.remove('invalid');
-        const objectifsError = document.getElementById('objectifs-error');
-        if (objectifsError) {
-          objectifsError.style.display = 'none';
-        }
-        const objectifsErrorIcon = document.getElementById('objectifs-error-icon');
-        if (objectifsErrorIcon) {
-          objectifsErrorIcon.style.display = 'none';
-        }
-        this.elements.objectifsTextarea.classList.add('valid');
-      }
-    }
-    
-    return errors;
-  }
-  
-  displayErrors(errorMessages, step) {
-    const isValid = errorMessages.length === 0;
-    
-    // Afficher toutes les erreurs en une fois
-    if (!isValid) {
-      const errorContainer = document.createElement('div');
-      errorContainer.className = 'error-message';
-      errorContainer.setAttribute('role', 'alert');
-      errorContainer.setAttribute('aria-live', 'assertive');
-      
-      const errorList = document.createElement('ul');
-      errorMessages.forEach(msg => {
-        const li = document.createElement('li');
-        li.textContent = msg;
-        errorList.appendChild(li);
-      });
-      
-      errorContainer.appendChild(errorList);
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const stepElement = this.elements.formSteps[step - 1];
-      if (stepElement) {
-        stepElement.insertBefore(errorContainer, stepElement.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    return isValid;
-  }
-  
-  validateStep2() {
-    if (!this.elements.checkboxes || 
-        !Array.from(this.elements.checkboxes).some(cb => cb.checked)) {
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Veuillez sélectionner au moins une formation';
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const secondStep = this.elements.formSteps[1];
-      if (secondStep) {
-        secondStep.insertBefore(errorMessage, secondStep.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      return false;
-    }
-    
-    return true;
-  }
-  
-  validateStep3() {
-    const errorMessages = [];
-    let isValid = true;
-
-    if (!document.querySelector('input[name="session"]:checked')) {
-      errorMessages.push('Veuillez sélectionner une session');
-      isValid = false;
-    }
-
-    if (!this.elements.modeFormationSelect?.value) {
-      errorMessages.push('Veuillez sélectionner un mode de formation');
-      isValid = false;
-    }
-
-    return this.displayErrors(errorMessages, 3);
-  }
-  
-  validateStep4() {
-    if (!document.querySelector('input[name="payment_method"]:checked')) {
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Veuillez sélectionner une méthode de paiement';
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const fourthStep = this.elements.formSteps[3];
-      if (fourthStep) {
-        fourthStep.insertBefore(errorMessage, fourthStep.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      return false;
-    }
-    
-    return true;
-  }
-  
-  validateStep5() {
-    if (!this.elements.consentementCheckbox?.checked) {
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Veuillez accepter les conditions générales';
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const fifthStep = this.elements.formSteps[4];
-      if (fifthStep) {
-        fifthStep.insertBefore(errorMessage, fifthStep.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      return false;
-    }
-
-    return true;
-  }
-  
-  validateFinalStep() {
-    if (!this.validateAllSteps()) {
-      return false;
-    }
-
-    this.showConfirmationModal();
-    return true;
-  }
-  
-  validateAllSteps() {
-    return this.validateStep1() && 
-           this.validateStep2() && 
-           this.validateStep3() && 
-           this.validateStep4() && 
-           this.validateStep5();
-  }
-  
-  // Fonctions d'affichage
-  updateWordCounter() {
-    if (!this.elements.objectifsTextarea || !this.elements.objectifsCounter) return;
-    
-    const wordCount = this.countWords(this.elements.objectifsTextarea.value);
-    this.elements.objectifsCounter.textContent = `${wordCount}/100 mots`;
-    
-    if (wordCount > 100) {
-      this.elements.objectifsCounter.style.color = '#e74c3c';
-      this.elements.objectifsTextarea.style.borderColor = '#e74c3c';
-      this.elements.objectifsTextarea.setAttribute('aria-invalid', 'true');
-    } else {
-      this.elements.objectifsCounter.style.color = '#666';
-      this.elements.objectifsTextarea.style.borderColor = '#ddd';
-      this.elements.objectifsTextarea.setAttribute('aria-invalid', 'false');
-    }
-  }
-  
-  rotateRappelMessages() {
-    if (!this.elements.rappelMessages || this.elements.rappelMessages.length === 0) return;
-    
-    this.elements.rappelMessages.forEach(msg => msg.classList.remove('active'));
-    this.elements.rappelMessages[this.state.currentRappelIndex].classList.add('active');
-    this.state.currentRappelIndex = (this.state.currentRappelIndex + 1) % this.elements.rappelMessages.length;
-  }
-  
-  validateAge() {
-    if (!this.elements.dateNaissanceInput || !this.elements.ageError) return true;
-    
-    const birthDate = this.elements.dateNaissanceInput.value;
-    if (!birthDate) return true;
-    
-    const age = this.calculateAge(birthDate);
-    if (age < 13) {
-      this.elements.ageError.style.display = 'block';
-      this.elements.dateNaissanceInput.style.borderColor = '#e74c3c';
-      this.elements.dateNaissanceInput.setAttribute('aria-invalid', 'true');
-      return false;
-    } else {
-      this.elements.ageError.style.display = 'none';
-      this.elements.dateNaissanceInput.style.borderColor = '#ddd';
-      this.elements.dateNaissanceInput.setAttribute('aria-invalid', 'false');
-      return true;
-    }
-  }
-  
-  displaySessionDates() {
-    if (!this.elements.sessionDatesContainer) return;
-    
-    this.elements.sessionDatesContainer.innerHTML = '';
-    
-    for (const [sessionId, dateRange] of Object.entries(CONFIG.sessionDates)) {
-      const sessionElement = document.createElement('div');
-      sessionElement.className = 'session-date-info';
-      sessionElement.innerHTML = `
-        <input type="radio" id="${sessionId}" name="session" value="${sessionId}">
-        <label for="${sessionId}">${dateRange}</label>
-      `;
-      this.elements.sessionDatesContainer.appendChild(sessionElement);
-    }
-  }
-  
-  calculateTotal() {
-    if (!this.elements.checkboxes || !this.elements.priceDisplay || !this.elements.totalPriceFCFA || !this.elements.totalPriceEUR || !this.elements.submitBtn) return;
-    
-    let totalFCfa = 0;
-    const selectedFormations = Array.from(this.elements.checkboxes)
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => {
-        totalFCfa += CONFIG.formationPrices[checkbox.value] || 0;
-        return checkbox.value;
-      });
-    
-    if (selectedFormations.length > 0) {
-      const totalEur = (totalFCfa / CONFIG.exchangeRate).toFixed(2);
-      
-      this.elements.totalPriceFCFA.textContent = totalFCfa.toLocaleString('fr-FR');
-      this.elements.totalPriceEUR.textContent = totalEur;
-      this.elements.priceDisplay.style.display = 'block';
-      
-      // Mise à jour du champ caché pour Netlify
-      if (this.elements.montantTotalInput) {
-        this.elements.montantTotalInput.value = `${totalFCfa.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)`;
-      }
-      
-      if (selectedFormations.length === 1) {
-        this.elements.submitBtn.textContent = `S'inscrire maintenant (${totalFCfa.toLocaleString('fr-FR')} FCFA / ${totalEur} €)`;
-      } else {
-        this.elements.submitBtn.textContent = `S'inscrire maintenant (${selectedFormations.length} formations - ${totalFCfa.toLocaleString('fr-FR')} FCFA / ${totalEur} €)`;
-      }
-    } else {
-      this.elements.priceDisplay.style.display = 'none';
-      this.elements.submitBtn.textContent = `S'inscrire maintenant`;
-    }
-    
-    this.autoSave();
-  }
-  
-  showConfirmationModal() {
-    if (!this.elements.modal || !this.elements.modalFormationsList) return;
-    
-    const checkedFormations = Array.from(this.elements.checkboxes || []).filter(cb => cb.checked);
-    let total = 0;
-    this.elements.modalFormationsList.innerHTML = '';
-    
-    checkedFormations.forEach(checkbox => {
-      const formationName = CONFIG.formationNames[checkbox.value];
-      const formationPrice = CONFIG.formationPrices[checkbox.value];
-      total += formationPrice;
-      
-      const li = document.createElement('li');
-      li.textContent = `${formationName} - ${formationPrice.toLocaleString('fr-FR')} FCFA`;
-      this.elements.modalFormationsList.appendChild(li);
-    });
-
-    // Remplit les informations dans la modal
-    const getValue = id => this.sanitizeInput(document.getElementById(id)?.value);
-    const getRadioValue = name => document.querySelector(`input[name="${name}"]:checked`)?.value;
-    const getRadioText = name => {
-      const radio = document.querySelector(`input[name="${name}"]:checked`);
-      return radio ? this.sanitizeInput(radio.nextElementSibling?.textContent) : '';
-    };
-    const getSelectText = id => {
-      const select = this.elements[id];
-      return select ? this.sanitizeInput(select.options[select.selectedIndex]?.text) : '';
-    };
-
-    if (this.elements.modalNomComplet) {
-      this.elements.modalNomComplet.textContent = `${getValue('prenom')} ${getValue('nom')}`;
-    }
-    if (this.elements.modalEmail) {
-      this.elements.modalEmail.textContent = getValue('email');
-    }
-    if (this.elements.modalDateNaissance) {
-      this.elements.modalDateNaissance.textContent = getValue('date_naissance');
-    }
-    if (this.elements.modalLieuNaissance) {
-      this.elements.modalLieuNaissance.textContent = getValue('lieu_naissance');
-    }
-    if (this.elements.modalTelephone && this.elements.phonePrefix) {
-      this.elements.modalTelephone.textContent = `${this.elements.phonePrefix.textContent} ${getValue('telephone')}`;
-    }
-    if (this.elements.modalPays) {
-      this.elements.modalPays.textContent = getSelectText('paysSelect');
-    }
-    if (this.elements.modalProfession) {
-      this.elements.modalProfession.textContent = getRadioText('profession');
-    }
-    if (this.elements.modalObjectifs) {
-      this.elements.modalObjectifs.textContent = getValue('objectifs');
-    }
-    if (this.elements.modalSessionInfo) {
-      this.elements.modalSessionInfo.textContent = CONFIG.sessionDates[getRadioValue('session')] || getRadioValue('session');
-    }
-    if (this.elements.modalModeInfo) {
-      this.elements.modalModeInfo.textContent = getSelectText('modeFormationSelect');
-    }
-    
-    if (this.elements.modalPaymentInfo) {
-      const paymentMethod = getRadioValue('payment_method');
-      this.elements.modalPaymentInfo.textContent = CONFIG.paymentMethodNames[paymentMethod] || paymentMethod;
-    }
-    
-    if (this.elements.modalTotalPrice && this.elements.modalTotalPriceEur) {
-      const totalEur = (total / CONFIG.exchangeRate).toFixed(2);
-      this.elements.modalTotalPrice.textContent = total.toLocaleString('fr-FR');
-      this.elements.modalTotalPriceEur.textContent = totalEur;
-    }
-    
-    // Ajout du montant total dans le champ caché pour Netlify
-    if (this.elements.montantTotalInput) {
-      const totalEur = (total / CONFIG.exchangeRate).toFixed(2);
-      this.elements.montantTotalInput.value = `${total.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)`;
-    }
-    
-    // Ajout des attributs ARIA pour l'accessibilité
-    this.elements.modal.setAttribute('aria-modal', 'true');
-    this.elements.modal.setAttribute('role', 'dialog');
-    this.elements.modal.setAttribute('aria-labelledby', 'modal-title');
-    
-    // Focus sur le premier élément interactif de la modal
-    this.elements.modal.style.display = 'block';
-    if (this.elements.modalConfirm) {
-      this.elements.modalConfirm.focus();
-    }
-  }
-  
-  // Fonctions d'envoi
-  async sendFormData() {
-    if (this.state.isSubmitting || this.state.formSubmitted || !this.elements.registrationForm) return;
-    this.state.isSubmitting = true;
-    this.state.formSubmitted = true;
-    
-    if (this.elements.modal) {
-      this.elements.modal.style.display = 'none';
-    }
-    if (this.elements.loadingIndicator) {
-      this.elements.loadingIndicator.style.display = 'block';
-    }
-    if (this.elements.submitBtn) {
-      this.elements.submitBtn.disabled = true;
-      this.elements.submitBtn.textContent = "Envoi en cours...";
-    }
-    
-    try {
-      // Préparer les données pour l'email
-      const formData = this.prepareFormData();
-      
-      // Rediriger vers Gmail avec les données pré-remplies
-      this.redirectToGmail(formData);
-
-      // Soumettre le formulaire à Netlify
-      this.submitToNetlify();
-
-    } catch (error) {
-      console.error('Erreur:', error);
-      
-      // Afficher un message d'erreur
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter si le problème persiste.';
-      
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      document.body.insertBefore(errorMessage, document.body.firstChild);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // Réactiver le bouton
-      if (this.elements.submitBtn) {
-        this.elements.submitBtn.disabled = false;
-        this.elements.submitBtn.textContent = "S'inscrire maintenant";
-      }
-    } finally {
-      this.state.isSubmitting = false;
-      if (this.elements.loadingIndicator) {
-        this.elements.loadingIndicator.style.display = 'none';
-      }
-      this.state.formSubmitted = false;
-    }
-  }
-
-  // Préparer les données du formulaire pour l'email
-  prepareFormData() {
-    const getValue = id => this.sanitizeInput(document.getElementById(id)?.value);
-    const getRadioValue = name => document.querySelector(`input[name="${name}"]:checked`)?.value;
-    const getRadioText = name => {
-      const radio = document.querySelector(`input[name="${name}"]:checked`);
-      return radio ? this.sanitizeInput(radio.nextElementSibling?.textContent) : '';
-    };
-    const getSelectText = id => {
-      const select = this.elements[id];
-      return select ? this.sanitizeInput(select.options[select.selectedIndex]?.text) : '';
-    };
-
-    const checkedFormations = Array.from(this.elements.checkboxes || [])
-      .filter(cb => cb.checked)
-      .map(cb => CONFIG.formationNames[cb.value]);
-
-    const total = Array.from(this.elements.checkboxes || [])
-      .filter(cb => cb.checked)
-      .reduce((sum, cb) => sum + (CONFIG.formationPrices[cb.value] || 0), 0);
-
-    const totalEur = (total / CONFIG.exchangeRate).toFixed(2);
-
-    return {
-      nom: getValue('nom'),
-      prenom: getValue('prenom'),
-      email: getValue('email'),
-      date_naissance: getValue('date_naissance'),
-      lieu_naissance: getValue('lieu_naissance'),
-      telephone: `${this.elements.phonePrefix?.textContent || ''} ${getValue('telephone')}`,
-      pays: getSelectText('paysSelect'),
-      profession: getRadioText('profession'),
-      objectifs: getValue('objectifs'),
-      formations: checkedFormations.join(', '),
-      session: CONFIG.sessionDates[getRadioValue('session')] || getRadioValue('session'),
-      modeFormation: getSelectText('modeFormationSelect'),
-      paymentMethod: CONFIG.paymentMethodNames[getRadioValue('payment_method')] || getRadioValue('payment_method'),
-      montantTotal: `${total.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)`
-    };
-  }
-
-  // Rediriger vers Gmail avec les données pré-remplies
-  redirectToGmail(formData) {
-    const subject = `Inscription aux formations BTECE - ${formData.prenom} ${formData.nom}`;
-    
-    const body = `
-Bonjour BTECE,
-
-Je souhaite confirmer mon inscription aux formations suivantes :
-
-Nom complet : ${formData.prenom} ${formData.nom}
-Email : ${formData.email}
-Date de naissance : ${formData.date_naissance}
-Lieu de naissance : ${formData.lieu_naissance}
-Téléphone : ${formData.telephone}
-Pays : ${formData.pays}
-Profession : ${formData.profession}
-
-Formations choisies : ${formData.formations}
-Session : ${formData.session}
-Mode de formation : ${formData.modeFormation}
-Méthode de paiement : ${formData.paymentMethod}
-Montant total : ${formData.montantTotal}
-
-Objectifs personnels : ${formData.objectifs}
-
-Je confirme que toutes les informations ci-dessus sont exactes et j'accepte les conditions générales.
-
-Cordialement,
-${formData.prenom} ${formData.nom}
-    `.trim();
-
-    const email = 'contactbtece@gmail.com'; // Remplacez par l'adresse email de destination
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    // Ouvrir Gmail dans un nouvel onglet
-    window.open(gmailUrl, '_blank');
-  }
-
-  // Soumission du formulaire à Netlify
-  submitToNetlify() {
-    // Créer un clone du formulaire pour la soumission Netlify
-    const netlifyForm = this.elements.registrationForm.cloneNode(true);
-    netlifyForm.style.display = 'none';
-    netlifyForm.id = 'netlify-submit-form';
-    netlifyForm.removeAttribute('data-netlify'); // Éviter les boucles infinies
-    
-    // Ajouter le formulaire au DOM et le soumettre
-    document.body.appendChild(netlifyForm);
-    netlifyForm.submit();
-    
-    // Afficher la page de confirmation après un court délai
-    setTimeout(() => {
-      this.showConfirmationPage();
-      localStorage.removeItem('bteceFormData');
-      this.clearForm();
-    }, 1000);
-  }
-  
-  // Fonctions d'affichage des résultats
-  showConfirmationPage() {
-    if (!this.elements.mainPage || !this.elements.confirmationPage) return;
-    
-    this.elements.mainPage.style.display = 'none';
-    this.elements.confirmationPage.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    this.displayUserSummary();
-    this.simulateTracking();
-  }
-  
-  displayUserSummary() {
-    if (!this.elements.userSummary) return;
-    
-    const getValue = id => this.sanitizeInput(document.getElementById(id)?.value);
-    const getRadioValue = name => document.querySelector(`input[name="${name}"]:checked`)?.value;
-    const getRadioText = name => {
-      const radio = document.querySelector(`input[name="${name}"]:checked`);
-      return radio ? this.sanitizeInput(radio.nextElementSibling?.textContent) : '';
-    };
-    const getSelectText = id => {
-      const select = this.elements[id];
-      return select ? this.sanitizeInput(select.options[select.selectedIndex]?.text) : '';
-    };
-
-    const checkedFormations = Array.from(this.elements.checkboxes || [])
-      .filter(cb => cb.checked)
-      .map(cb => CONFIG.formationNames[cb.value]);
-    
-    const total = Array.from(this.elements.checkboxes || [])
-      .filter(cb => cb.checked)
-      .reduce((sum, cb) => sum + (CONFIG.formationPrices[cb.value] || 0), 0);
-    
-    const totalEur = (total / CONFIG.exchangeRate).toFixed(2);
-    
-    this.elements.userSummary.innerHTML = `
-      <h4>Récapitulatif de votre inscription</h4>
-      <p><strong>Nom complet :</strong> ${getValue('prenom')} ${getValue('nom')}</p>
-      <p><strong>Email :</strong> ${getValue('email')}</p>
-      <p><strong>Téléphone :</strong> ${this.elements.phonePrefix?.textContent || ''} ${getValue('telephone')}</p>
-      <p><strong>Formations :</strong> ${checkedFormations.join(', ')}</p>
-      <p><strong>Session :</strong> ${CONFIG.sessionDates[getRadioValue('session')] || getRadioValue('session')}</p>
-      <p><strong>Mode :</strong> ${this.elements.modeFormationSelect?.value === 'presentiel' ? 'Présentiel à Cotonou' : 'En ligne'}</p>
-      <p><strong>Méthode de paiement :</strong> ${CONFIG.paymentMethodNames[getRadioValue('payment_method')] || getRadioValue('payment_method')}</p>
-      <p><strong>Montant total :</strong> ${total.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)</p>
-      <div class="confirmation-message">
-        <p>Veuillez vérifier votre boîte Gmail pour finaliser votre inscription.</p>
-        <p>Si vous n'êtes pas redirigé automatiquement, veuillez vérifier votre email et envoyer le message généré.</p>
-      </div>
-    `;
-  }
-  
-  simulateTracking() {
-    const steps = document.querySelectorAll('.tracking-steps li');
-    if (!steps || steps.length === 0) return;
-    
-    setTimeout(() => {
-      steps[1].classList.add('completed');
-      steps[2].classList.add('active');
-      
-      setTimeout(() => {
-        steps[2].classList.add('completed');
-        steps[3].classList.add('active');
-        
-        setTimeout(() => {
-          steps[3].classList.add('completed');
-          steps[4].classList.add('active');
-        }, 3000);
-      }, 2000);
-    }, 1000);
-  }
-  
-  // Fonctions de chat
-  sendChatMessage() {
-    if (!this.elements.chatInput || !this.elements.chatMessages) return;
-    
-    const message = this.elements.chatInput.value.trim();
-    if (!message) return;
-    
-    this.addChatMessage(message, 'user');
-    this.elements.chatInput.value = '';
-    
-    setTimeout(() => {
-      this.addChatMessage('Merci pour votre message. Veuillez envoyer votre préocupation via notre adresse Mail. Notre équipe vous répondra dans les plus brefs délais.', 'bot');
-    }, 1000);
-  }
-  
-  addChatMessage(text, sender) {
-    if (!this.elements.chatMessages) return;
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chat-message ${sender}-message`;
-    messageDiv.setAttribute('role', sender === 'user' ? 'status' : 'alert');
-    messageDiv.setAttribute('aria-live', 'polite');
-    messageDiv.innerHTML = `<p>${this.sanitizeInput(text)}</p>`;
-    this.elements.chatMessages.appendChild(messageDiv);
-    this.elements.chatMessages.scrollTop = this.elements.chatMessages.scrollHeight;
-  }
-  
-  // Nettoyage
-  clearForm() {
-    // Réinitialiser tous les champs du formulaire
-    if (this.elements.registrationForm) {
-      this.elements.registrationForm.reset();
-    }
-    
-    // Réinitialiser les cases à cocher des formations
-    if (this.elements.checkboxes) {
-      this.elements.checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-      });
-    }
-    
-    // Réinitialiser les boutons radio
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-      radio.checked = false;
-    });
-    
-    // Réinitialiser les sélecteurs
-    if (this.elements.paysSelect) {
-      this.elements.paysSelect.selectedIndex = 0;
-      this.elements.paysSelect.dispatchEvent(new Event('change'));
-    }
-    
-    if (this.elements.modeFormationSelect) {
-      this.elements.modeFormationSelect.selectedIndex = 0;
-      this.elements.modeFormationSelect.dispatchEvent(new Event('change'));
-    }
-    
-    // Réinitialiser les affichages de prix
-    if (this.elements.priceDisplay) {
-      this.elements.priceDisplay.style.display = 'none';
-    }
-    
-    if (this.elements.totalPriceFCFA) {
-      this.elements.totalPriceFCFA.textContent = '0';
-    }
-    
-    if (this.elements.totalPriceEUR) {
-      this.elements.totalPriceEUR.textContent = '0';
-    }
-    
-    if (this.elements.submitBtn) {
-      this.elements.submitBtn.textContent = "S'inscrire maintenant";
-    }
-    
-    // Réinitialiser le compteur de mots
-    if (this.elements.objectifsCounter) {
-      this.elements.objectifsCounter.textContent = '0/100 mots';
-      this.elements.objectifsCounter.style.color = '#666';
-    }
-    
-    // Réinitialiser les styles des champs
-    if (this.elements.objectifsTextarea) {
-      this.elements.objectifsTextarea.style.borderColor = '#ddd';
-      this.elements.objectifsTextarea.classList.remove('invalid', 'valid');
-    }
-    
-    if (this.elements.dateNaissanceInput) {
-      this.elements.dateNaissanceInput.style.borderColor = '#ddd';
-    }
-    
-    // Réinitialiser les messages d'erreur
-    if (this.elements.ageError) {
-      this.elements.ageError.style.display = 'none';
-    }
-    
-    const objectifsError = document.getElementById('objectifs-error');
-    if (objectifsError) {
-      objectifsError.style.display = 'none';
-    }
-    
-    const objectifsErrorIcon = document.getElementById('objectifs-error-icon');
-    if (objectifsErrorIcon) {
-      objectifsErrorIcon.style.display = 'none';
-    }
-    
-    // Réinitialiser les messages d'erreur globaux
-    const oldError = document.querySelector('.error-message');
-    if (oldError) oldError.remove();
-    
-    // Réinitialiser le statut de sauvegarde
-    if (this.elements.saveStatus) {
-      this.elements.saveStatus.style.display = 'none';
-    }
-    
-    // Réinitialiser l'étape courante
-    this.state.currentStep = 1;
-    this.showStep(1);
-    
-    // Supprimer toutes les données sauvegardées
-    localStorage.removeItem('bteceFormData');
-  }
-}
-
-// Configuration des numéros de téléphone par pays
+// Indicatifs téléphoniques et formats par pays 
 const phoneConfigurations = {
     // Afrique
     'DZ': { code: '+213', pattern: '[0-9]{9}', format: '+213 XX XXX XXXX' },
@@ -1681,13 +249,1056 @@ const phoneConfigurations = {
     'other': { code: '+', pattern: '[0-9]{8,15}', format: '+XXX XXX XXXX' }
 };
 
-// Lance l'application lorsque le DOM est chargé
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new FormApp();
-  
-  // Exposer les fonctions nécessaires globalement
-  window.validateStep = (step) => app.validateStep(step);
-  window.prevStep = (current) => app.prevStep(current);
-  window.nextStep = (current) => app.nextStep(current);
-  window.validateFinalStep = () => app.validateFinalStep();
+// Noms des formations pour l'affichage
+const formationNames = {
+    'plans_archi_elec': 'Plans architecturaux et électricité',
+    'conception_elec': 'Conception électronique',
+    'realisation_3d': 'Réalisation 3D',
+    'programmation': 'Programmation'
+};
+
+// Noms des méthodes de paiement
+const paymentMethodNames = {
+    'VISA': 'Paiement par carte VISA',
+    'MTN Mobile Money': 'Paiement par MTN Mobile Money',
+    'Moov Africa Mobile Money': 'Paiement par Moov Africa Mobile Money',
+    'Celtiis Mobile Money': 'Paiement par Celtiis Mobile Money',
+    'Orange Money': 'Paiement par Orange Money',
+    'Airtel Money': 'Paiement par Airtel Money',
+    'Wari': 'Paiement par Wari',
+    'Bitcoin': 'Paiement par Crypto Currency',
+    'Paiement sur place': 'Paiement sur place (espèces/chèque)'
+};
+
+// Éléments du DOM
+const checkboxes = document.querySelectorAll('input[name="formations[]"]');
+const priceDisplay = document.getElementById('price-display');
+const totalPriceFCFA = document.getElementById('total-price-fcfa');
+const totalPriceEUR = document.getElementById('total-price-eur');
+const submitBtn = document.getElementById('submit-btn');
+const loadingIndicator = document.getElementById('loading');
+const registrationForm = document.getElementById('registration-form');
+const paysSelect = document.getElementById('pays');
+const phonePrefix = document.getElementById('phone-prefix');
+const phoneFormat = document.getElementById('phone-format');
+const telephoneInput = document.getElementById('telephone');
+const mainPage = document.getElementById('main-page');
+const confirmationPage = document.getElementById('confirmation-page');
+const modal = document.getElementById('confirmation-modal');
+const modalFormationsList = document.getElementById('modal-formations-list');
+const modalUserInfo = document.getElementById('modal-user-info');
+const modalSessionInfo = document.getElementById('modal-session-info');
+const modalModeInfo = document.getElementById('modal-mode-info');
+const modalPaymentInfo = document.getElementById('modal-payment-info');
+const modalTotalPrice = document.getElementById('modal-total-price');
+const modalTotalPriceEur = document.getElementById('modal-total-price-eur');
+const modalNomComplet = document.getElementById('modal-nom-complet');
+const modalEmail = document.getElementById('modal-email');
+const modalDateNaissance = document.getElementById('modal-date-naissance');
+const modalLieuNaissance = document.getElementById('modal-lieu-naissance');
+const modalTelephone = document.getElementById('modal-telephone');
+const modalPays = document.getElementById('modal-pays');
+const modalProfession = document.getElementById('modal-profession');
+const modalObjectifs = document.getElementById('modal-objectifs');
+const closeModal = document.querySelector('.close-modal');
+const modalCancel = document.querySelector('.modal-cancel');
+const modalConfirm = document.querySelector('.modal-confirm');
+const chatToggle = document.getElementById('chat-toggle');
+const chatContainer = document.getElementById('chat-container');
+const closeChat = document.getElementById('close-chat');
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
+const sendMessage = document.getElementById('send-message');
+const modeFormationSelect = document.getElementById('mode-formation');
+const onlinePaymentMethods = document.getElementById('online-payment-methods');
+const presentielPaymentMethod = document.getElementById('presentiel-payment-method');
+const paymentMethodGroup = document.getElementById('payment-method-group');
+const formSteps = document.querySelectorAll('.form-step');
+const progressSteps = document.querySelectorAll('.step');
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+const timeEstimation = document.getElementById('time-estimation');
+const saveStatus = document.getElementById('save-status');
+const userSummary = document.getElementById('user-summary');
+const rappelMessages = document.querySelectorAll('.rappel-message');
+const rappelContainer = document.querySelector('.rappel-container');
+const objectifsTextarea = document.getElementById('objectifs');
+const objectifsCounter = document.getElementById('objectifs-counter');
+const dateNaissanceInput = document.getElementById('date_naissance');
+const lieuNaissanceInput = document.getElementById('lieu_naissance');
+const ageError = document.getElementById('age-error');
+
+// Variables pour la sauvegarde automatique
+let saveTimeout;
+let formData = {};
+let currentStep = 1;
+let currentRappelIndex = 0;
+
+// Fonction améliorée de détection des appareils mobiles
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || 
+           (navigator.userAgent.indexOf('IEMobile') !== -1) ||
+           (navigator.maxTouchPoints && navigator.maxTouchPoints > 1) ||
+           (window.screen.width <= 768 && window.screen.height <= 1024) ||
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Fonction pour compter les mots dans le champ Objectifs
+function countWords(text) {
+    const trimmedText = text.trim();
+    if (trimmedText === '') return 0;
+    return trimmedText.split(/\s+/).length;
+}
+
+// Fonction pour mettre à jour le compteur de mots
+function updateWordCounter() {
+    const wordCount = countWords(objectifsTextarea.value);
+    objectifsCounter.textContent = `${wordCount}/100 mots`;
+    
+    // Changer la couleur si le nombre de mots dépasse la limite
+    if (wordCount > 100) {
+        objectifsCounter.style.color = '#e74c3c';
+        objectifsTextarea.style.borderColor = '#e74c3c';
+    } else {
+        objectifsCounter.style.color = '#666';
+        objectifsTextarea.style.borderColor = '#ddd';
+    }
+}
+
+// Fonction pour faire défiler les messages du rappel
+function rotateRappelMessages() {
+    // Masquer tous les messages
+    rappelMessages.forEach(msg => msg.classList.remove('active'));
+    
+    // Afficher le message courant
+    rappelMessages[currentRappelIndex].classList.add('active');
+    
+    // Passer au message suivant
+    currentRappelIndex = (currentRappelIndex + 1) % rappelMessages.length;
+}
+
+// Fonction pour calculer l'âge à partir de la date de naissance
+function calculateAge(birthDate) {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+    }
+    
+    return age;
+}
+
+// Fonction pour valider l'âge
+function validateAge() {
+    const birthDate = dateNaissanceInput.value;
+    if (!birthDate) return true;
+    
+    const age = calculateAge(birthDate);
+    if (age < 13) {
+        ageError.style.display = 'block';
+        dateNaissanceInput.style.borderColor = '#e74c3c';
+        return false;
+    } else {
+        ageError.style.display = 'none';
+        dateNaissanceInput.style.borderColor = '#ddd';
+        return true;
+    }
+}
+
+// Initialiser le calendrier avec toutes les sessions
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        initialDate: '2025-07-01', // Commencer en juillet 2025
+        locale: 'fr',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        views: {
+            dayGridMonth: {
+                titleFormat: { year: 'numeric', month: 'long' }
+            }
+        },
+        events: [
+            // Session Juillet - Matin (Lundi, Mercredi, Vendredi)
+            {
+                title: 'Session Matin (8h-12h)',
+                start: '2025-07-07T08:00:00',
+                end: '2025-07-07T12:00:00',
+                color: '#8bc34a', // Vert clair
+                daysOfWeek: [1,3,5], // Lundi, Mercredi, Vendredi
+                startRecur: '2025-07-07',
+                endRecur: '2025-08-01'
+            },
+            // Session Juillet - Soir (Mardi, Jeudi)
+            {
+                title: 'Session Soir (16h-20h)',
+                start: '2025-07-08T16:00:00',
+                end: '2025-07-08T20:00:00',
+                color: '#ff9800', // Orange
+                daysOfWeek: [2,4], // Mardi, Jeudi
+                startRecur: '2025-07-08',
+                endRecur: '2025-08-01'
+            },
+            // Session Août - Week-end (Samedi, Dimanche)
+            {
+                title: 'Session Week-end (9h-17h)',
+                start: '2025-08-02T09:00:00',
+                end: '2025-08-02T17:00:00',
+                color: '#2196f3', // Bleu
+                daysOfWeek: [6,0], // Samedi, Dimanche
+                startRecur: '2025-08-02',
+                endRecur: '2025-08-31'
+            },
+            // Session Septembre - Soir (Lundi, Mercredi, Vendredi)
+            {
+                title: 'Session Soir (18h-22h)',
+                start: '2025-09-01T18:00:00',
+                end: '2025-09-01T22:00:00',
+                color: '#9c27b0', // Violet
+                daysOfWeek: [1,3,5], // Lundi, Mercredi, Vendredi
+                startRecur: '2025-09-01',
+                endRecur: '2025-09-26'
+            },
+            // Session Octobre - Matin (Mardi, Jeudi)
+            {
+                title: 'Session Matin (9h-13h)',
+                start: '2025-10-07T09:00:00',
+                end: '2025-10-07T13:00:00',
+                color: '#00bcd4', // Cyan
+                daysOfWeek: [2,4], // Mardi, Jeudi
+                startRecur: '2025-10-07',
+                endRecur: '2025-10-31'
+            },
+            // Session Novembre - Soir (Lundi, Mercredi, Vendredi)
+            {
+                title: 'Session Soir (17h-21h)',
+                start: '2025-11-03T17:00:00',
+                end: '2025-11-03T21:00:00',
+                color: '#f44336', // Rouge
+                daysOfWeek: [1,3,5], // Lundi, Mercredi, Vendredi
+                startRecur: '2025-11-03',
+                endRecur: '2025-11-28'
+            },
+            // Session Décembre - Intensif (Lundi à Vendredi)
+            {
+                title: 'Session Intensif (9h-17h)',
+                start: '2025-12-01T09:00:00',
+                end: '2025-12-01T17:00:00',
+                color: '#607d8b', // Bleu-gris
+                daysOfWeek: [1,2,3,4,5], // Lundi à Vendredi
+                startRecur: '2025-12-01',
+                endRecur: '2025-12-19'
+            }
+        ],
+        eventTimeFormat: { 
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        },
+        height: 'auto',
+        contentHeight: 'auto',
+        dayMaxEvents: true,
+        eventDisplay: 'block',
+        eventDidMount: function(info) {
+            // Ajouter un effet au survol des événements
+            info.el.addEventListener('mouseenter', function() {
+                info.el.style.opacity = '0.8';
+                info.el.style.transform = 'scale(1.02)';
+                info.el.style.zIndex = '100';
+            });
+            info.el.addEventListener('mouseleave', function() {
+                info.el.style.opacity = '1';
+                info.el.style.transform = 'scale(1)';
+                info.el.style.zIndex = '';
+            });
+        }
+    });
+    calendar.render();
+    
+    // Charger les données sauvegardées si elles existent
+    loadSavedData();
+    
+    // Mettre à jour la barre de progression
+    updateProgressBar();
+    
+    // Mettre à jour l'estimation du temps restant
+    updateTimeEstimation();
+    
+    // Démarrer la rotation des messages du rappel
+    setInterval(rotateRappelMessages, 2000);
+    
+    // Initialiser le compteur de mots
+    objectifsTextarea.addEventListener('input', updateWordCounter);
+    updateWordCounter();
+    
+    // Valider l'âge lors du changement de date de naissance
+    dateNaissanceInput.addEventListener('change', validateAge);
+});
+
+// Sauvegarder automatiquement les données du formulaire
+function autoSave() {
+    // Afficher l'indicateur de sauvegarde
+    saveStatus.textContent = "Sauvegarde en cours...";
+    saveStatus.className = "save-status saving";
+    saveStatus.style.display = "block";
+    
+    // Collecter toutes les données du formulaire
+    formData = {
+        step: currentStep,
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        email: document.getElementById('email').value,
+        date_naissance: document.getElementById('date_naissance').value,
+        lieu_naissance: document.getElementById('lieu_naissance').value,
+        pays: document.getElementById('pays').value,
+        telephone: document.getElementById('telephone').value,
+        profession: document.querySelector('input[name="profession"]:checked')?.value,
+        objectifs: document.getElementById('objectifs').value,
+        formations: Array.from(document.querySelectorAll('input[name="formations[]"]:checked')).map(cb => cb.value),
+        session: document.querySelector('input[name="session"]:checked')?.value,
+        modeFormation: document.getElementById('mode-formation').value,
+        paymentMethod: document.querySelector('input[name="payment_method"]:checked')?.value,
+        consentement: document.getElementById('consentement').checked
+    };
+    
+    // Sauvegarder dans localStorage
+    localStorage.setItem('bteceFormData', JSON.stringify(formData));
+    
+    // Simuler un délai de sauvegarde
+    setTimeout(() => {
+        saveStatus.textContent = "Données sauvegardées";
+        saveStatus.className = "save-status saved";
+        
+        // Masquer après 3 secondes
+        setTimeout(() => {
+            saveStatus.style.display = "none";
+        }, 3000);
+    }, 1000);
+}
+
+// Charger les données sauvegardées
+function loadSavedData() {
+    const savedData = localStorage.getItem('bteceFormData');
+    if (savedData) {
+        formData = JSON.parse(savedData);
+        
+        // Remplir les champs avec les données sauvegardées
+        if (formData.nom) document.getElementById('nom').value = formData.nom;
+        if (formData.prenom) document.getElementById('prenom').value = formData.prenom;
+        if (formData.email) document.getElementById('email').value = formData.email;
+        if (formData.date_naissance) document.getElementById('date_naissance').value = formData.date_naissance;
+        if (formData.lieu_naissance) document.getElementById('lieu_naissance').value = formData.lieu_naissance;
+        if (formData.pays) {
+            document.getElementById('pays').value = formData.pays;
+            paysSelect.dispatchEvent(new Event('change'));
+        }
+        if (formData.telephone) document.getElementById('telephone').value = formData.telephone;
+        if (formData.profession) document.querySelector(`input[name="profession"][value="${formData.profession}"]`).checked = true;
+        if (formData.objectifs) document.getElementById('objectifs').value = formData.objectifs;
+        
+        // Formations
+        if (formData.formations && formData.formations.length > 0) {
+            formData.formations.forEach(formation => {
+                document.querySelector(`input[name="formations[]"][value="${formation}"]`).checked = true;
+            });
+            calculateTotal();
+        }
+        
+        // Session
+        if (formData.session) {
+            document.querySelector(`input[name="session"][value="${formData.session}"]`).checked = true;
+        }
+        
+        // Mode de formation
+        if (formData.modeFormation) {
+            document.getElementById('mode-formation').value = formData.modeFormation;
+            modeFormationSelect.dispatchEvent(new Event('change'));
+        }
+        
+        // Méthode de paiement
+        if (formData.paymentMethod) {
+            document.querySelector(`input[name="payment_method"][value="${formData.paymentMethod}"]`).checked = true;
+        }
+        
+        // Consentement
+        if (formData.consentement) {
+            document.getElementById('consentement').checked = true;
+        }
+        
+        // Aller à l'étape sauvegardée
+        if (formData.step) {
+            showStep(formData.step);
+        }
+    }
+}
+
+// Mettre à jour la barre de progression
+function updateProgressBar() {
+    const progress = ((currentStep - 1) / 5) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${progress.toFixed(0)}% complété`;
+    
+    // Afficher la barre de progression après chaque validation d'étape
+    if (currentStep > 1) {
+        document.querySelector('.progress-container').style.display = 'block';
+    }
+}
+
+// Mettre à jour l'estimation du temps restant
+function updateTimeEstimation() {
+    let remainingTime = 0;
+    for (let i = currentStep - 1; i < stepTimes.length; i++) {
+        remainingTime += stepTimes[i];
+    }
+    
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    
+    if (minutes > 0) {
+        timeEstimation.textContent = `Temps estimé : ${minutes} minute${minutes > 1 ? 's' : ''}${seconds > 0 ? ` et ${seconds} seconde${seconds > 1 ? 's' : ''}` : ''}`;
+    } else {
+        timeEstimation.textContent = `Temps estimé : ${seconds} seconde${seconds > 1 ? 's' : ''}`;
+    }
+}
+
+// Gérer l'affichage des méthodes de paiement en fonction du mode de formation
+modeFormationSelect.addEventListener('change', function() {
+    if(this.value === 'en-ligne') {
+        onlinePaymentMethods.style.display = 'block';
+        presentielPaymentMethod.style.display = 'none';
+    } else if(this.value === 'presentiel') {
+        onlinePaymentMethods.style.display = 'none';
+        presentielPaymentMethod.style.display = 'block';
+    } else {
+        onlinePaymentMethods.style.display = 'none';
+        presentielPaymentMethod.style.display = 'none';
+    }
+    
+    // Sauvegarder les modifications
+    autoSave();
+});
+
+// Mettre à jour l'indicatif téléphonique en fonction du pays sélectionné
+paysSelect.addEventListener('change', function() {
+    const selectedCountry = this.value;
+    const config = phoneConfigurations[selectedCountry] || phoneConfigurations['other'];
+    
+    phonePrefix.textContent = config.code;
+    telephoneInput.pattern = config.pattern;
+    telephoneInput.title = `Numéro valide (format: ${config.format})`;
+    phoneFormat.textContent = `Format: ${config.format}`;
+    phoneFormat.style.display = 'block';
+    
+    // Réinitialiser le champ téléphone
+    telephoneInput.value = '';
+    
+    // Sauvegarder les modifications
+    autoSave();
+});
+
+// Fonction pour calculer le total
+function calculateTotal() {
+    let totalFCfa = 0;
+    let selectedFormations = [];
+    
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            totalFCfa += formationPrices[checkbox.value];
+            selectedFormations.push(checkbox.value);
+        }
+    });
+    
+    if (selectedFormations.length > 0) {
+        const totalEur = (totalFCfa / exchangeRate).toFixed(2);
+        
+        totalPriceFCFA.textContent = totalFCfa.toLocaleString('fr-FR');
+        totalPriceEUR.textContent = totalEur;
+        priceDisplay.style.display = 'block';
+        
+        if (selectedFormations.length === 1) {
+            submitBtn.textContent = `S'inscrire maintenant (${totalFCfa.toLocaleString('fr-FR')} FCFA / ${totalEur} €)`;
+        } else {
+            submitBtn.textContent = `S'inscrire maintenant (${selectedFormations.length} formations - ${totalFCfa.toLocaleString('fr-FR')} FCFA / ${totalEur} €)`;
+        }
+    } else {
+        priceDisplay.style.display = 'none';
+        submitBtn.textContent = `S'inscrire maintenant`;
+    }
+    
+    // Sauvegarder les modifications
+    autoSave();
+}
+
+// Écouteurs d'événements pour les cases à cocher
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', calculateTotal);
+});
+
+// Écouteurs d'événements pour les champs de formulaire
+document.querySelectorAll('input, select, textarea').forEach(element => {
+    element.addEventListener('change', function() {
+        // Démarrer la sauvegarde après un délai (pour éviter des sauvegardes trop fréquentes)
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(autoSave, 1000);
+    });
+    
+    element.addEventListener('input', function() {
+        // Démarrer la sauvegarde après un délai (pour éviter des sauvegardes trop fréquentes)
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(autoSave, 1000);
+    });
+});
+
+// Fonction pour valider le numéro de téléphone
+function validatePhone(phone, country) {
+    const config = phoneConfigurations[country] || phoneConfigurations['other'];
+    const regex = new RegExp(`^${config.pattern}$`);
+    return regex.test(phone);
+}
+
+// Fonction pour nettoyer les entrées
+function sanitizeInput(input) {
+    return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Gestion des étapes du formulaire
+function showStep(step) {
+    formSteps.forEach((formStep, index) => {
+        formStep.classList.toggle('active', index + 1 === step);
+    });
+
+    progressSteps.forEach((progressStep, index) => {
+        if (index + 1 < step) {
+            progressStep.classList.add('completed');
+            progressStep.classList.remove('active');
+        } else if (index + 1 === step) {
+            progressStep.classList.add('active');
+            progressStep.classList.remove('completed');
+        } else {
+            progressStep.classList.remove('active', 'completed');
+        }
+    });
+
+    currentStep = step;
+    
+    // Mettre à jour la barre de progression et l'estimation du temps
+    updateProgressBar();
+    updateTimeEstimation();
+    
+    // Sauvegarder l'étape actuelle
+    autoSave();
+}
+
+function nextStep(current) {
+    // Validation avant de passer à l'étape suivante
+    let isValid = true;
+    
+    if(current === 1) {
+        // Valider les informations personnelles
+        const nom = document.getElementById('nom').value;
+        const prenom = document.getElementById('prenom').value;
+        const email = document.getElementById('email').value;
+        const dateNaissance = document.getElementById('date_naissance').value;
+        const lieuNaissance = document.getElementById('lieu_naissance').value;
+        const pays = document.getElementById('pays').value;
+        const telephone = document.getElementById('telephone').value;
+        const profession = document.querySelector('input[name="profession"]:checked');
+        const objectifs = document.getElementById('objectifs').value;
+        
+        if(!nom || !prenom || !email || !dateNaissance || !lieuNaissance || !pays || !telephone || !profession || !objectifs) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            isValid = false;
+        }
+        
+        if(email && (!email.includes('@') || !email.includes('.'))) {
+            alert('Veuillez entrer une adresse email valide');
+            isValid = false;
+        }
+        
+        if(pays && telephone && !validatePhone(telephone, pays)) {
+            const config = phoneConfigurations[pays] || phoneConfigurations['other'];
+            alert(`Veuillez entrer un numéro de téléphone valide pour votre pays (format: ${config.format})`);
+            isValid = false;
+        }
+        
+        // Valider le nombre de mots dans les objectifs
+        const wordCount = countWords(objectifs);
+        if (wordCount > 100) {
+            alert('Veuillez limiter vos objectifs à 100 mots maximum');
+            isValid = false;
+        }
+        
+        // Valider l'âge
+        if (!validateAge()) {
+            isValid = false;
+        }
+    } else if(current === 2) {
+        // Valider les formations sélectionnées
+        const checkedFormations = document.querySelectorAll('input[name="formations[]"]:checked');
+        if(checkedFormations.length === 0) {
+            alert('Veuillez sélectionner au moins une formation');
+            isValid = false;
+        }
+    } else if(current === 3) {
+        // Valider la session et le mode
+        const session = document.querySelector('input[name="session"]:checked');
+        const mode = document.getElementById('mode-formation').value;
+        
+        if(!session) {
+            alert('Veuillez sélectionner une session');
+            isValid = false;
+        }
+        
+        if(!mode) {
+            alert('Veuillez sélectionner un mode de formation');
+            isValid = false;
+        }
+    } else if(current === 4) {
+        // Valider le mode de paiement
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+        if(!paymentMethod) {
+            alert('Veuillez sélectionner une méthode de paiement');
+            isValid = false;
+        }
+    }
+    
+    if(isValid) {
+        showStep(current + 1);
+    }
+}
+
+function prevStep(current) {
+    showStep(current - 1);
+}
+
+// Validation du formulaire
+registrationForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    validateFinalStep();
+});
+
+// Fonction pour valider l'étape finale avant soumission
+function validateFinalStep() {
+    const consentement = document.getElementById('consentement').checked;
+    
+    if(!consentement) {
+        alert('Veuillez accepter les conditions générales');
+        return false;
+    }
+    
+    // Valider que toutes les étapes sont complètes
+    if (!validateAllSteps()) {
+        alert('Veuillez compléter toutes les étapes du formulaire');
+        return false;
+    }
+    
+    // Afficher la modal de confirmation
+    const checkedFormations = document.querySelectorAll('input[name="formations[]"]:checked');
+    showConfirmationModal(checkedFormations);
+    return true;
+}
+
+// Fonction pour valider toutes les étapes
+function validateAllSteps() {
+    // Valider l'étape 1 (Informations personnelles)
+    if (!document.getElementById('nom').value || 
+        !document.getElementById('prenom').value || 
+        !document.getElementById('email').value ||
+        !document.getElementById('date_naissance').value ||
+        !document.getElementById('lieu_naissance').value ||
+        !document.getElementById('pays').value ||
+        !document.getElementById('telephone').value ||
+        !document.querySelector('input[name="profession"]:checked') ||
+        !document.getElementById('objectifs').value) {
+        return false;
+    }
+    
+    // Valider l'étape 2 (Formations)
+    if (document.querySelectorAll('input[name="formations[]"]:checked').length === 0) {
+        return false;
+    }
+    
+    // Valider l'étape 3 (Session & Mode)
+    if (!document.querySelector('input[name="session"]:checked') || 
+        !document.getElementById('mode-formation').value) {
+        return false;
+    }
+    
+    // Valider l'étape 4 (Paiement)
+    if (!document.querySelector('input[name="payment_method"]:checked')) {
+        return false;
+    }
+    
+    return true;
+}
+
+// Afficher la modal de confirmation
+function showConfirmationModal(checkedFormations) {
+    let total = 0;
+    modalFormationsList.innerHTML = '';
+    
+    checkedFormations.forEach(checkbox => {
+        const formationName = formationNames[checkbox.value];
+        const formationPrice = formationPrices[checkbox.value];
+        total += formationPrice;
+        
+        const li = document.createElement('li');
+        li.textContent = `${formationName} - ${formationPrice.toLocaleString('fr-FR')} FCFA`;
+        modalFormationsList.appendChild(li);
+    });
+
+    // Remplir les informations personnelles dans la modal
+    const nom = document.getElementById('nom').value;
+    const prenom = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const dateNaissance = document.getElementById('date_naissance').value;
+    const lieuNaissance = document.getElementById('lieu_naissance').value;
+    const pays = document.getElementById('pays').options[document.getElementById('pays').selectedIndex].text;
+    const telephone = phonePrefix.textContent + ' ' + document.getElementById('telephone').value;
+    const profession = document.querySelector('input[name="profession"]:checked').nextElementSibling.textContent;
+    const objectifs = document.getElementById('objectifs').value;
+    const session = document.querySelector('input[name="session"]:checked').nextElementSibling.textContent;
+    const modeFormation = document.getElementById('mode-formation').options[document.getElementById('mode-formation').selectedIndex].text;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    
+    modalNomComplet.textContent = `${prenom} ${nom}`;
+    modalEmail.textContent = email;
+    modalDateNaissance.textContent = dateNaissance;
+    modalLieuNaissance.textContent = lieuNaissance;
+    modalTelephone.textContent = telephone;
+    modalPays.textContent = pays;
+    modalProfession.textContent = profession;
+    modalObjectifs.textContent = objectifs;
+    modalSessionInfo.textContent = session;
+    modalModeInfo.textContent = modeFormation;
+    modalPaymentInfo.textContent = paymentMethodNames[paymentMethod] || paymentMethod;
+    
+    const totalEur = (total / exchangeRate).toFixed(2);
+    modalTotalPrice.textContent = total.toLocaleString('fr-FR');
+    modalTotalPriceEur.textContent = totalEur;
+    modal.style.display = 'block';
+}
+
+// Confirmer l'inscription
+modalConfirm.addEventListener('click', function() {
+    modal.style.display = 'none';
+    
+    // Afficher l'indicateur de chargement
+    loadingIndicator.style.display = 'block';
+    submitBtn.disabled = true;
+    
+    // Envoyer les données
+    sendFormData();
+});
+
+// Fonction pour collecter les données du formulaire
+function collectFormData() {
+    const nom = document.getElementById('nom').value;
+    const prenom = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const dateNaissance = document.getElementById('date_naissance').value;
+    const lieuNaissance = document.getElementById('lieu_naissance').value;
+    const pays = document.getElementById('pays').options[document.getElementById('pays').selectedIndex].text;
+    const telephone = document.getElementById('telephone').value;
+    const profession = document.querySelector('input[name="profession"]:checked').nextElementSibling.textContent;
+    const objectifs = document.getElementById('objectifs').value;
+    const formations = Array.from(document.querySelectorAll('input[name="formations[]"]:checked')).map(cb => formationNames[cb.value]).join(', ');
+    const session = document.querySelector('input[name="session"]:checked').nextElementSibling.textContent;
+    const modeFormation = document.getElementById('mode-formation').options[document.getElementById('mode-formation').selectedIndex].text;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    
+    let total = 0;
+    document.querySelectorAll('input[name="formations[]"]:checked').forEach(checkbox => {
+        total += formationPrices[checkbox.value];
+    });
+    const totalEur = (total / exchangeRate).toFixed(2);
+    
+    return {
+        nom, prenom, email, dateNaissance, lieuNaissance, pays, telephone, profession, objectifs,
+        formations, session, modeFormation, paymentMethod, total, totalEur
+    };
+}
+
+// Fonction pour rediriger vers Gmail (ordinateurs)
+function redirectToGmail(formData) {
+    const subject = "Nouvelle inscription aux formations BTECE";
+    const body = `
+Nouvelle inscription aux formations BTECE:
+
+Informations personnelles:
+- Nom complet: ${formData.prenom} ${formData.nom}
+- Email: ${formData.email}
+- Date de naissance: ${formData.dateNaissance}
+- Lieu de naissance: ${formData.lieuNaissance}
+- Pays: ${formData.pays}
+- Téléphone: ${formData.telephone}
+- Profession: ${formData.profession}
+- Objectifs: ${formData.objectifs}
+
+Formations choisies:
+${formData.formations}
+
+Session: ${formData.session}
+Mode de formation: ${formData.modeFormation}
+Méthode de paiement: ${formData.paymentMethod}
+
+Montant total: ${formData.total.toLocaleString('fr-FR')} FCFA (${formData.totalEur} EUR)
+    `.trim();
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=contactbtece@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
+}
+
+// Fonction pour envoyer un email via mailto (mobiles)
+function sendEmailMobile(formData) {
+    const subject = "Nouvelle inscription aux formations BTECE";
+    const body = `
+Nouvelle inscription aux formations BTECE:
+
+Informations personnelles:
+- Nom complet: ${formData.prenom} ${formData.nom}
+- Email: ${formData.email}
+- Date de naissance: ${formData.dateNaissance}
+- Lieu de naissance: ${formData.lieuNaissance}
+- Pays: ${formData.pays}
+- Téléphone: ${formData.telephone}
+- Profession: ${formData.profession}
+- Objectifs: ${formData.objectifs.substring(0, 200)}${formData.objectifs.length > 200 ? '...' : ''}
+
+Formations choisies:
+${formData.formations}
+
+Session: ${formData.session}
+Mode de formation: ${formData.modeFormation}
+Méthode de paiement: ${formData.paymentMethod}
+
+Montant total: ${formData.total.toLocaleString('fr-FR')} FCFA (${formData.totalEur} EUR)
+    `.trim();
+
+    const mailtoUrl = `mailto:contactbtece@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+}
+
+// Fonction pour envoyer les données du formulaire
+function sendFormData() {
+    const formData = collectFormData();
+    
+    if (isMobileDevice()) {
+        sendEmailMobile(formData);
+    } else {
+        redirectToGmail(formData);
+    }
+    
+    // Rediriger vers la page de confirmation après un court délai
+    setTimeout(() => {
+        showConfirmationPage();
+        localStorage.removeItem('bteceFormData');
+    }, 2000);
+}
+
+// Afficher la page de confirmation
+function showConfirmationPage() {
+    mainPage.style.display = 'none';
+    confirmationPage.style.display = 'block';
+    window.scrollTo(0, 0);
+    
+    // Afficher le résumé
+    displayUserSummary();
+    
+    // Simuler le suivi
+    simulateTracking();
+}
+
+// Afficher le résumé des informations de l'utilisateur
+function displayUserSummary() {
+    const nom = document.getElementById('nom').value;
+    const prenom = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const dateNaissance = document.getElementById('date_naissance').value;
+    const lieuNaissance = document.getElementById('lieu_naissance').value;
+    const pays = document.getElementById('pays').value;
+    const telephone = document.getElementById('telephone').value;
+    const profession = document.querySelector('input[name="profession"]:checked')?.value;
+    const objectifs = document.getElementById('objectifs').value;
+    const checkedFormations = Array.from(document.querySelectorAll('input[name="formations[]"]:checked')).map(cb => formationNames[cb.value]);
+    const session = document.querySelector('input[name="session"]:checked')?.value;
+    const modeFormation = document.getElementById('mode-formation').value;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
+    
+    let total = 0;
+    document.querySelectorAll('input[name="formations[]"]:checked').forEach(checkbox => {
+        total += formationPrices[checkbox.value];
+    });
+    const totalEur = (total / exchangeRate).toFixed(2);
+    
+    let html = `
+        <h4>Récapitulatif de votre inscription</h4>
+        <p><strong>Nom complet :</strong> ${prenom} ${nom}</p>
+        <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Date de naissance :</strong> ${dateNaissance}</p>
+        <p><strong>Lieu de naissance :</strong> ${lieuNaissance}</p>
+        <p><strong>Téléphone :</strong> ${phonePrefix.textContent} ${telephone}</p>
+        <p><strong>Pays :</strong> ${paysSelect.options[paysSelect.selectedIndex].text}</p>
+        <p><strong>Profession :</strong> ${profession}</p>
+        <p><strong>Objectifs :</strong> ${objectifs}</p>
+        <p><strong>Formations choisies :</strong> ${checkedFormations.join(', ')}</p>
+        <p><strong>Session :</strong> ${session.charAt(0).toUpperCase() + session.slice(1)} 2025</p>
+        <p><strong>Mode de formation :</strong> ${modeFormation === 'presentiel' ? 'Présentiel à Cotonou' : 'En ligne'}</p>
+        <p><strong>Méthode de paiement :</strong> ${paymentMethodNames[paymentMethod] || paymentMethod}</p>
+        <p><strong>Montant total :</strong> ${total.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)</p>
+    `;
+    
+    userSummary.innerHTML = html;
+}
+
+// Simuler le suivi de l'inscription
+function simulateTracking() {
+    const steps = document.querySelectorAll('.tracking-steps li');
+    
+    // Étape 1 déjà complétée
+    setTimeout(() => {
+        steps[1].classList.add('completed');
+        steps[2].classList.add('active');
+        
+        // Simuler un email de confirmation
+        setTimeout(() => {
+            steps[2].classList.add('completed');
+            steps[3].classList.add('active');
+            
+            // Simuler la confirmation finale
+            setTimeout(() => {
+                steps[3].classList.add('completed');
+                steps[4].classList.add('active');
+            }, 3000);
+        }, 2000);
+    }, 1000);
+}
+
+// Gestion du chat
+chatToggle.addEventListener('click', function() {
+    chatContainer.style.display = chatContainer.style.display === 'block' ? 'none' : 'block';
+    if(chatContainer.style.display === 'block') {
+        chatInput.focus();
+    }
+});
+
+// Gestion du chat au clavier
+chatToggle.addEventListener('keydown', function(e) {
+    if(e.key === 'Enter' || e.key === ' ') {
+        chatContainer.style.display = chatContainer.style.display === 'block' ? 'none' : 'block';
+        if(chatContainer.style.display === 'block') {
+            chatInput.focus();
+        }
+    }
+});
+
+closeChat.addEventListener('click', function() {
+    chatContainer.style.display = 'none';
+});
+
+sendMessage.addEventListener('click', sendChatMessage);
+chatInput.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+        sendChatMessage();
+    }
+});
+
+function sendChatMessage() {
+    const message = chatInput.value.trim();
+    if(message) {
+        // Ajouter le message de l'utilisateur
+        addChatMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Réponse automatique
+        setTimeout(() => {
+            addChatMessage('Merci pour votre message. Veuillez laisser votre préocupation par e-mail via notre adresse. Notre équipe vous répondra dans les plus brefs délais.', 'bot');
+        }, 1000);
+    }
+}
+
+function addChatMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${sender}-message`;
+    messageDiv.innerHTML = `<p>${text}</p>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Protection contre le clic droit et le glisser-déposer
+document.addEventListener('contextmenu', function(e) {
+    if(e.target.classList.contains('logo') || e.target.classList.contains('no-download')) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('dragstart', function(e) {
+    if(e.target.classList.contains('logo') || e.target.classList.contains('no-download')) {
+        e.preventDefault();
+    }
+});
+
+// Animation pour le bouton de renvoi
+document.addEventListener('click', function(e) {
+    if(e.target && e.target.matches('a[href="#resend"]')) {
+        e.preventDefault();
+        alert('Un nouvel email de confirmation vous a été envoyé.');
+    }
+});
+
+// Gestion des gestes tactiles
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, false); 
+
+function handleSwipe() {
+    const threshold = 50; // Seuil minimal pour considérer un swipe
+    
+    if (touchEndX < touchStartX - threshold) {
+        // Swipe gauche - aller à l'étape suivante
+        if(currentStep < 5) {
+            nextStep(currentStep);
+        }
+    } else if (touchEndX > touchStartX + threshold) {
+        // Swipe droit - retour à l'étape précédente
+        if(currentStep > 1) {
+            prevStep(currentStep);
+        }
+    }
+}
+
+// Initialiser le calcul du prix
+calculateTotal();
+
+// Afficher les méthodes de paiement appropriées au chargement
+modeFormationSelect.dispatchEvent(new Event('change'));
+
+// Fermer la modal
+closeModal.addEventListener('click', function() {
+    modal.style.display = 'none';
+});
+
+modalCancel.addEventListener('click', function() {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
 });
