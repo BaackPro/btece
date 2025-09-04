@@ -1,5 +1,4 @@
-
-// Configuration des données
+    // Configuration des données
 const CONFIG = {
   // Prix des formations en FCFA
   formationPrices: {
@@ -59,40 +58,11 @@ class FormApp {
       formData: {}
     };
     
-    // Configuration des variables d'environnement avec des valeurs par défaut
-    this.env = {
-      EMAILJS_USER_ID: window.EMAILJS_USER_ID || 'default_user_id',
-      EMAILJS_SERVICE_ID: window.EMAILJS_SERVICE_ID || 'default_service_id',
-      EMAILJS_TEMPLATE_ID: window.EMAILJS_TEMPLATE_ID || 'default_template_id',
-      EMAILJS_ADMIN_TEMPLATE_ID: window.EMAILJS_ADMIN_TEMPLATE_ID || 'default_admin_template_id',
-      GOOGLE_SHEETS_API_URL: window.GOOGLE_SHEETS_API_URL || '',
-      API_KEY: window.API_KEY || '',
-      API_TOKEN: window.API_TOKEN || ''
-    };
-    
     this.initElements();
     this.initEventListeners();
     this.initForm();
-    this.initGoogleSheets();
   }
   
-  // Initialisation de la connexion à Google Sheets
-  initGoogleSheets() {
-    // Récupération des variables d'environnement
-    const googleSheetsApiUrl = this.env.GOOGLE_SHEETS_API_URL;
-    const API_KEY = this.env.API_KEY;
-    const API_TOKEN = this.env.API_TOKEN;
-    if (!googleSheetsApiUrl) {
-      console.error('URL API Google Sheets non configurée');
-      return;
-    }
-
-    // Vous pouvez utiliser cette URL pour envoyer des données plus tard
-    this.googleSheetsApiUrl = googleSheetsApiUrl;
-    this.API_KEY = API_KEY;
-    this.API_TOKEN = API_TOKEN;
-  }
-
   // Cache les éléments DOM
   initElements() {
     this.elements = {
@@ -865,66 +835,62 @@ class FormApp {
   }
   
   validateStep4() {
+    const errorMessages = [];
+    let isValid = true;
+
     if (!document.querySelector('input[name="payment_method"]:checked')) {
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Veuillez sélectionner une méthode de paiement';
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const fourthStep = this.elements.formSteps[3];
-      if (fourthStep) {
-        fourthStep.insertBefore(errorMessage, fourthStep.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      return false;
+      errorMessages.push('Veuillez sélectionner une méthode de paiement');
+      isValid = false;
     }
-    
-    return true;
+
+    // Validation spécifique selon le mode de formation
+    const modeFormation = this.elements.modeFormationSelect?.value;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
+
+    if (modeFormation === 'presentiel' && paymentMethod !== 'Paiement sur place') {
+      errorMessages.push('Pour le mode présentiel, seule la méthode "Paiement sur place" est acceptée');
+      isValid = false;
+    }
+
+    if (modeFormation === 'en-ligne' && paymentMethod === 'Paiement sur place') {
+      errorMessages.push('Pour le mode en ligne, le "Paiement sur place" n\'est pas accepté');
+      isValid = false;
+    }
+
+    return this.displayErrors(errorMessages, 4);
   }
   
   validateStep5() {
+    const errorMessages = [];
+    let isValid = true;
+
     if (!this.elements.consentementCheckbox?.checked) {
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'error-message';
-      errorMessage.setAttribute('role', 'alert');
-      errorMessage.setAttribute('aria-live', 'assertive');
-      errorMessage.textContent = 'Veuillez accepter les conditions générales';
-      
-      // Supprimer les anciens messages d'erreur
-      const oldError = document.querySelector('.error-message');
-      if (oldError) oldError.remove();
-      
-      // Insérer le nouveau message d'erreur
-      const fifthStep = this.elements.formSteps[4];
-      if (fifthStep) {
-        fifthStep.insertBefore(errorMessage, fifthStep.firstChild);
-      }
-      
-      // Défilement vers le haut pour voir les erreurs
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      return false;
+      errorMessages.push('Veuillez accepter les conditions générales');
+      isValid = false;
     }
 
-    return true;
+    return this.displayErrors(errorMessages, 5);
   }
   
   validateFinalStep() {
-    if (!this.validateAllSteps()) {
-      return false;
+    // Valider toutes les étapes
+    const isStep1Valid = this.validateStep1();
+    const isStep2Valid = this.validateStep2();
+    const isStep3Valid = this.validateStep3();
+    const isStep4Valid = this.validateStep4();
+    const isStep5Valid = this.validateStep5();
+
+    if (!isStep1Valid) this.showStep(1);
+    else if (!isStep2Valid) this.showStep(2);
+    else if (!isStep3Valid) this.showStep(3);
+    else if (!isStep4Valid) this.showStep(4);
+    else if (!isStep5Valid) this.showStep(5);
+    else {
+      this.showConfirmationModal();
+      return true;
     }
 
-    this.showConfirmationModal();
-    return true;
+    return false;
   }
   
   validateAllSteps() {
@@ -1140,26 +1106,27 @@ class FormApp {
     }
     
     try {
-      // Préparer les données pour Google Sheets
+      // Préparer les données du formulaire
       const formData = new FormData(this.elements.registrationForm);
       const formDataObj = {};
       formData.forEach((value, key) => {
         formDataObj[key] = value;
       });
 
-      // Envoyer les données à Google Sheets
-      await this.sendToGoogleSheets(formDataObj);
+      // Envoyer l'email via Gmail ou mailto selon l'appareil
+      if (this.isMobileDevice()) {
+        this.sendEmailMobile(formDataObj);
+      } else {
+        this.redirectToGmail(formDataObj);
+      }
 
-      // Initialiser et envoyer les emails de confirmation
-      await this.initEmailJS();
-      await this.sendConfirmationEmails(formDataObj);
-
-      // Soumettre le formulaire à Netlify
-      this.submitToNetlify();
+      // Rediriger vers la page de confirmation après un court délai
+      setTimeout(() => {
+        window.location.href = 'confirmation.html';
+      }, 2000);
 
     } catch (error) {
       console.error('Erreur:', error);
-      this.saveToLocalStorage();
       
       // Afficher un message d'erreur
       const errorMessage = document.createElement('div');
@@ -1188,188 +1155,95 @@ class FormApp {
     }
   }
 
-  // Initialisation de EmailJS avec gestion de promesse
-  async initEmailJS() {
-    if (typeof emailjs !== 'undefined') {
-      emailjs.init(this.env.EMAILJS_USER_ID);
-      return;
-    }
+  // Détection améliorée des appareils mobiles
+  isMobileDevice() {
+    // Vérification de l'agent utilisateur
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     
-    return new Promise((resolve, reject) => {
-      const emailjsUserId = this.env.EMAILJS_USER_ID;
-      if (!emailjsUserId) {
-        reject(new Error('Configuration EmailJS incomplète'));
-        return;
-      }
+    // Regex pour détecter les appareils mobiles
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
+    
+    // Vérification des écrans tactiles
+    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Vérification de la taille d'écran
+    const isSmallScreen = window.innerWidth < 768;
+    
+    // Vérification de l'orientation
+    const isMobileOrientation = window.orientation !== undefined;
+    
+    // Combinaison des différentes méthodes de détection
+    return mobileRegex.test(userAgent) || hasTouchScreen || isSmallScreen || isMobileOrientation;
+  }
 
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-      script.onload = () => {
-        emailjs.init(emailjsUserId);
-        resolve();
-      };
-      script.onerror = () => {
-        reject(new Error('Échec du chargement de EmailJS'));
-      };
-      document.head.appendChild(script);
+  // Redirection vers Gmail pour les ordinateurs
+  redirectToGmail(formData) {
+    const email = 'contactbtece@gmail.com';
+    const subject = 'Nouvelle inscription aux formations BTECE EDUCATION';
+    
+    let body = `Nouvelle inscription reçue :\n\n`;
+    body += `Nom complet: ${formData.prenom} ${formData.nom}\n`;
+    body += `Email: ${formData.email}\n`;
+    body += `Téléphone: ${formData.telephone}\n`;
+    body += `Date de naissance: ${formData.date_naissance}\n`;
+    body += `Lieu de naissance: ${formData.lieu_naissance}\n`;
+    body += `Pays: ${formData.pays}\n`;
+    body += `Profession: ${formData.profession}\n`;
+    body += `Objectifs: ${formData.objectifs}\n\n`;
+    
+    body += `Formations sélectionnées:\n`;
+    const formations = Array.isArray(formData['selected_courses[]']) ? 
+      formData['selected_courses[]'] : [formData['selected_courses[]']];
+    formations.forEach(formation => {
+      body += `- ${CONFIG.formationNames[formation]}\n`;
     });
+    
+    body += `\nSession: ${CONFIG.sessionDates[formData.session]}\n`;
+    body += `Mode: ${formData.mode_formation}\n`;
+    body += `Méthode de paiement: ${CONFIG.paymentMethodNames[formData.payment_method]}\n`;
+    body += `Montant total: ${formData.montant_total}\n`;
+    
+    // Encoder l'URL
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
+    
+    // Ouvrir Gmail avec les données pré-remplies
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodedSubject}&body=${encodedBody}`, '_blank');
   }
 
-  // Soumission du formulaire à Netlify
-  submitToNetlify() {
-    // Créer un clone du formulaire pour la soumission Netlify
-    const netlifyForm = this.elements.registrationForm.cloneNode(true);
-    netlifyForm.style.display = 'none';
-    netlifyForm.id = 'netlify-submit-form';
-    netlifyForm.removeAttribute('data-netlify'); // Éviter les boucles infinies
+  // Envoi d'email via mailto pour les mobiles
+  sendEmailMobile(formData) {
+    const email = 'contactbtece@gmail.com';
+    const subject = 'Nouvelle inscription aux formations B-TECH EDUCATION';
     
-    // Ajouter le formulaire au DOM et le soumettre
-    document.body.appendChild(netlifyForm);
-    netlifyForm.submit();
+    let body = `Nouvelle inscription reçue :\n\n`;
+    body += `Nom complet: ${formData.prenom} ${formData.nom}\n`;
+    body += `Email: ${formData.email}\n`;
+    body += `Téléphone: ${formData.telephone}\n`;
+    body += `Date de naissance: ${formData.date_naissance}\n`;
+    body += `Lieu de naissance: ${formData.lieu_naissance}\n`;
+    body += `Pays: ${formData.pays}\n`;
+    body += `Profession: ${formData.profession}\n`;
+    body += `Objectifs: ${formData.objectifs}\n\n`;
     
-    // Afficher la page de confirmation après un court délai
-    setTimeout(() => {
-      this.showConfirmationPage();
-      localStorage.removeItem('bteceFormData');
-      this.clearForm();
-    }, 1000);
-  }
-
-  // Envoi des données à Google Sheets avec gestion d'erreur améliorée
-  async sendToGoogleSheets(formData) {
-    try {
-      const response = await fetch(`${this.googleSheetsApiUrl}?key=${this.API_KEY}`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${this.API_TOKEN}`,
-          "Content-Type": "application/json",
-          "X-Client-Version": "1.0.0" // Optionnel : suivi des versions
-        },
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString() // Ajout d'un timestamp
-        })
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Erreur HTTP ${response.status}: ${errorText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error("Erreur d'envoi à Google Sheets:", {
-        error: error.message,
-        formData: { ...formData, telephone: 'REDACTED', email: 'REDACTED' } // Log contrôlé (sans données sensibles)
-      });
-      
-      // Sauvegarder pour une nouvelle tentative
-      this.saveForRetry(formData);
-      throw error;
-    }
-  }
-
-  // Sauvegarde des données pour une nouvelle tentative
-  saveForRetry(formData) {
-    const pendingData = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-      retryCount: 0
-    };
+    body += `Formations sélectionnées:\n`;
+    const formations = Array.isArray(formData['selected_courses[]']) ? 
+      formData['selected_courses[]'] : [formData['selected_courses[]']];
+    formations.forEach(formation => {
+      body += `- ${CONFIG.formationNames[formation]}\n`;
+    });
     
-    const existingPending = localStorage.getItem('pendingRegistrations');
-    const pendingRegistrations = existingPending ? JSON.parse(existingPending) : [];
-    pendingRegistrations.push(pendingData);
+    body += `\nSession: ${CONFIG.sessionDates[formData.session]}\n`;
+    body += `Mode: ${formData.mode_formation}\n`;
+    body += `Méthode de paiement: ${CONFIG.paymentMethodNames[formData.payment_method]}\n`;
+    body += `Montant total: ${formData.montant_total}\n`;
     
-    localStorage.setItem('pendingRegistrations', JSON.stringify(pendingRegistrations));
-  }
-
-  // Envoi des emails de confirmation via EmailJS avec gestion d'erreur
-  async sendConfirmationEmails(formData) {
-    const emailjsServiceId = this.env.EMAILJS_SERVICE_ID;
-    const emailjsTemplateId = this.env.EMAILJS_TEMPLATE_ID;
-    const emailjsAdminTemplateId = this.env.EMAILJS_ADMIN_TEMPLATE_ID;
-
-    if (!emailjsServiceId || !emailjsTemplateId || !emailjsAdminTemplateId) {
-      throw new Error('Configuration EmailJS incomplète');
-    }
-
-    try {
-      // Email à l'utilisateur
-      const userEmailParams = {
-        to_name: `${formData.prenom} ${formData.nom}`,
-        to_email: formData.email,
-        formations: formData.formations,
-        montant_total: formData.montant_total,
-        session: CONFIG.sessionDates[formData.session] || formData.session,
-        mode_formation: formData.mode_formation === 'en-ligne' ? 'en ligne' : 'en présentiel',
-        payment_method: CONFIG.paymentMethodNames[formData.payment_method] || formData.payment_method
-      };
-
-      await emailjs.send(
-        emailjsServiceId,
-        emailjsTemplateId,
-        userEmailParams
-      );
-
-      // Email à l'admin
-      const adminEmailParams = {
-        nom_complet: `${formData.prenom} ${formData.nom}`,
-        email: formData.email,
-        telephone: `${formData.telephone_prefix || '+229'} ${formData.telephone}`,
-        formations: formData.formations,
-        montant_total: formData.montant_total,
-        session: CONFIG.sessionDates[formData.session] || formData.session,
-        mode_formation: formData.mode_formation === 'en-ligne' ? 'en ligne' : 'en présentiel',
-        payment_method: CONFIG.paymentMethodNames[formData.payment_method] || formData.payment_method,
-        date_inscription: new Date().toLocaleDateString('fr-FR')
-      };
-
-      await emailjs.send(
-        emailjsServiceId,
-        emailjsAdminTemplateId,
-        adminEmailParams
-      );
-    } catch (error) {
-      console.error("Erreur d'envoi d'email:", error);
-      throw new Error("Impossible d'envoyer les emails de confirmation");
-    }
-  }
-  
-  saveToLocalStorage() {
-    const formData = {
-      nom: this.sanitizeInput(document.getElementById('nom')?.value),
-      prenom: this.sanitizeInput(document.getElementById('prenom')?.value),
-      email: this.sanitizeInput(document.getElementById('email')?.value),
-      dateNaissance: this.sanitizeInput(document.getElementById('date_naissance')?.value),
-      lieuNaissance: this.sanitizeInput(document.getElementById('lieu_naissance')?.value),
-      pays: this.sanitizeInput(document.getElementById('pays')?.value),
-      telephone: this.sanitizeInput(document.getElementById('telephone')?.value),
-      profession: document.querySelector('input[name="profession"]:checked')?.value,
-      objectifs: this.sanitizeInput(document.getElementById('objectifs')?.value),
-      checkedFormations: Array.from(this.elements.checkboxes || [])
-        .filter(cb => cb.checked)
-        .map(cb => CONFIG.formationNames[cb.value]),
-      session: document.querySelector('input[name="session"]:checked')?.value,
-      modeFormation: this.elements.modeFormationSelect?.value,
-      paymentMethod: document.querySelector('input[name="payment_method"]:checked')?.value,
-      total: this.elements.totalPriceFCFA?.textContent,
-      timestamp: new Date().toISOString()
-    };
+    // Encoder l'URL mailto
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
     
-    localStorage.setItem('pendingRegistration', JSON.stringify(formData));
-    
-    // Notification accessible
-    const notification = document.createElement('div');
-    notification.className = 'aria-notification';
-    notification.setAttribute('role', 'status');
-    notification.setAttribute('aria-live', 'polite');
-    notification.textContent = 'Votre inscription a été enregistrée localement. Nous essaierons de la soumettre à nouveau lorsque vous serez en ligne.';
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 5000);
+    // Ouvrir le client email par défaut
+    window.location.href = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
   }
   
   // Fonctions d'affichage des résultats
@@ -1419,8 +1293,8 @@ class FormApp {
       <p><strong>Méthode de paiement :</strong> ${CONFIG.paymentMethodNames[getRadioValue('payment_method')] || getRadioValue('payment_method')}</p>
       <p><strong>Montant total :</strong> ${total.toLocaleString('fr-FR')} FCFA (≈ ${totalEur} €)</p>
       <div class="confirmation-message">
-        <p>Un email de confirmation vous a été envoyé à l'adresse ${getValue('email')}.</p>
-        <p>Veuillez vérifier votre boîte de réception (et vos spams si vous ne trouvez pas l'email).</p>
+        <p>Votre inscription a été envoyée avec succès.</p>
+        <p>Notre équipe vous contactera bientôt pour finaliser votre inscription.</p>
       </div>
     `;
   }
@@ -1565,8 +1439,6 @@ class FormApp {
     
     // Supprimer toutes les données sauvegardées
     localStorage.removeItem('bteceFormData');
-    localStorage.removeItem('pendingRegistration');
-    localStorage.removeItem('pendingRegistrations');
   }
 }
 
